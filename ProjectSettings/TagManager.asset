@@ -6,6 +6,12 @@ TagManager:
   tags:
   - LevelTrigger
   - Ground
+  - Projectile
+  - ShootPoint
+  - Enemy
+  - SpawnPoint
+  - Weapon
+  - StuckProjectile
   layers:
   - Default
   - TransparentFX
@@ -16,10 +22,10 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
+  - Projectile
+  - Player
+  - StuckProjectile
+  - Enemy
   - 
   - 
   - 
