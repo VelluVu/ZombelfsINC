@@ -13,10 +13,11 @@ public class CharacterControl : MonoBehaviour {
     bool recentlyShot;
 
     public bool useController;
+    
 
     Rigidbody rb;
     Camera cam;
-    public Weapon wep;
+    public Weapon axe;
 
     private void Start()
     {
@@ -75,20 +76,27 @@ public class CharacterControl : MonoBehaviour {
 
     }
 
+   
+
     //Left Mouse click Attack
-    private void BasicAttack ()
+    private void BasicAttack()
     {
         if (!useController)
         {
 
             if (Input.GetMouseButtonDown(0) && !recentlyShot)
             {
-                wep.SetIsFiring(true);
+                axe.SetAxeIsFiring(true);
+                
             }
             if (Input.GetMouseButtonUp(0))
             {
-                wep.SetIsFiring(false);
+
+                axe.SetAxeIsFiring(false);
                 StartCoroutine(ShootCD());
+
+                
+
             }
         }
 
@@ -96,14 +104,22 @@ public class CharacterControl : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Joystick1Button5))
             {
-                wep.SetIsFiring(true);
+
+                axe.SetAxeIsFiring(true);
+
+              
             }
             if (Input.GetKeyUp(KeyCode.Joystick1Button5))
             {
-                wep.SetIsFiring(false);
+
+                axe.SetAxeIsFiring(false);
+                StartCoroutine(ShootCD());
+
+                
+
             }
         }
-        
+
     }
 
     // CD will disallow the spamhax
@@ -111,7 +127,7 @@ public class CharacterControl : MonoBehaviour {
     {
         recentlyShot = true;
         
-        yield return new WaitForSeconds(wep.GetShotInterval());
+        yield return new WaitForSeconds(axe.GetShotInterval());
 
         recentlyShot = false;
       

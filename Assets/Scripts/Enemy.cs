@@ -60,6 +60,7 @@ public class Enemy : MonoBehaviour {
     {
         curhealth -= dmg;
         Destroy(Instantiate(BloodSpill, transform.position, BloodSpill.transform.rotation),3f);
+        Debug.Log("I take dmg: " + dmg);
     }
 
     private void Death()

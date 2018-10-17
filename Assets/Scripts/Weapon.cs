@@ -6,28 +6,19 @@ public class Weapon : MonoBehaviour {
 
     bool isFiring;
 
-    float projectileSpeedz;
-    float projectileSpeedy;
-    float projectileRotationSpeed;
-    float projectileDamage;
-    float projectileLifeTime;
-    float shotInterval;
-    float shotCounter;
+    public float projectileSpeedz = 25f;
+    public float projectileSpeedy = 2f;
+    public float projectileRotationSpeed = 0.6f;
+    public float projectileDamage = 8f;
+    public float projectileLifeTime = 4f;
+    public float shotInterval = 1f;
+    public float shotCounter = 1f;
 
     public Projectile projectile;
     public Transform firePoint;
+ 
 
-    private void Start()
-    {
-        projectileDamage = 25f;
-        projectileSpeedz = 2f;
-        projectileSpeedy = 0.6f;
-        projectileRotationSpeed = 8f;
-        projectileLifeTime = 4f;
-        shotInterval = 1f;
-    }
-
-    public void SetIsFiring(bool firing)
+    public void SetAxeIsFiring(bool firing)
     {
         isFiring = firing;
     }
@@ -39,20 +30,27 @@ public class Weapon : MonoBehaviour {
 
     private void Update()
     {
-        if(isFiring)
+        UseWeapon();
+    }
+
+    void UseWeapon()
+    {
+        if (isFiring)
         {
             shotCounter -= Time.deltaTime;
             if (shotCounter <= 0)
             {
                 shotCounter = shotInterval;
                 Projectile newProjectile = Instantiate(projectile, firePoint.position, firePoint.rotation) as Projectile;
+                Debug.Log(projectile + "Thrown");
                 newProjectile.SetProjectileSpeedz(projectileSpeedz);
                 newProjectile.SetProjectileRotationSpeed(projectileRotationSpeed);
                 newProjectile.SetProjectileDamage(projectileDamage);
                 newProjectile.SetProjectileLifeTime(projectileLifeTime);
                 newProjectile.SetProjectileSpeedy(projectileSpeedy);
             }
-        } else
+        }
+        else
         {
             shotCounter = 0;
         }
