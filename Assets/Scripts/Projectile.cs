@@ -4,27 +4,34 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
-    float projectileSpeed;
+    float projectileSpeedz;
+    float projectileSpeedy;
     float projectileRotationSpeed;
     float projectileDamage;
     float projectileLifeTime;
 
     public GameObject stuckProjectile;
     Rigidbody rb;
+   
 
     private void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
-        projectileSpeed = 5f;
-        projectileDamage = 20f;
-        projectileRotationSpeed = 5f;
-        projectileLifeTime = 2f;
+        rb = gameObject.GetComponent<Rigidbody>();  
+        
         Destroy(gameObject, projectileLifeTime);
+        rb.AddRelativeTorque(Vector3.right * projectileRotationSpeed, ForceMode.VelocityChange);
+        rb.AddRelativeForce(Vector3.up * projectileSpeedy, ForceMode.Impulse);
+        rb.AddRelativeForce(Vector3.forward * projectileSpeedz, ForceMode.Impulse);
     }
 
-    public void SetProjectileSpeed(float pSpeed)
+    public void SetProjectileSpeedz(float pSpeedz)
     {
-        projectileSpeed = pSpeed;
+        projectileSpeedz = pSpeedz;
+    }
+
+    public void SetProjectileSpeedy(float pSpeedy)
+    {
+        projectileSpeedy = pSpeedy;
     }
 
     public void SetProjectileDamage(float pDmg)
@@ -43,20 +50,36 @@ public class Projectile : MonoBehaviour {
         projectileLifeTime = pLifeTime;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
-        //transform.Rotate(Vector3.right * projectileRotationSpeed * Time.deltaTime);
+        
+        //rb.AddRelativeForce(Vector3.forward * projectileSpeed * 2, ForceMode.Impulse);
+        
+        //transform.Translate(0, projectileSpeed / 2 * Time.deltaTime, projectileSpeed * Time.deltaTime);       
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "Enemy")
+        if (collision.collider.tag == "Enemy" && collision.collider.tag != "Player")
         {
+
+
             collision.collider.gameObject.GetComponent<Enemy>().EnemyTakeDamage(projectileDamage);
+
+            FixedJoint fj = new FixedJoint();
+            fj = gameObject.AddComponent<FixedJoint>();
+            fj.connectedBody = collision.collider.attachedRigidbody;
+
             
-            Destroy(gameObject);
+
+
+
+            Destroy(gameObject, 2f);
+
+            //Destroy(Instantiate(stuckProjectile,collision.collider.transform.position, Quaternion.identity), 3);
         }
+
+        
     }
 
 

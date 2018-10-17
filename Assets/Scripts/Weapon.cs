@@ -6,7 +6,8 @@ public class Weapon : MonoBehaviour {
 
     bool isFiring;
 
-    float projectileSpeed;
+    float projectileSpeedz;
+    float projectileSpeedy;
     float projectileRotationSpeed;
     float projectileDamage;
     float projectileLifeTime;
@@ -18,9 +19,10 @@ public class Weapon : MonoBehaviour {
 
     private void Start()
     {
-        projectileDamage = 20f;
-        projectileSpeed = 5f;
-        projectileRotationSpeed = 1f;
+        projectileDamage = 25f;
+        projectileSpeedz = 2f;
+        projectileSpeedy = 0.6f;
+        projectileRotationSpeed = 8f;
         projectileLifeTime = 4f;
         shotInterval = 1f;
     }
@@ -44,10 +46,11 @@ public class Weapon : MonoBehaviour {
             {
                 shotCounter = shotInterval;
                 Projectile newProjectile = Instantiate(projectile, firePoint.position, firePoint.rotation) as Projectile;
-                newProjectile.SetProjectileSpeed(projectileSpeed);
+                newProjectile.SetProjectileSpeedz(projectileSpeedz);
                 newProjectile.SetProjectileRotationSpeed(projectileRotationSpeed);
                 newProjectile.SetProjectileDamage(projectileDamage);
                 newProjectile.SetProjectileLifeTime(projectileLifeTime);
+                newProjectile.SetProjectileSpeedy(projectileSpeedy);
             }
         } else
         {

@@ -1,0 +1,344 @@
+fileFormatVersion: 2
+guid: d52697c28fb59134f9c54525c7a0d495
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Chestbone
+    100002: hat_sdwd
+    100004: hat_seweq
+    100006: hat_sss
+    100008: Head_bone04
+    100010: Head_bone05
+    100012: Head_bone06
+    100014: Head_bone07
+    100016: head_bone_l_ear
+    100018: head_bone_l_eye
+    100020: head_bone_r_ear
+    100022: head_bone_r_eye
+    100024: Head_main_bone01
+    100026: hipbone
+    100028: hipconnectbone
+    100030: l_ear
+    100032: l_ear_tip
+    100034: l_eye
+    100036: L_feet_bone
+    100038: L_feet_tip_bone
+    100040: L_hand_bone
+    100042: L_indexfinger_bone
+    100044: L_indexfinger_bone01
+    100046: L_indexfinger_bone02
+    100048: L_indexfinger_bone03
+    100050: L_indexfinger_bone04
+    100052: L_littlefinger_bone
+    100054: L_littlefinger_bone01
+    100056: L_littlefinger_bone02
+    100058: L_littlefinger_bone03
+    100060: L_littlefinger_bone04
+    100062: L_littlefinger_bone05
+    100064: L_lower_leg_bone
+    100066: L_Lowerarm_bone
+    100068: L_middlefinger_bone
+    100070: L_middlefinger_bone01
+    100072: L_middlefinger_bone02
+    100074: L_middlefinger_bone03
+    100076: L_middlefinger_bone04
+    100078: L_ringfinger_bone
+    100080: L_ringfinger_bone01
+    100082: L_ringfinger_bone02
+    100084: L_ringfinger_bone03
+    100086: L_ringfinger_bone04
+    100088: L_ringfinger_bone05
+    100090: L_Shoulder_bone
+    100092: L_thumb_bone
+    100094: L_thumb_bone01
+    100096: L_thumb_bone02
+    100098: L_thumb_bone03
+    100100: L_thumb_bone04
+    100102: L_tigh_bone
+    100104: L_Upperarm_bone
+    100106: L_wrist_bone
+    100108: L_wristmid_bone
+    100110: lowerbackbone
+    100112: lowerchestbone
+    100114: midchestbone
+    100116: NeckBone
+    100118: Nose_bone01
+    100120: Nose_bone02
+    100122: Nose_bone03
+    100124: r_ear
+    100126: r_ear_tip
+    100128: r_eye
+    100130: R_feet_bone
+    100132: R_feet_tip_bone
+    100134: R_hand_bone001
+    100136: R_indexfinger_bone005
+    100138: R_indexfinger_bone006
+    100140: R_indexfinger_bone007
+    100142: R_indexfinger_bone008
+    100144: R_indexfinger_bone009
+    100146: R_littlefinger_bone006
+    100148: R_littlefinger_bone007
+    100150: R_littlefinger_bone008
+    100152: R_littlefinger_bone009
+    100154: R_littlefinger_bone010
+    100156: R_littlefinger_bone011
+    100158: R_lower_leg_bone
+    100160: R_Lowerarm_bone001
+    100162: R_middlefinger_bone005
+    100164: R_middlefinger_bone006
+    100166: R_middlefinger_bone007
+    100168: R_middlefinger_bone008
+    100170: R_middlefinger_bone009
+    100172: R_ringfinger_bone006
+    100174: R_ringfinger_bone007
+    100176: R_ringfinger_bone008
+    100178: R_ringfinger_bone009
+    100180: R_ringfinger_bone010
+    100182: R_ringfinger_bone011
+    100184: R_Shoulder_bone001
+    100186: R_thumb_bone005
+    100188: R_thumb_bone006
+    100190: R_thumb_bone007
+    100192: R_thumb_bone008
+    100194: R_thumb_bone009
+    100196: R_tigh_bone
+    100198: R_Upperarm_bone001
+    100200: R_wrist_bone001
+    100202: R_wristmid_bone001
+    100204: Rig_root
+    100206: upperbackbone
+    100208: //RootNode
+    100210: ZombieElfie 1
+    400000: Chestbone
+    400002: hat_sdwd
+    400004: hat_seweq
+    400006: hat_sss
+    400008: Head_bone04
+    400010: Head_bone05
+    400012: Head_bone06
+    400014: Head_bone07
+    400016: head_bone_l_ear
+    400018: head_bone_l_eye
+    400020: head_bone_r_ear
+    400022: head_bone_r_eye
+    400024: Head_main_bone01
+    400026: hipbone
+    400028: hipconnectbone
+    400030: l_ear
+    400032: l_ear_tip
+    400034: l_eye
+    400036: L_feet_bone
+    400038: L_feet_tip_bone
+    400040: L_hand_bone
+    400042: L_indexfinger_bone
+    400044: L_indexfinger_bone01
+    400046: L_indexfinger_bone02
+    400048: L_indexfinger_bone03
+    400050: L_indexfinger_bone04
+    400052: L_littlefinger_bone
+    400054: L_littlefinger_bone01
+    400056: L_littlefinger_bone02
+    400058: L_littlefinger_bone03
+    400060: L_littlefinger_bone04
+    400062: L_littlefinger_bone05
+    400064: L_lower_leg_bone
+    400066: L_Lowerarm_bone
+    400068: L_middlefinger_bone
+    400070: L_middlefinger_bone01
+    400072: L_middlefinger_bone02
+    400074: L_middlefinger_bone03
+    400076: L_middlefinger_bone04
+    400078: L_ringfinger_bone
+    400080: L_ringfinger_bone01
+    400082: L_ringfinger_bone02
+    400084: L_ringfinger_bone03
+    400086: L_ringfinger_bone04
+    400088: L_ringfinger_bone05
+    400090: L_Shoulder_bone
+    400092: L_thumb_bone
+    400094: L_thumb_bone01
+    400096: L_thumb_bone02
+    400098: L_thumb_bone03
+    400100: L_thumb_bone04
+    400102: L_tigh_bone
+    400104: L_Upperarm_bone
+    400106: L_wrist_bone
+    400108: L_wristmid_bone
+    400110: lowerbackbone
+    400112: lowerchestbone
+    400114: midchestbone
+    400116: NeckBone
+    400118: Nose_bone01
+    400120: Nose_bone02
+    400122: Nose_bone03
+    400124: r_ear
+    400126: r_ear_tip
+    400128: r_eye
+    400130: R_feet_bone
+    400132: R_feet_tip_bone
+    400134: R_hand_bone001
+    400136: R_indexfinger_bone005
+    400138: R_indexfinger_bone006
+    400140: R_indexfinger_bone007
+    400142: R_indexfinger_bone008
+    400144: R_indexfinger_bone009
+    400146: R_littlefinger_bone006
+    400148: R_littlefinger_bone007
+    400150: R_littlefinger_bone008
+    400152: R_littlefinger_bone009
+    400154: R_littlefinger_bone010
+    400156: R_littlefinger_bone011
+    400158: R_lower_leg_bone
+    400160: R_Lowerarm_bone001
+    400162: R_middlefinger_bone005
+    400164: R_middlefinger_bone006
+    400166: R_middlefinger_bone007
+    400168: R_middlefinger_bone008
+    400170: R_middlefinger_bone009
+    400172: R_ringfinger_bone006
+    400174: R_ringfinger_bone007
+    400176: R_ringfinger_bone008
+    400178: R_ringfinger_bone009
+    400180: R_ringfinger_bone010
+    400182: R_ringfinger_bone011
+    400184: R_Shoulder_bone001
+    400186: R_thumb_bone005
+    400188: R_thumb_bone006
+    400190: R_thumb_bone007
+    400192: R_thumb_bone008
+    400194: R_thumb_bone009
+    400196: R_tigh_bone
+    400198: R_Upperarm_bone001
+    400200: R_wrist_bone001
+    400202: R_wristmid_bone001
+    400204: Rig_root
+    400206: upperbackbone
+    400208: //RootNode
+    400210: ZombieElfie 1
+    2100000: 'Material #3'
+    2100002: Claw
+    2100004: Skin
+    2100006: Belt
+    2100008: clothconnect
+    2100010: 'Material #457'
+    2100012: 'Material #553'
+    2100014: 'Material #516'
+    2100016: Teeth
+    2100018: Eye
+    2100020: Eybrow
+    2100022: Darkspot
+    4300000: ZombieElfie
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: ZombieElfie 1
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.0254
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
