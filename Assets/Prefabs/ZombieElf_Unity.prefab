@@ -1113,6 +1113,7 @@ GameObject:
   - component: {fileID: 195982495433228838}
   - component: {fileID: 114607574236078182}
   - component: {fileID: 82939544725180740}
+  - component: {fileID: 114239223942123478}
   m_Layer: 12
   m_Name: ZombieElf_Unity
   m_TagString: Enemy
@@ -2222,7 +2223,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1652701399704842}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.1, y: 1.17, z: 3.26}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4003916324882092}
@@ -3186,7 +3187,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.398
   m_Pitch: 1.28
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -3311,6 +3312,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 965f87c93b46fb34ba7db94bb3c501cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114239223942123478
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1652701399704842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a806fedc50b2994f93cbbb5a2ca81f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114374145313664870
@@ -3675,6 +3687,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 32.207, y: 39.335003, z: -2.075}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.05, y: 1.7}
+  m_AnchoredPosition: {x: 0, y: 2}
   m_SizeDelta: {x: 100, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}

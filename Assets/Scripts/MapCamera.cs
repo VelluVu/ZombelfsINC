@@ -10,6 +10,7 @@ public class MapCamera : MonoBehaviour {
 
     private void Start()
     {
+        
         camSpeed = 1f;
         leftXBounds = -4.2f;
         rightXBounds = 4.2f;

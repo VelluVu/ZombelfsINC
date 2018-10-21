@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,9 +15,10 @@ public class Enemy : MonoBehaviour {
     float maxResist;
     float resistDiminish;
     float instantiateDuration;
-
+    int price;
     Rigidbody rb;
     NavMeshAgent navMeshAgent;
+ 
     Transform eyes;
     Transform chaseTarget;
     public GameObject BloodSpill;
@@ -28,7 +30,7 @@ public class Enemy : MonoBehaviour {
 
     private void Start()
     {
-        
+        price = 2;
         chaseTarget = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         rb = gameObject.GetComponent<Rigidbody>();
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
@@ -37,7 +39,7 @@ public class Enemy : MonoBehaviour {
         rotationSpeed = 5f;
         maxHealth = 100f;
         curhealth = maxHealth;
-        damage = 20f;
+        damage = 1f;
         instantiateDuration = 3f;
     }
 
@@ -59,7 +61,15 @@ public class Enemy : MonoBehaviour {
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<CharacterControl>().PlayerTakeDamage(damage);
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.collider.tag == "Player")
         {
@@ -68,13 +78,13 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    public void EnemyTakeDamage(float dmg)
+    public void EnemyTakeDamage(float dmg, bool crit)
     {
         
             curhealth -= dmg;
             displayDmg = dmgText.gameObject.GetComponentInChildren<Text>().GetComponent<DmgText>();
-            displayDmg.SetDmgText(dmg,this);
-            Instantiate(dmgText, new Vector3(transform.position.x, transform.position.y + 5, transform.position.z), dmgText.transform.rotation);
+            displayDmg.SetDmgText (dmg,this, crit);
+            Destroy(Instantiate(dmgText, new Vector3(transform.position.x, transform.position.y + 5, transform.position.z), dmgText.transform.rotation),instantiateDuration);
             Destroy(Instantiate(BloodSpill, transform.position, BloodSpill.transform.rotation), instantiateDuration);
             Debug.Log("I take dmg: " + dmg);
         
@@ -85,10 +95,10 @@ public class Enemy : MonoBehaviour {
     {
         curhealth -= dmg;
         displayDmg = dmgText.gameObject.GetComponentInChildren<Text>().GetComponent<DmgText>();     
-        displayDmg.SetDmgText(dmg,this);
+        displayDmg.SetDmgText(dmg,this, false);
         if (this != null)
         {
-            Instantiate(dmgText, new Vector3(transform.position.x, transform.position.y + 5, transform.position.z), dmgText.transform.rotation);
+            Destroy(Instantiate(dmgText, new Vector3(transform.position.x, transform.position.y + 5, transform.position.z), dmgText.transform.rotation),instantiateDuration);
         }
     }
 
@@ -97,6 +107,7 @@ public class Enemy : MonoBehaviour {
     {
         if (curhealth <= 0)
         {
+            ScoreTable.Addpoint(price);
             Destroy(Instantiate(deathSound, transform.position, transform.rotation),instantiateDuration);
             Destroy(Instantiate(BloodSpill, transform.position, BloodSpill.transform.rotation), instantiateDuration);
             Destroy(gameObject);
@@ -118,5 +129,10 @@ public class Enemy : MonoBehaviour {
 
         }
 
+    }
+
+    public void EnemySpeedIncrease(float multiplier)
+    {
+        moveSpeed += multiplier;
     }
 }

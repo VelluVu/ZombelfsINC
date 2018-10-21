@@ -6,7 +6,7 @@ public class Spell : MonoBehaviour {
 
     bool isFiring;
 
-    public float projectileSpeedz = 2f;
+    public float projectileSpeedz = 4f;
     public float projectileSpeedy = 0f;
     public float projectileRotationSpeed = 0f;
     public float projectileDamage = 75f;
@@ -22,7 +22,7 @@ public class Spell : MonoBehaviour {
 
     public void ResetSpell()
     {
-        projectileSpeedz = 3f;
+        projectileSpeedz = 4f;
         projectileSpeedy = 0f;
         projectileRotationSpeed = 0f;
         projectileDamage = 100f;

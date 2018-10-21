@@ -12,7 +12,7 @@ public class Fireball : MonoBehaviour {
     float projectileLifeTime;
     float projectileAreaRadius;
     float statusTickRate = 1f;
-    float statusDmgMultiplier = 0.1f;
+    float statusDmgMultiplier = 0.5f;
     float prefabLifeTime = 3f;
     int statusDuration = 5;
 
@@ -109,7 +109,7 @@ public class Fireball : MonoBehaviour {
         {
             if (hitColliders[i].CompareTag("Enemy"))
             {
-                hitColliders[i].gameObject.GetComponent<Enemy>().EnemyTakeDamage(projectileAreaDamage);
+                hitColliders[i].gameObject.GetComponent<Enemy>().EnemyTakeDamage(projectileAreaDamage, false);
             }
             i++;
         }

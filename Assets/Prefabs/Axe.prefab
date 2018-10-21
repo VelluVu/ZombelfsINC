@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7132737a2c07d47b9f908602827e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stuckProjectile: {fileID: 1839810017707938, guid: 111830600507f5342ac016bcce0cd57b,
+  axeHitSound: {fileID: 1507381562725238, guid: 2bc5f3e69ac210d4eaa90d80b0e32ca6,
     type: 2}
 --- !u!136 &136814459244423962
 CapsuleCollider:

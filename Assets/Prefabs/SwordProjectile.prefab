@@ -114,6 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321a4ef8c774eae469e31e148c09439e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swordHitSound: {fileID: 1507381562725238, guid: 2bc5f3e69ac210d4eaa90d80b0e32ca6,
+    type: 2}
 --- !u!136 &136537585433178638
 CapsuleCollider:
   m_ObjectHideFlags: 1

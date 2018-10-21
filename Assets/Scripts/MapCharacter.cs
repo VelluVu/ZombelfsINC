@@ -9,6 +9,7 @@ public class MapCharacter : MonoBehaviour {
     
     private void Start()
     {
+        Time.timeScale = 1;
         if (GameStatus.currentLevel != null)
         {          
             transform.position = GameObject.Find(GameStatus.currentLevel).transform.position;
@@ -23,7 +24,7 @@ public class MapCharacter : MonoBehaviour {
             Input.GetAxis("Vertical") * speed * Time.deltaTime, 0);
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "LevelTrigger")
         {

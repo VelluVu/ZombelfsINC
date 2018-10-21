@@ -184,7 +184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1858114238464604
 GameObject:
   m_ObjectHideFlags: 1
@@ -258,7 +258,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1060530447389118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.09, y: 2.67, z: 4.86}
+  m_LocalPosition: {x: 104.7, y: 11.51, z: 81.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4416754207866074}
@@ -822,6 +822,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5098acbfc5dd17b4aa8119bdc7689adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextAxeShot: 0
+  nextSwordShot: 0
+  nextSpellShot: 0
   replenishM: 0.5
   swordCdReady: 0
   axeCdReady: 0
@@ -832,6 +835,8 @@ MonoBehaviour:
   axe: {fileID: 114351934091457616}
   sword: {fileID: 114031555195895778}
   spell: {fileID: 114289555805935206}
+  bloodSplit: {fileID: 1070260328063388, guid: 51d8c3656bf84d543a8f2f583441aaf6, type: 2}
+  loseSound: {fileID: 1010285941621400, guid: 24c228605f8d6474284a7137bdb0ef59, type: 2}
 --- !u!114 &114257415845898958
 MonoBehaviour:
   m_ObjectHideFlags: 1

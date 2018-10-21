@@ -38,6 +38,10 @@ public class CharacterControl : MonoBehaviour {
     public Weapon axe;
     public Sword sword;
     public Spell spell;
+
+    public GameObject bloodSplit;
+    public GameObject loseSound;
+
     WeaponSwitch weaponSwitch;
 
     public void IncrementMaxHealth(float upHp)
@@ -83,6 +87,7 @@ public class CharacterControl : MonoBehaviour {
 
     private void Start()
     {
+        Time.timeScale = 1;
         weaponSwitch = gameObject.GetComponentInChildren<WeaponSwitch>();
         BackwardsMoveSpeed = 0.5f;
         swordCdReady = true;
@@ -223,110 +228,7 @@ public class CharacterControl : MonoBehaviour {
             {
                 spell.SetSpellIsFiring(false);
                 recentlyShot = false;
-            }
-
-            if (nextAxeShot <= 0)
-            {
-                axeCdReady = true;
-            }
-            else if (nextAxeShot >= 0)
-            {
-                axeCdReady = false;               
-            }
-
-            if (nextSwordShot <= 0)
-            {
-                swordCdReady = true;
-            }
-            else if (nextSwordShot >= 0)
-            {
-                swordCdReady = false;          
-            }
-
-            if (nextSpellShot <= 0)
-            {
-                spellCdReady = true;
-            }
-            else if (nextSpellShot >= 0)
-            {
-                spellCdReady = false;       
-            }
-
-            /*if (!Input.GetButton("Fire1") && recentlyShot)
-            {
-                
-                axe.SetAxeIsFiring(false);
-                sword.SetSwordIsFiring(false);
-                spell.SetSpellIsFiring(false);              
-                recentlyShot = false;
-
-            }*/
-
-
-
-
-            /*if (Input.GetMouseButtonDown(0) && !recentlyShot)
-            {
-
-                if (axeCdReady)
-                {
-                              
-                    StartCoroutine(AxeCooldown());
-                    
-                }
-
-                else if (swordCdReady)
-                {
-                   
-                    StartCoroutine(SwordCooldown());
-
-                }
-
-                else if (spellCdReady && currentMana >= spell.spellCost)
-                {
-                   
-                    StartCoroutine(SpellCooldown());
-
-                }
-
-            }
-            
-            if (Input.GetMouseButtonUp(0))
-
-            {
-
-                if (recentlyShot)
-                {
-                    
-                    if (!axeCdReady)
-                    {
-                        
-                        axe.SetAxeIsFiring(false);
-                        axeCdReady = true;
-                        
-                    }
-
-                    else if (!swordCdReady)
-                    {
-
-                        sword.SetSwordIsFiring(false);
-                        swordCdReady = true;
-                        
-                    }
-
-                    else if (!spellCdReady)
-                    {
-
-                        spell.SetSpellIsFiring(false);
-                        spellCdReady = true;
-                        
-                    }
-            
-                    recentlyShot = false;
-
-                }
-
-            */
+            }               
 
         }
 
@@ -373,93 +275,7 @@ public class CharacterControl : MonoBehaviour {
                 spell.SetSpellIsFiring(false);
                 recentlyShot = false;
             }
-
-            if (nextAxeShot <= 0)
-            {
-                axeCdReady = true;
-            }
-            else if (nextAxeShot > 0)
-            {
-                axeCdReady = false;
-            }
-
-            if (nextSwordShot <= 0)
-            {
-                swordCdReady = true;
-            }
-            else if (nextSwordShot > 0)
-            {
-                swordCdReady = false;
-            }
-
-            if (nextSpellShot <= 0)
-            {
-                spellCdReady = true;
-            }
-            else if (nextSpellShot > 0)
-            {
-                spellCdReady = false;
-            }
-
-            /*if (Input.GetKeyDown(KeyCode.Joystick1Button5) && !recentlyShot)
-            {
-                
-
-                if (axeCdReady)
-                {
                     
-                    StartCoroutine(AxeCooldown());
-                    
-                }
-                
-                if (swordCdReady)
-                {
-
-                    StartCoroutine(SwordCooldown());
-
-                }
-
-                if (spellCdReady)
-                {
-
-                    StartCoroutine(SpellCooldown());
-                }
-             
-            }
-
-            if (Input.GetMouseButtonUp(0) && recentlyShot)
-            {
-
-                if (!axeCdReady)
-                {
-
-                    axe.SetAxeIsFiring(false);
-                    axeCdReady = true;
-
-                }
-
-                if (!swordCdReady)
-                {
-
-                    sword.SetSwordIsFiring(false);
-                    swordCdReady = true;
-
-                }
-
-                if (!spellCdReady)
-                {
-
-                    spell.SetSpellIsFiring(false);
-                    spellCdReady = true;
-
-                }
-
-                recentlyShot = false;
-
-            }
-
-        }*/
-
         }
     }
 
@@ -533,15 +349,17 @@ public class CharacterControl : MonoBehaviour {
     public void PlayerTakeDamage(float dmg)
     {
         currentHealth -= dmg;
-
-        //Instantiate bloodEffect   
+        PlayerDie();
+        Destroy(Instantiate(bloodSplit, transform.position, bloodSplit.transform.rotation),1f);
     }
 
     public void PlayerDie()
     {
         if (currentHealth <= 0)
         {
-            //die Instantiate something and popup failscreen      
+            Time.timeScale = 0;
+            FindObjectOfType<CanvasControl>().LoseWindow();
+            Destroy(Instantiate(loseSound), 3f);              
         }
     }
 }

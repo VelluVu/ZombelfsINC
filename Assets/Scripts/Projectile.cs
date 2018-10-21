@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour {
     float projectileDamage;
     float projectileLifeTime;
 
+    public GameObject axeHitSound;
     Rigidbody rb;
 
     public void SetProjectileSpeedz(float pSpeedz)
@@ -50,12 +51,13 @@ public class Projectile : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+
+        Destroy(Instantiate(axeHitSound),2f);
 
         if (collision.collider.tag == "Enemy" && collision.collider.tag != "Player")
         {
 
-            collision.collider.gameObject.GetComponent<Enemy>().EnemyTakeDamage(projectileDamage);
+            collision.collider.gameObject.GetComponent<Enemy>().EnemyTakeDamage(projectileDamage, false);
 
             FixedJoint fj = new FixedJoint();
             fj = gameObject.AddComponent<FixedJoint>();

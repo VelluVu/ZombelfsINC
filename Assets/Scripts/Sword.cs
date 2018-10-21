@@ -64,7 +64,7 @@ public class Sword : MonoBehaviour {
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<Enemy>().EnemyTakeDamage(meleeDamage);
+            other.GetComponent<Enemy>().EnemyTakeDamage(meleeDamage, false);
         }
     }
 

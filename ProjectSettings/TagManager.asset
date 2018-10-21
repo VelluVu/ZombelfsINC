@@ -14,6 +14,10 @@ TagManager:
   - StuckProjectile
   - PickUp
   - PickUpEffect
+  - ExitPoint
+  - LoseWindow
+  - Replay
+  - Leave
   layers:
   - Default
   - TransparentFX

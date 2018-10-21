@@ -12,7 +12,9 @@ public class SwordProjectile : MonoBehaviour {
     float projectileCriticalChange;
     float maxRoll;
 
+    bool isCritical;
     Rigidbody rb;
+    public GameObject swordHitSound;
 
     public void SetProjectileSpeedz(float pSpeedz)
     {
@@ -55,12 +57,12 @@ public class SwordProjectile : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
 
-        
+        Destroy(Instantiate(swordHitSound), 2f);
 
         if (collision.collider.tag == "Enemy" && collision.collider.tag != "Player")
         {
 
-            collision.collider.gameObject.GetComponent<Enemy>().EnemyTakeDamage(ChanceToCrit(projectileDamage));
+            collision.collider.gameObject.GetComponent<Enemy>().EnemyTakeDamage(ChanceToCrit(projectileDamage), isCritical);
 
             FixedJoint fj = new FixedJoint();
             fj = gameObject.AddComponent<FixedJoint>();
@@ -78,11 +80,14 @@ public class SwordProjectile : MonoBehaviour {
     float ChanceToCrit(float projectileDamage)
     {
 
-        bool isCritical = false;
+        isCritical = false;
 
         if (Random.Range(0, maxRoll) >= maxRoll * projectileCriticalChange)
         {
             isCritical = true;
+        } else
+        {
+            isCritical = false;
         }
 
         if (isCritical)
