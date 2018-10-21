@@ -42,7 +42,6 @@ public class Projectile : MonoBehaviour {
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();  
-        
         Destroy(gameObject, projectileLifeTime);
         rb.AddRelativeTorque(Vector3.right * projectileRotationSpeed, ForceMode.VelocityChange);
         rb.AddRelativeForce(Vector3.up * projectileSpeedy, ForceMode.Impulse);
@@ -51,6 +50,8 @@ public class Projectile : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+        
+
         if (collision.collider.tag == "Enemy" && collision.collider.tag != "Player")
         {
 
@@ -64,7 +65,8 @@ public class Projectile : MonoBehaviour {
      
         }
 
-        
+        gameObject.GetComponent<BoxCollider>().enabled = false;
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
     }
 
 

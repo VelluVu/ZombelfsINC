@@ -5,37 +5,58 @@ using UnityEngine;
 public class WeaponSwitch : MonoBehaviour {
 
     public int selectedWeapon = 0;
+    CharacterControl characterControl;
 
     private void Start()
-    {     
+    {
+        characterControl = gameObject.GetComponentInParent<CharacterControl>();
         SelectWeapon();
     }
 
     private void Update()
     {
+        WeaponSelection();
+    }
 
+    private void WeaponSelection()
+    {
         int previouslySelectedWeapon = selectedWeapon;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             
             selectedWeapon = 0;
+
+            if (characterControl.axeCdReady)
+            characterControl.nextAxeShot = 0;
+
             Debug.Log("Selected Wep: " + selectedWeapon);
-           
+            
+
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha2) && transform.childCount >= 2)
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && transform.childCount >= 2)
         {
             
             selectedWeapon = 1;
+
+            if (characterControl.swordCdReady)
+            characterControl.nextSwordShot = 0;
+
             Debug.Log("Selected Wep: " + selectedWeapon);
             
+
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha3) && transform.childCount >= 3)
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && transform.childCount >= 3)
         {
             
             selectedWeapon = 2;
+
+            if (characterControl.spellCdReady)
+            characterControl.nextSpellShot = 0;
+
             Debug.Log("Selected Wep: " + selectedWeapon);
-           
+            
+
         }
 
         if (previouslySelectedWeapon != selectedWeapon)
@@ -53,10 +74,12 @@ public class WeaponSwitch : MonoBehaviour {
             if (i == selectedWeapon)
             {
                 weapon.gameObject.SetActive(true);
+          
             }
             else
             {
                 weapon.gameObject.SetActive(false);
+               
             }
 
             i++;

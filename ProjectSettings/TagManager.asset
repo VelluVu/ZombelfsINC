@@ -12,6 +12,8 @@ TagManager:
   - SpawnPoint
   - Weapon
   - StuckProjectile
+  - PickUp
+  - PickUpEffect
   layers:
   - Default
   - TransparentFX
@@ -48,4 +50,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: effects
+    uniqueID: 2012071933
     locked: 0

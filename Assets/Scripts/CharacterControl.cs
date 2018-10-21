@@ -2,45 +2,144 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterControl : MonoBehaviour {
 
     float moveSpeed;
+    float BackwardsMoveSpeed;
     float jumpForce;
     float rotationSpeed;
 
+    float maxHealth;
+    float currentHealth;
+    public float nextAxeShot;
+    public float nextSwordShot;
+    public float nextSpellShot;
+    float maxMana;
+    float currentMana;
+    public float replenishM = 0.5f;
+
+    int curSkill;
+
     bool onGround;
     bool recentlyShot;
+    
+    public bool swordCdReady;
+    public bool axeCdReady;
+    public bool spellCdReady;
 
     public bool useController;
-    
+    public Image healthPool;
+    public Image manaPool;
 
     Rigidbody rb;
     Camera cam;
     public Weapon axe;
+    public Sword sword;
+    public Spell spell;
+    WeaponSwitch weaponSwitch;
+
+    public void IncrementMaxHealth(float upHp)
+    {
+        maxHealth += upHp;
+    }
+
+    public void HealHealth(float heal)
+    {
+        if (currentHealth <= maxHealth)
+        {
+            currentHealth += heal;
+        }
+    }
+
+    public float GetCurrentMana()
+    {
+        return currentMana;
+    }
+
+    public void IncrementMaxMana(float upMana)
+    {
+        maxMana += upMana;
+    }
+
+    public void ReplenishMana(float replenishMana)
+    {
+        if (currentMana <= maxMana)
+        {
+            currentMana += replenishMana;
+        }
+    }    
+
+    public bool GetSwordCd()
+    {
+        return swordCdReady;
+    }
+
+    public bool GetAxeCd()
+    {
+        return axeCdReady;
+    }
 
     private void Start()
     {
-        jumpForce = 500f;
+        weaponSwitch = gameObject.GetComponentInChildren<WeaponSwitch>();
+        BackwardsMoveSpeed = 0.5f;
+        swordCdReady = true;
+        axeCdReady = true;
+        spellCdReady = true;
+        maxMana = 100;
+        maxHealth = 100;           
+        currentMana = maxMana;
+        currentHealth = maxHealth;
+        jumpForce = 5f;
         moveSpeed = 5f;
         rotationSpeed = 5f;
         rb = gameObject.GetComponent<Rigidbody>();
         cam = FindObjectOfType<Camera>();         
     }
 
+    public void ResetStats()
+    {
+        maxMana = 100;
+        jumpForce = 5f;
+        moveSpeed = 5f;
+        rotationSpeed = 5f;
+        replenishM = 0.5f;
+        maxHealth = 100;
+    }
+
     private void Update()
     {
+        healthPool.fillAmount = currentHealth / maxHealth;
+        manaPool.fillAmount = currentMana / maxMana;
+        PassiveManaRegen();
         CharacterMovement();
         CharacterDirection();
         BasicAttack();
         Jump();
+    }
+  
+    public void PassiveManaRegen()
+    {
+        if (currentMana <= maxMana)
+        {
+            currentMana += replenishM * Time.deltaTime;
+            //Debug.Log("regen mana: " + replenishM * Time.deltaTime);
+        }
     }
 
     //Make character move with default horizontal and vertical buttons
     private void CharacterMovement()
     {
         float xMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+        
         float zMovement = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        
+        if (zMovement <= 0)
+        {
+            zMovement *= BackwardsMoveSpeed;
+        }
         transform.Translate(xMovement, 0, zMovement);
     }
 
@@ -76,61 +175,320 @@ public class CharacterControl : MonoBehaviour {
 
     }
 
-   
 
     //Left Mouse click Attack
-    private void BasicAttack()
+    void BasicAttack()
     {
+
+
         if (!useController)
         {
-
-            if (Input.GetMouseButtonDown(0) && !recentlyShot)
+            if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextAxeShot)
             {
+
+                nextAxeShot = Time.time + axe.GetShotInterval();
                 axe.SetAxeIsFiring(true);
-                
+                recentlyShot = true;
+
             }
-            if (Input.GetMouseButtonUp(0))
+            else
+            {
+                axe.SetAxeIsFiring(false);
+                recentlyShot = false;
+            }
+
+            if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSwordShot)
             {
 
-                axe.SetAxeIsFiring(false);
-                StartCoroutine(ShootCD());
-
-                
+                nextSwordShot = Time.time + sword.GetShotInterval();
+                sword.SetSwordIsFiring(true);
+                recentlyShot = true;
 
             }
+            else
+            {
+                sword.SetSwordIsFiring(false);
+                recentlyShot = false;
+            }
+
+            if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSpellShot)
+            {
+
+                recentlyShot = true;
+                nextSpellShot = Time.time + spell.GetShotInterval();
+                spell.SetSpellIsFiring(true);
+
+            }
+            else
+            {
+                spell.SetSpellIsFiring(false);
+                recentlyShot = false;
+            }
+
+            if (nextAxeShot <= 0)
+            {
+                axeCdReady = true;
+            }
+            else if (nextAxeShot >= 0)
+            {
+                axeCdReady = false;               
+            }
+
+            if (nextSwordShot <= 0)
+            {
+                swordCdReady = true;
+            }
+            else if (nextSwordShot >= 0)
+            {
+                swordCdReady = false;          
+            }
+
+            if (nextSpellShot <= 0)
+            {
+                spellCdReady = true;
+            }
+            else if (nextSpellShot >= 0)
+            {
+                spellCdReady = false;       
+            }
+
+            /*if (!Input.GetButton("Fire1") && recentlyShot)
+            {
+                
+                axe.SetAxeIsFiring(false);
+                sword.SetSwordIsFiring(false);
+                spell.SetSpellIsFiring(false);              
+                recentlyShot = false;
+
+            }*/
+
+
+
+
+            /*if (Input.GetMouseButtonDown(0) && !recentlyShot)
+            {
+
+                if (axeCdReady)
+                {
+                              
+                    StartCoroutine(AxeCooldown());
+                    
+                }
+
+                else if (swordCdReady)
+                {
+                   
+                    StartCoroutine(SwordCooldown());
+
+                }
+
+                else if (spellCdReady && currentMana >= spell.spellCost)
+                {
+                   
+                    StartCoroutine(SpellCooldown());
+
+                }
+
+            }
+            
+            if (Input.GetMouseButtonUp(0))
+
+            {
+
+                if (recentlyShot)
+                {
+                    
+                    if (!axeCdReady)
+                    {
+                        
+                        axe.SetAxeIsFiring(false);
+                        axeCdReady = true;
+                        
+                    }
+
+                    else if (!swordCdReady)
+                    {
+
+                        sword.SetSwordIsFiring(false);
+                        swordCdReady = true;
+                        
+                    }
+
+                    else if (!spellCdReady)
+                    {
+
+                        spell.SetSpellIsFiring(false);
+                        spellCdReady = true;
+                        
+                    }
+            
+                    recentlyShot = false;
+
+                }
+
+            */
+
         }
 
         if (useController)
         {
-            if (Input.GetKeyDown(KeyCode.Joystick1Button5))
+            if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextAxeShot)
             {
 
+                nextAxeShot = Time.time + axe.GetShotInterval();
                 axe.SetAxeIsFiring(true);
+                recentlyShot = true;
 
-              
             }
-            if (Input.GetKeyUp(KeyCode.Joystick1Button5))
+            else
+            {
+                axe.SetAxeIsFiring(false);
+                recentlyShot = false;
+            }
+
+            if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSwordShot)
             {
 
-                axe.SetAxeIsFiring(false);
-                StartCoroutine(ShootCD());
+                nextSwordShot = Time.time + sword.GetShotInterval();
+                sword.SetSwordIsFiring(true);
+                recentlyShot = true;
 
+            }
+            else
+            {
+                sword.SetSwordIsFiring(false);
+                recentlyShot = false;
+            }
+
+            if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSpellShot)
+            {
+
+                recentlyShot = true;
+                nextSpellShot = Time.time + spell.GetShotInterval();
+                spell.SetSpellIsFiring(true);
+
+            }
+            else
+            {
+                spell.SetSpellIsFiring(false);
+                recentlyShot = false;
+            }
+
+            if (nextAxeShot <= 0)
+            {
+                axeCdReady = true;
+            }
+            else if (nextAxeShot > 0)
+            {
+                axeCdReady = false;
+            }
+
+            if (nextSwordShot <= 0)
+            {
+                swordCdReady = true;
+            }
+            else if (nextSwordShot > 0)
+            {
+                swordCdReady = false;
+            }
+
+            if (nextSpellShot <= 0)
+            {
+                spellCdReady = true;
+            }
+            else if (nextSpellShot > 0)
+            {
+                spellCdReady = false;
+            }
+
+            /*if (Input.GetKeyDown(KeyCode.Joystick1Button5) && !recentlyShot)
+            {
                 
 
-            }
-        }
+                if (axeCdReady)
+                {
+                    
+                    StartCoroutine(AxeCooldown());
+                    
+                }
+                
+                if (swordCdReady)
+                {
 
+                    StartCoroutine(SwordCooldown());
+
+                }
+
+                if (spellCdReady)
+                {
+
+                    StartCoroutine(SpellCooldown());
+                }
+             
+            }
+
+            if (Input.GetMouseButtonUp(0) && recentlyShot)
+            {
+
+                if (!axeCdReady)
+                {
+
+                    axe.SetAxeIsFiring(false);
+                    axeCdReady = true;
+
+                }
+
+                if (!swordCdReady)
+                {
+
+                    sword.SetSwordIsFiring(false);
+                    swordCdReady = true;
+
+                }
+
+                if (!spellCdReady)
+                {
+
+                    spell.SetSpellIsFiring(false);
+                    spellCdReady = true;
+
+                }
+
+                recentlyShot = false;
+
+            }
+
+        }*/
+
+        }
     }
 
     // CD will disallow the spamhax
-    IEnumerator ShootCD()
+    IEnumerator AxeCooldown()
     {
         recentlyShot = true;
-        
         yield return new WaitForSeconds(axe.GetShotInterval());
+        axe.SetAxeIsFiring(true);
+        axeCdReady = false;
+        
+    }
 
-        recentlyShot = false;
-      
+    IEnumerator SwordCooldown()
+    {
+        recentlyShot = true;
+        yield return new WaitForSeconds(sword.GetShotInterval());
+        sword.SetSwordIsFiring(true);
+        swordCdReady = false;
+        
+    }
+
+    IEnumerator SpellCooldown()
+    {
+        recentlyShot = true;
+        yield return new WaitForSeconds(spell.GetShotInterval());
+        spell.SetSpellIsFiring(true);
+        spellCdReady = false;
+        
     }
 
     //Makes Character jump with jump button "space"
@@ -138,7 +496,7 @@ public class CharacterControl : MonoBehaviour {
     {
         if (Input.GetButtonDown("Jump") && onGround)
         {
-            rb.AddForce(0,jumpForce * Time.deltaTime,0, ForceMode.Impulse);
+            rb.AddForce(0,jumpForce,0, ForceMode.Impulse);
         }
     }
 
@@ -164,6 +522,26 @@ public class CharacterControl : MonoBehaviour {
         if (collision.collider.tag == "Ground")
         {
             onGround = true;
+        }
+    }
+
+    public void PlayerLoseMana(float cost)
+    {
+        currentMana -= cost;
+    }
+
+    public void PlayerTakeDamage(float dmg)
+    {
+        currentHealth -= dmg;
+
+        //Instantiate bloodEffect   
+    }
+
+    public void PlayerDie()
+    {
+        if (currentHealth <= 0)
+        {
+            //die Instantiate something and popup failscreen      
         }
     }
 }

@@ -43,6 +43,7 @@ public class Weapon : MonoBehaviour {
                 shotCounter = shotInterval;
                 Projectile newProjectile = Instantiate(projectile, firePoint.position, firePoint.rotation) as Projectile;
                 Debug.Log(projectile + "Thrown");
+                FindObjectOfType<AxeSkillImage>().SetAxeCD(shotInterval);
                 newProjectile.SetProjectileSpeedz(projectileSpeedz);
                 newProjectile.SetProjectileRotationSpeed(projectileRotationSpeed);
                 newProjectile.SetProjectileDamage(projectileDamage);
@@ -52,7 +53,7 @@ public class Weapon : MonoBehaviour {
         }
         else
         {
-            shotCounter = 0;
+            shotCounter = 0;          
         }
     }
 }
