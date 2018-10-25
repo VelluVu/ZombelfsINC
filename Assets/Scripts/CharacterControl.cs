@@ -8,6 +8,7 @@ public class CharacterControl : MonoBehaviour {
 
     float moveSpeed;
     float BackwardsMoveSpeed;
+    float diagonalMovementSpeed;
     float jumpForce;
     float rotationSpeed;
 
@@ -90,6 +91,7 @@ public class CharacterControl : MonoBehaviour {
         Time.timeScale = 1;
         weaponSwitch = gameObject.GetComponentInChildren<WeaponSwitch>();
         BackwardsMoveSpeed = 0.5f;
+        diagonalMovementSpeed = 0.5f;
         swordCdReady = true;
         axeCdReady = true;
         spellCdReady = true;
@@ -122,7 +124,7 @@ public class CharacterControl : MonoBehaviour {
         CharacterMovement();
         CharacterDirection();
         BasicAttack();
-        Jump();
+        Jump();       
     }
   
     public void PassiveManaRegen()
@@ -140,7 +142,17 @@ public class CharacterControl : MonoBehaviour {
         float xMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         
         float zMovement = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
-        
+
+        if (xMovement > 0 && zMovement > 0 || xMovement < 0 && zMovement > 0)
+        {
+            xMovement *= diagonalMovementSpeed;
+        }
+
+        if (xMovement < 0 && zMovement < 0 || xMovement > 0 && zMovement < 0)
+        {
+            xMovement *= BackwardsMoveSpeed;
+        }
+         
         if (zMovement <= 0)
         {
             zMovement *= BackwardsMoveSpeed;
@@ -151,6 +163,8 @@ public class CharacterControl : MonoBehaviour {
     //Make the Character rotate at the mouse direction or controller
     private void CharacterDirection()
     {
+        Vector3 saveBaseLength;
+
         if (!useController)
         {
             Ray cameraRay = cam.ScreenPointToRay(Input.mousePosition);
@@ -159,10 +173,18 @@ public class CharacterControl : MonoBehaviour {
 
             if (plane.Raycast(cameraRay, out rayLength))
             {
+         
                 Vector3 pointToLook = cameraRay.GetPoint(rayLength);
                 Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
+                                                          
+                //Optimal for current camera rotation
 
-                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+                if (rayLength >= 0)
+                {
+                    transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z - 5));
+                }
+                
+
 
             }
         }

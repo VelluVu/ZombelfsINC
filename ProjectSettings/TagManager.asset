@@ -18,6 +18,7 @@ TagManager:
   - LoseWindow
   - Replay
   - Leave
+  - cursor
   layers:
   - Default
   - TransparentFX
