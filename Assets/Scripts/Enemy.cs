@@ -5,134 +5,79 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour {
-
-    float moveSpeed;
-    float rotationSpeed;
-    float curhealth;
-    float maxHealth;
-    float damage;
-    float maxResist;
-    float resistDiminish;
-    float instantiateDuration;
-    int price;
-    Rigidbody rb;
-    NavMeshAgent navMeshAgent;
- 
-    Transform eyes;
-    Transform chaseTarget;
-    public GameObject BloodSpill;
-    public Image healthbar;
-    public GameObject dmgText;
-    public GameObject deathSound;
-    DmgText displayDmg;
+public class Enemy : EnemyBase
+{
     
 
-    private void Start()
+    protected override void Start()
     {
-        price = 2;
-        chaseTarget = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        rb = gameObject.GetComponent<Rigidbody>();
-        navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
-        eyes = gameObject.transform.GetChild(0);      
-        moveSpeed = 0.8f;
-        rotationSpeed = 5f;
-        maxHealth = 100f;
-        curhealth = maxHealth;
-        damage = 1f;
-        instantiateDuration = 3f;
+        base.Start();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        healthbar.fillAmount = curhealth / maxHealth;
-        EnemyMove();
-        Death();      
+        base.Update();
     }
 
-    void EnemyMove()
+    public override bool Equals(object other)
     {
-        navMeshAgent.destination = chaseTarget.position;
-        if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance && !navMeshAgent.pathPending)
-        {
-            navMeshAgent.destination = chaseTarget.position;
-        }
-        //transform.LookAt(chaseTarget.position);
-
+        return base.Equals(other);
     }
 
-    private void OnTriggerStay(Collider other)
+    public override int GetHashCode()
     {
-        if (other.CompareTag("Player"))
-        {
-            other.GetComponent<CharacterControl>().PlayerTakeDamage(damage);
-        }
+        return base.GetHashCode();
     }
 
-    private void OnCollisionStay(Collision collision)
+    public override string ToString()
     {
-        if (collision.collider.tag == "Player")
-        {
-            //DEAL DAMAGE
-            collision.collider.GetComponent<CharacterControl>().PlayerTakeDamage(damage);
-        }
+        return base.ToString();
     }
 
-    public void EnemyTakeDamage(float dmg, bool crit)
+    protected override void Death()
     {
+        base.Death();
+    }
+
+    protected override void EnemyMove()
+    {
+        base.EnemyMove();
+    }
+
+    public override void EnemySpeedIncrease(float multiplier)
+    {
+        base.EnemySpeedIncrease(multiplier);
+    }
+
+    public override IEnumerator EnemyStatusStart(int duration, float overTimeDamage, float tickRate)
+    {
+        return base.EnemyStatusStart(duration, overTimeDamage, tickRate);
+    }
+
+    public override void EnemyTakeDamage(float dmg, bool crit)
+    {
+        base.EnemyTakeDamage(dmg, crit);      
+    }
+
+    protected override void healthUpdate()
+    {
+        base.healthUpdate();
+    }
+
+    protected override void OnCollisionStay(Collision collision)
+    {
+        base.OnCollisionStay(collision);
+    }
+
+    protected override void OnTriggerStay(Collider other)
+    {
+        base.OnTriggerStay(other);
+    }
+
+    public override void OverTimeDamage(float dmg)
+    {
+        base.OverTimeDamage(dmg);
         
-            curhealth -= dmg;
-            displayDmg = dmgText.gameObject.GetComponentInChildren<Text>().GetComponent<DmgText>();
-            displayDmg.SetDmgText (dmg,this, crit);
-            Destroy(Instantiate(dmgText, new Vector3(transform.position.x, transform.position.y + 5, transform.position.z), dmgText.transform.rotation),instantiateDuration);
-            Destroy(Instantiate(BloodSpill, transform.position, BloodSpill.transform.rotation), instantiateDuration);
-            Debug.Log("I take dmg: " + dmg);
-        
-        
     }
 
-    public void OverTimeDamage(float dmg)
-    {
-        curhealth -= dmg;
-        displayDmg = dmgText.gameObject.GetComponentInChildren<Text>().GetComponent<DmgText>();     
-        displayDmg.SetDmgText(dmg,this, false);
-        if (this != null)
-        {
-            Destroy(Instantiate(dmgText, new Vector3(transform.position.x, transform.position.y + 5, transform.position.z), dmgText.transform.rotation),instantiateDuration);
-        }
-    }
-
-    
-    private void Death()
-    {
-        if (curhealth <= 0)
-        {
-            ScoreTable.Addpoint(price);
-            Destroy(Instantiate(deathSound, transform.position, transform.rotation),instantiateDuration);
-            Destroy(Instantiate(BloodSpill, transform.position, BloodSpill.transform.rotation), instantiateDuration);
-            Destroy(gameObject);
-        }
-    }
-
-    public IEnumerator EnemyStatusStart(int duration, float overTimeDamage, float tickRate)
-    {
-
-        Debug.Log("Enemy Starts Coroutine");
-        int currentCount = 0;
-
-        for (int i = currentCount; i < duration; i++)
-        {
-            
-            Debug.Log("Tick");
-            OverTimeDamage(overTimeDamage);
-            yield return new WaitForSeconds(tickRate);
-
-        }
-
-    }
-
-    public void EnemySpeedIncrease(float multiplier)
-    {
-        moveSpeed += multiplier;
-    }
 }
