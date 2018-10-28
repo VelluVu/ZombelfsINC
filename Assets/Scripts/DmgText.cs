@@ -24,7 +24,7 @@ public class DmgText : MonoBehaviour {
 
     }
 
-    public void SetDmgText(float amount, Enemy curEnemy, bool crit)
+    public void SetDmgText(float amount, EnemyBase curEnemy, bool crit)
     {
         if (curEnemy != null)
         {

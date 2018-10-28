@@ -72,7 +72,7 @@ public class PatrolState : IEnemyState
 
 
         //varmistetaan että enemy on päässyt kohteeseen
-        if (enemy.navMeshAgent.remainingDistance <= enemy.navMeshAgent.stoppingDistance && !enemy.navMeshAgent.pathPending)
+        if (enemy.navMeshAgent.remainingDistance -5 < enemy.navMeshAgent.stoppingDistance && !enemy.navMeshAgent.pathPending)
         {
             nextWaypoint = (nextWaypoint+1) % enemy.wayPoints.Length;
         }

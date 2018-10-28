@@ -7,7 +7,6 @@ public class Fireball : MonoBehaviour {
     float projectileSpeedz;
     float projectileSpeedy;
     float projectileRotationSpeed;
-    float projectileDamage;
     float projectileAreaDamage;
     float projectileLifeTime;
     float projectileAreaRadius;
@@ -15,7 +14,7 @@ public class Fireball : MonoBehaviour {
     float statusDmgMultiplier = 0.5f;
     float prefabLifeTime = 3f;
     int statusDuration = 5;
-
+    bool hasCollided;
     Rigidbody rb;
     public GameObject explosion;
     public GameObject fireBallSound;
@@ -34,11 +33,6 @@ public class Fireball : MonoBehaviour {
     public void SetProjectileSpeedy(float pSpeedy)
     {
         projectileSpeedy = pSpeedy;
-    }
-
-    public void SetProjectileDamage(float pDmg)
-    {
-        projectileDamage = pDmg;
     }
 
     public void SetProjectileRotationSpeed(float pRSpeed)
@@ -60,6 +54,7 @@ public class Fireball : MonoBehaviour {
 
     private void Start()
     {
+        hasCollided = false;
         rb = gameObject.GetComponent<Rigidbody>();
         Destroy(gameObject, projectileLifeTime);
         rb.AddRelativeTorque(Vector3.right * projectileRotationSpeed, ForceMode.VelocityChange);
@@ -72,12 +67,21 @@ public class Fireball : MonoBehaviour {
     {
         if (collision.collider.tag == "Enemy" && collision.collider.tag != "Player")
         {
-
-            StartCoroutine(FireBallHit(collision));
-
+            if (!hasCollided)
+            {
+                hasCollided = true;
+                StartCoroutine(FireBallHit(collision));
+                
+            }
+            StartCoroutine(ResetCollision());
         }
+        
+    }
 
-
+    IEnumerator ResetCollision()
+    {
+        yield return new WaitForSeconds(1f);
+        hasCollided = false;
     }
 
     IEnumerator FireBallHit(Collision collision)
@@ -89,10 +93,11 @@ public class Fireball : MonoBehaviour {
         Destroy(Instantiate(fireBallhitSound, transform.position, transform.rotation), prefabLifeTime);
 
         Destroy(Instantiate(explosion, transform.position, transform.rotation), prefabLifeTime);
-        if (collision.collider.gameObject.GetComponent<Enemy>() != null)
+        if (collision.collider.gameObject.GetComponent<EnemyBase>() != null)
         {
-            StartCoroutine(collision.collider.gameObject.GetComponent<Enemy>().EnemyStatusStart(statusDuration, projectileAreaDamage * statusDmgMultiplier, statusTickRate));
+            StartCoroutine(collision.collider.gameObject.GetComponent<EnemyBase>().EnemyStatusStart(statusDuration, projectileAreaDamage * statusDmgMultiplier, statusTickRate));
         }
+       
         ExplosionDamage(transform.position, projectileAreaRadius);
 
         yield return new WaitForSeconds(statusDuration);
@@ -109,8 +114,9 @@ public class Fireball : MonoBehaviour {
         {
             if (hitColliders[i].CompareTag("Enemy"))
             {
-                hitColliders[i].gameObject.GetComponent<Enemy>().EnemyTakeDamage(projectileAreaDamage, false);
+                hitColliders[i].gameObject.GetComponent<EnemyBase>().EnemyTakeDamage(projectileAreaDamage, false);               
             }
+           
             i++;
         }
     }

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MapCharacter : MonoBehaviour {
 
     float speed;
+    public Text battleText;
     
     private void Start()
     {
@@ -24,14 +26,25 @@ public class MapCharacter : MonoBehaviour {
             Input.GetAxis("Vertical") * speed * Time.deltaTime, 0);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "LevelTrigger")
         {
-            if (collision.gameObject.name != GameStatus.currentLevel) {
-                GameStatus.currentLevel = collision.gameObject.name;
-                SceneManager.LoadScene(collision.gameObject.GetComponent<LoadLevel>().levelToLoad);
+            battleText.enabled = true;
+            
+            if (Input.GetAxis("Submit") > 0)
+            {
+                if (collision.gameObject.name != GameStatus.currentLevel)
+                {
+                    GameStatus.currentLevel = collision.gameObject.name;
+                    SceneManager.LoadScene(collision.gameObject.GetComponent<LoadLevel>().levelToLoad);
+                }
             }
         }
+        
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        battleText.enabled = false;
     }
 }

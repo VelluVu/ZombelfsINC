@@ -54,12 +54,12 @@ public class SpellPowerUp : MonoBehaviour {
         characterPowers.spell.projectileSpeedz *= speedmultiplier;
         characterPowers.spell.shotInterval *= fireRateMultiplier;
         characterPowers.spell.spellCost *= spellCostReduce;
-        characterPowers.replenishM = speedmultiplier;
+        characterPowers.ReplenishMana(speedmultiplier);
 
         yield return new WaitForSeconds(beforeDestroy);
 
         characterPowers.ResetStats();
-        characterPowers.spell.ResetSpell();
+        characterPowers.spell.InitializeSpell();
 
         Destroy(gameObject);
     }

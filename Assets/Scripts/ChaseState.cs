@@ -5,12 +5,12 @@ using UnityEngine;
 public class ChaseState : IEnemyState
 {
     private StatePatternEnemy enemy;
-    float dmg;
+    
 
     public ChaseState(StatePatternEnemy statePatternEnemy)
     {
         this.enemy = statePatternEnemy;
-        dmg = 1;
+        
     }
 
     public void OnTriggerEnter(Collider other)
@@ -59,8 +59,8 @@ public class ChaseState : IEnemyState
 
     private void Chase()
     {
-        enemy.indicator.material.color = Color.red;
 
+        enemy.indicator.material.color = Color.red;
         enemy.navMeshAgent.destination = enemy.chaseTarget.position;
         enemy.navMeshAgent.isStopped = false;
 
@@ -73,9 +73,6 @@ public class ChaseState : IEnemyState
 
     public void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            other.gameObject.GetComponent<CharacterControl>().PlayerTakeDamage(dmg);
-        }
+        
     }
 }

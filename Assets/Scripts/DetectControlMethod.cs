@@ -8,7 +8,7 @@ public class DetectControlMethod : MonoBehaviour {
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterControl>();
+        player = gameObject.GetComponent<CharacterControl>();
     }
 
     private void Update()

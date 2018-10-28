@@ -10,8 +10,8 @@ public class GoInRage : MonoBehaviour {
 	void Start () {
 
        
-        timeToEnrage = 3f;
-        speedIncrease = 10f;
+        timeToEnrage = 10f;
+        speedIncrease = 2f;
 
         StartCoroutine(Enrage());
 

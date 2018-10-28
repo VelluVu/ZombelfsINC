@@ -41,9 +41,9 @@ public class StatePatternEnemy : MonoBehaviour {
     private void Start()
     {
         currentState = patrolState;
-        searchingTurnSpeed = 120f;
+        searchingTurnSpeed = 150f;
         searchingDuration = 6f;
-        sightRange = 15f;
+        sightRange = 20f;
 
     }
 

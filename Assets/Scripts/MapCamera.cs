@@ -4,22 +4,17 @@ using UnityEngine;
 
 public class MapCamera : MonoBehaviour {
 
-    float camSpeed;
-    float leftXBounds;
-    float rightXBounds;
+    
+    public Transform mapChar;
 
-    private void Start()
+    private void LateUpdate()
     {
+
+        transform.position = mapChar.position - new Vector3(0,0,10);
         
-        camSpeed = 1f;
-        leftXBounds = -4.2f;
-        rightXBounds = 4.2f;
-    }
 
-    private void Update()
-    {
-
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftXBounds, rightXBounds), 0,-10);
-        transform.Translate(Input.GetAxis("Horizontal")*camSpeed*Time.deltaTime, 0, 0);
+        /*transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftXBounds, rightXBounds), 0,-10);
+        transform.Translate(Input.GetAxis("Horizontal")*camSpeed*Time.deltaTime, 0, 0);*/
+        
     }
 }

@@ -5,31 +5,38 @@ using UnityEngine;
 public class Spell : MonoBehaviour {
 
     bool isFiring;
+    bool spellChanged;
 
-    public float projectileSpeedz = 4f;
-    public float projectileSpeedy = 0f;
-    public float projectileRotationSpeed = 0f;
-    public float projectileDamage = 75f;
-    public float projectileAreaDamage = 25f;
-    public float projectileLifeTime = 8f;
-    public float shotInterval = 8f;
-    public float shotCounter = 1f;
-    public float spellCost = 25f;
-    public float projectileAreaRadius = 5f;
+    public float projectileSpeedz;
+    public float projectileSpeedy;
+    public float projectileRotationSpeed;
+    public float projectileAreaDamage;
+    public float projectileLifeTime;
+    public float shotInterval;
+    public float shotCounter;
+    public float spellCost;
+    public float projectileAreaRadius;
 
     public Fireball fireballSpell;
     public Transform firePoint;
+    public Equipment spell;
 
-    public void ResetSpell()
+    public void InitializeSpell()
     {
-        projectileSpeedz = 4f;
-        projectileSpeedy = 0f;
-        projectileRotationSpeed = 0f;
-        projectileDamage = 100f;
-        projectileLifeTime = 8f;
-        shotInterval = 8f;
-        shotCounter = 1f;
-        spellCost = 25f;
+        projectileSpeedz = spell.projectileSpeedz;
+        projectileSpeedy = spell.projectileSpeedy;
+        projectileRotationSpeed = spell.projectileRotationSpeed;
+        projectileLifeTime = spell.projectileLifeTime;
+        projectileAreaDamage = spell.projectileAreaDamage;
+        projectileAreaRadius = spell.projectileAreaRadius;
+        shotInterval = spell.shotInterval;
+        spellCost = spell.spellCost;
+    }
+
+    public void ChangeSpell(Equipment newSpell)
+    {
+        spell = newSpell;
+        spellChanged = true;
     }
 
     public void SetSpellIsFiring(bool firing)
@@ -45,6 +52,11 @@ public class Spell : MonoBehaviour {
     private void Update()
     {
         UseWeapon();
+        if (spellChanged)
+        {
+            InitializeSpell();
+            spellChanged = false;
+        }    
     }
 
     void UseWeapon()
@@ -60,8 +72,7 @@ public class Spell : MonoBehaviour {
                 FindObjectOfType<CharacterControl>().PlayerLoseMana(spellCost);
                 FindObjectOfType<SpellSkillImage>().SetSpellCD(shotInterval);
                 newSpellProjectile.SetProjectileSpeedz(projectileSpeedz);
-                newSpellProjectile.SetProjectileRotationSpeed(projectileRotationSpeed);
-                newSpellProjectile.SetProjectileDamage(projectileDamage);
+                newSpellProjectile.SetProjectileRotationSpeed(projectileRotationSpeed);             
                 newSpellProjectile.SetProjectileLifeTime(projectileLifeTime);
                 newSpellProjectile.SetProjectileSpeedy(projectileSpeedy);
                 newSpellProjectile.SetProjectileAreaDamage(projectileAreaDamage);

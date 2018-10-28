@@ -12,9 +12,11 @@ public class SwordProjectile : MonoBehaviour {
     float projectileCriticalChange;
     float maxRoll;
 
+    bool hasCollided;
     bool isCritical;
     Rigidbody rb;
     public GameObject swordHitSound;
+    public GameObject swordWhoosh;
 
     public void SetProjectileSpeedz(float pSpeedz)
     {
@@ -47,11 +49,13 @@ public class SwordProjectile : MonoBehaviour {
 
     private void Start()
     {
+        hasCollided = false;
         rb = gameObject.GetComponent<Rigidbody>();
         Destroy(gameObject, projectileLifeTime);
         rb.AddRelativeTorque(Vector3.forward * projectileRotationSpeed, ForceMode.VelocityChange);
         rb.AddRelativeForce(Vector3.up * projectileSpeedy, ForceMode.Impulse);
         rb.AddRelativeForce(Vector3.forward * projectileSpeedz, ForceMode.Impulse);
+        Destroy(Instantiate(swordWhoosh, transform.position, transform.rotation), 2f);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -61,20 +65,32 @@ public class SwordProjectile : MonoBehaviour {
 
         if (collision.collider.tag == "Enemy" && collision.collider.tag != "Player")
         {
+            if (!hasCollided)
+            {
+                hasCollided = true;
 
-            collision.collider.gameObject.GetComponent<Enemy>().EnemyTakeDamage(ChanceToCrit(projectileDamage), isCritical);
+                collision.collider.gameObject.GetComponent<EnemyBase>().EnemyTakeDamage(ChanceToCrit(projectileDamage), isCritical);
 
-            FixedJoint fj = new FixedJoint();
-            fj = gameObject.AddComponent<FixedJoint>();
-            fj.connectedBody = collision.collider.attachedRigidbody;
+                FixedJoint fj = new FixedJoint();
+                fj = gameObject.AddComponent<FixedJoint>();
+                fj.connectedBody = collision.collider.attachedRigidbody;
 
-            Destroy(gameObject, 2f);
+                Destroy(gameObject, 2f);
+                
+            }
+            StartCoroutine(ResetCollision());
 
-        }
+        }   
 
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
 
 
+    }
+
+    IEnumerator ResetCollision()
+    {
+        yield return new WaitForSeconds(1f);
+        hasCollided = false;
     }
 
     float ChanceToCrit(float projectileDamage)

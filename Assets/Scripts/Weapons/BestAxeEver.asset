@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a368f3316a8c7154489de5e456b74c36, type: 3}
+  m_Name: BestAxeEver
+  m_EditorClassIdentifier: 
+  name: Best Axe Ever
+  icon: {fileID: 21300108, guid: 0d71dc1615a21124886bdf390f8d7b7f, type: 3}
+  isDefaultItem: 0
+  equipSlot: 0
+  projectileSpeedz: 4
+  projectileSpeedy: 3
+  projectileRotationSpeed: 12
+  projectileDamage: 45
+  projectileLifeTime: 6
+  projectileAreaRadius: 0
+  projectileAreaDamage: 0
+  spellCost: 0
+  shotInterval: 1
+  meleeDamage: 0
+  criticalChance: 0

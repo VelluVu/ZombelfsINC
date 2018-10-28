@@ -6,15 +6,12 @@ using UnityEngine.UI;
 
 public abstract class EnemyBase : MonoBehaviour {
 
-    public float moveSpeed = 1;
-    public float rotationSpeed = 1;
-    public float curhealth = 100;
-    public float maxHealth = 100;
-    public float damage = 1;
-    public float maxResist = 1;
-    public float resistDiminish = 1;
-    public float instantiateDuration = 3;
-    public int price = 2;
+    float moveSpeed;
+    float curhealth;
+    float maxHealth;
+    float damage;
+    float instantiateDuration = 3;
+    int price;
 
     public DmgText enemyDisplayDmg;
     public Rigidbody enemyRB;
@@ -24,14 +21,21 @@ public abstract class EnemyBase : MonoBehaviour {
     public Image enemyHealthbar;
     public GameObject enemyDmgText;
     public GameObject enemyDeathSound;
-    public Enemy enemy;
+    EnemyStats enemyStats;
 
     protected virtual void Start()
     {
+        enemyStats = gameObject.GetComponent<EnemyStats>();
         enemyDisplayDmg = enemyDmgText.gameObject.GetComponentInChildren<Text>().GetComponent<DmgText>();
         enemyChaseTarget = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         enemyRB = gameObject.GetComponent<Rigidbody>();
         enemyNavMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+
+        maxHealth = enemyStats.maxHealth;
+        damage = enemyStats.damage;
+        price = enemyStats.price;
+        moveSpeed = enemyStats.moveSpeed;
+  
         curhealth = maxHealth;
 
     }
@@ -50,6 +54,7 @@ public abstract class EnemyBase : MonoBehaviour {
 
     protected virtual void EnemyMove()
     {
+        enemyNavMeshAgent.speed = moveSpeed;
         enemyNavMeshAgent.destination = enemyChaseTarget.position;
         if (enemyNavMeshAgent.remainingDistance <= enemyNavMeshAgent.stoppingDistance && !enemyNavMeshAgent.pathPending)
         {
@@ -79,7 +84,7 @@ public abstract class EnemyBase : MonoBehaviour {
     {
 
         curhealth -= dmg;
-        enemyDisplayDmg.SetDmgText(dmg, enemy, crit);
+        enemyDisplayDmg.SetDmgText(dmg, this, crit);
         Destroy(Instantiate(enemyDmgText, new Vector3(transform.position.x, transform.position.y + 5, transform.position.z), enemyDmgText.transform.rotation), instantiateDuration);
         Destroy(Instantiate(enemyBloodSpill, transform.position, enemyBloodSpill.transform.rotation), instantiateDuration);
         Debug.Log("I take dmg: " + dmg);
@@ -89,7 +94,7 @@ public abstract class EnemyBase : MonoBehaviour {
     public virtual void OverTimeDamage(float dmg)
     {
         curhealth -= dmg;
-        enemyDisplayDmg.SetDmgText(dmg, enemy, false);
+        enemyDisplayDmg.SetDmgText(dmg, this, false);
         if (this != null)
         {
             Destroy(Instantiate(enemyDmgText, new Vector3(transform.position.x, transform.position.y + 5, transform.position.z), enemyDmgText.transform.rotation), instantiateDuration);
@@ -127,6 +132,6 @@ public abstract class EnemyBase : MonoBehaviour {
 
     public virtual void EnemySpeedIncrease(float multiplier)
     {
-        moveSpeed += multiplier;
+        moveSpeed *= multiplier;
     }
 }

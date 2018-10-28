@@ -19,6 +19,12 @@ TagManager:
   - Replay
   - Leave
   - cursor
+  - TopDown
+  - MiniMap
+  - EnemyPatrol
+  - AxeSlot
+  - SwordSlot
+  - SpellSlot
   layers:
   - Default
   - TransparentFX

@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class EnemyCanvas : MonoBehaviour {
 
-	
-	
-	
-	void FixedUpdate () {
-        gameObject.transform.LookAt(Camera.main.transform.position);
+    Camera mainCam;
+
+    private void Start()
+    {
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
+
+    void FixedUpdate () {
+        gameObject.transform.LookAt(mainCam.transform.position);
 	}
 }

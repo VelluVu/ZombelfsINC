@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class WeaponSwitch : MonoBehaviour {
 
+    #region Singleton
+
+    public static WeaponSwitch instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    #endregion
+
+    
+
     public int selectedWeapon = 0;
     CharacterControl characterControl;
 

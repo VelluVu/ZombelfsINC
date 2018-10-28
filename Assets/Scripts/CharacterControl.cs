@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CharacterControl : MonoBehaviour {
 
     float moveSpeed;
-    float BackwardsMoveSpeed;
+    float backwardsMoveSpeed;
     float diagonalMovementSpeed;
     float jumpForce;
     float rotationSpeed;
@@ -19,7 +20,8 @@ public class CharacterControl : MonoBehaviour {
     public float nextSpellShot;
     float maxMana;
     float currentMana;
-    public float replenishM = 0.5f;
+    float replenishM;
+    float replenishH;
 
     int curSkill;
 
@@ -36,14 +38,27 @@ public class CharacterControl : MonoBehaviour {
 
     Rigidbody rb;
     Camera cam;
-    public Weapon axe;
+    public Axe axe;
     public Sword sword;
     public Spell spell;
 
     public GameObject bloodSplit;
     public GameObject loseSound;
+    CharacterStats stats;
 
-    WeaponSwitch weaponSwitch;
+    //WeaponSwitch weaponSwitch;
+    public void SpeedUp(float speedP)
+    {
+        moveSpeed *= speedP;
+        backwardsMoveSpeed *= speedP;
+        diagonalMovementSpeed *= speedP; 
+        rotationSpeed *= speedP;
+    }
+
+    public void IncreaseJump(float jumpP)
+    {
+        jumpForce *= jumpP;
+    }
 
     public void IncrementMaxHealth(float upHp)
     {
@@ -74,7 +89,15 @@ public class CharacterControl : MonoBehaviour {
         {
             currentMana += replenishMana;
         }
-    }    
+    }
+
+    public void ReplenishHealth(float replenishHealth)
+    {
+        if (currentHealth <= maxHealth)
+        {
+            currentHealth += replenishHealth;
+        }
+    }
 
     public bool GetSwordCd()
     {
@@ -88,36 +111,47 @@ public class CharacterControl : MonoBehaviour {
 
     private void Start()
     {
+        stats = gameObject.GetComponent<CharacterStats>();
         Time.timeScale = 1;
-        weaponSwitch = gameObject.GetComponentInChildren<WeaponSwitch>();
-        BackwardsMoveSpeed = 0.5f;
-        diagonalMovementSpeed = 0.5f;
+        //weaponSwitch = gameObject.GetComponentInChildren<WeaponSwitch>();
+        backwardsMoveSpeed = stats.BackwardsMoveSpeed;
+        diagonalMovementSpeed = stats.diagonalMovementSpeed;
         swordCdReady = true;
         axeCdReady = true;
         spellCdReady = true;
-        maxMana = 100;
-        maxHealth = 100;           
+        maxMana = stats.maxMana;
+        maxHealth = stats.maxHealth;           
         currentMana = maxMana;
         currentHealth = maxHealth;
-        jumpForce = 5f;
-        moveSpeed = 5f;
-        rotationSpeed = 5f;
+        jumpForce = stats.jumpForce;
+        moveSpeed = stats.moveSpeed;
+        rotationSpeed = stats.rotationSpeed;
+        replenishM = stats.replenishM;
+        replenishH = stats.replenishH;
         rb = gameObject.GetComponent<Rigidbody>();
-        cam = FindObjectOfType<Camera>();         
+        cam = GameObject.FindGameObjectWithTag("TopDown").GetComponent<Camera>();      
     }
 
     public void ResetStats()
     {
-        maxMana = 100;
-        jumpForce = 5f;
-        moveSpeed = 5f;
-        rotationSpeed = 5f;
-        replenishM = 0.5f;
-        maxHealth = 100;
+        maxMana = stats.maxMana;
+        jumpForce = stats.jumpForce;
+        moveSpeed = stats.moveSpeed;
+        rotationSpeed = stats.rotationSpeed;
+        replenishM = stats.replenishM;
+        maxHealth = stats.maxHealth;
+        replenishH = stats.replenishH;
+        backwardsMoveSpeed = stats.BackwardsMoveSpeed;
+        diagonalMovementSpeed = stats.diagonalMovementSpeed;
     }
 
     private void Update()
     {
+        /*if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }*/
+
         healthPool.fillAmount = currentHealth / maxHealth;
         manaPool.fillAmount = currentMana / maxMana;
         PassiveManaRegen();
@@ -150,12 +184,12 @@ public class CharacterControl : MonoBehaviour {
 
         if (xMovement < 0 && zMovement < 0 || xMovement > 0 && zMovement < 0)
         {
-            xMovement *= BackwardsMoveSpeed;
+            xMovement *= backwardsMoveSpeed;
         }
          
         if (zMovement <= 0)
         {
-            zMovement *= BackwardsMoveSpeed;
+            zMovement *= backwardsMoveSpeed;
         }
         transform.Translate(xMovement, 0, zMovement);
     }
@@ -163,12 +197,11 @@ public class CharacterControl : MonoBehaviour {
     //Make the Character rotate at the mouse direction or controller
     private void CharacterDirection()
     {
-        Vector3 saveBaseLength;
-
+        
         if (!useController)
         {
             Ray cameraRay = cam.ScreenPointToRay(Input.mousePosition);
-            Plane plane = new Plane(Vector3.up, Vector3.zero);
+            Plane plane = new Plane(Vector3.up, transform.position);
             float rayLength;
 
             if (plane.Raycast(cameraRay, out rayLength))
@@ -176,13 +209,10 @@ public class CharacterControl : MonoBehaviour {
          
                 Vector3 pointToLook = cameraRay.GetPoint(rayLength);
                 Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
-                                                          
-                //Optimal for current camera rotation
-
-                if (rayLength >= 0)
-                {
-                    transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z - 5));
-                }
+                Quaternion targetRotation = Quaternion.LookRotation(pointToLook - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+                //transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+                
                 
 
 
