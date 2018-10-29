@@ -27,7 +27,7 @@ public class Sword : MonoBehaviour {
         _projectileSpeedz = sword.projectileSpeedz;
         _projectileSpeedy = sword.projectileSpeedy;
         _projectileRotationSpeed = sword.projectileRotationSpeed;
-        _projectileDamage = sword.projectileLifeTime;
+        _projectileDamage = sword.projectileDamage;
         _projectileLifeTime = sword.projectileLifeTime;
         _shotInterval = sword.shotInterval;
         _meleeDamage = sword.meleeDamage;

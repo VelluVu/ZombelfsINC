@@ -57,7 +57,7 @@ public class CharacterControl : MonoBehaviour {
 
     public void IncreaseJump(float jumpP)
     {
-        jumpForce *= jumpP;
+        jumpForce += jumpP;
     }
 
     public void IncrementMaxHealth(float upHp)

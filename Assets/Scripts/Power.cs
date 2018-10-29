@@ -10,6 +10,7 @@ public class Power : ScriptableObject {
     public bool axeBoost;
     public bool swordBoost;
     public bool spellBoost;
+    public bool boostAll;
     public GameObject pickUpEffect;
     public GameObject pickUpSound;
 
