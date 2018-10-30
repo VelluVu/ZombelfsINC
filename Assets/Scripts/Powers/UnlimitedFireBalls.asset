@@ -28,7 +28,7 @@ MonoBehaviour:
   manaRegenBoost: 1000
   healthRegenBoost: 2
   jumpForceBoost: 5
-  boostDuration: 50
+  boostDuration: 10
   speedzBoost: 5
   speedyBoost: 1
   rotationSpeedBoost: 1
