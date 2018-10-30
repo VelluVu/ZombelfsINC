@@ -10,12 +10,11 @@ public class Power : ScriptableObject {
     public bool axeBoost;
     public bool swordBoost;
     public bool spellBoost;
-    public bool boostAll;
     public GameObject pickUpEffect;
     public GameObject pickUpSound;
 
     //boost char stats:
-
+    
     public float healthBoost;
     public float manaBoost;
     public float speedBoost;
@@ -36,4 +35,5 @@ public class Power : ScriptableObject {
     public float areaRadiusBoost;
     public float meleeDamageBoost;
     public float criticalChanceBoost;
+ 
 }

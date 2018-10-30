@@ -7,30 +7,48 @@ public class Spell : MonoBehaviour {
     bool isFiring;
     bool spellChanged;
 
-    public float projectileSpeedz;
-    public float projectileSpeedy;
-    public float projectileRotationSpeed;
-    public float projectileAreaDamage;
+    public float[] spellStats = new float[10];
+    public float[] saveSpellStats = new float[10];
+
     public float projectileLifeTime;
-    public float shotInterval;
     public float shotCounter;
-    public float spellCost;
-    public float projectileAreaRadius;
 
     public Fireball fireballSpell;
     public Transform firePoint;
     public Equipment spell;
 
+    private void Start()
+    {
+        spellStats = new float[10];
+        saveSpellStats = new float[10];
+        InitializeSpell();
+    }
+
     public void InitializeSpell()
     {
-        projectileSpeedz = spell.projectileSpeedz;
-        projectileSpeedy = spell.projectileSpeedy;
-        projectileRotationSpeed = spell.projectileRotationSpeed;
-        projectileLifeTime = spell.projectileLifeTime;
-        projectileAreaDamage = spell.projectileAreaDamage;
-        projectileAreaRadius = spell.projectileAreaRadius;
-        shotInterval = spell.shotInterval;
-        spellCost = spell.spellCost;
+        spellStats[0] = spell.projectileSpeedz;
+        spellStats[1] = spell.projectileSpeedy;
+        spellStats[2] = spell.projectileRotationSpeed;
+        spellStats[3] = spell.projectileDamage;
+        spellStats[4] = spell.projectileAreaDamage;
+        spellStats[5] = spell.shotInterval;
+        spellStats[6] = spell.spellCost;
+        spellStats[7] = spell.projectileAreaRadius;
+        spellStats[8] = spell.meleeDamage;
+        spellStats[9] = spell.criticalChance;
+
+        for (int i = 0; i < spellStats.Length; i++)
+        {
+            saveSpellStats[i] = spellStats[i];
+        }
+    }
+
+    public void LoadSpellStats()
+    {
+        for (int i = 0; i < saveSpellStats.Length; i++)
+        {
+            spellStats[i] = saveSpellStats[i];
+        }
     }
 
     public void ChangeSpell(Equipment newSpell)
@@ -46,7 +64,7 @@ public class Spell : MonoBehaviour {
 
     public float GetShotInterval()
     {
-        return shotInterval;
+        return spellStats[5];
     }
 
     private void Update()
@@ -64,19 +82,19 @@ public class Spell : MonoBehaviour {
         if (isFiring)
         {
             shotCounter -= Time.deltaTime;
-            if (shotCounter <= 0 && FindObjectOfType<CharacterControl>().GetCurrentMana() >= 25)
+            if (shotCounter <= 0 && FindObjectOfType<CharacterControl>().GetCurrentMana() >= spellStats[6])
             {
-                shotCounter = shotInterval;
+                shotCounter = spellStats[5];
                 Fireball newSpellProjectile = Instantiate(fireballSpell, firePoint.position, firePoint.rotation) as Fireball;
                 Debug.Log(fireballSpell + "Thrown");
-                FindObjectOfType<CharacterControl>().PlayerLoseMana(spellCost);
-                FindObjectOfType<SpellSkillImage>().SetSpellCD(shotInterval);
-                newSpellProjectile.SetProjectileSpeedz(projectileSpeedz);
-                newSpellProjectile.SetProjectileRotationSpeed(projectileRotationSpeed);             
+                FindObjectOfType<CharacterControl>().PlayerLoseMana(spellStats[6]);
+                FindObjectOfType<SpellSkillImage>().SetSpellCD(spellStats[5]);
+                newSpellProjectile.SetProjectileSpeedz(spellStats[0]);
+                newSpellProjectile.SetProjectileRotationSpeed(spellStats[2]);             
                 newSpellProjectile.SetProjectileLifeTime(projectileLifeTime);
-                newSpellProjectile.SetProjectileSpeedy(projectileSpeedy);
-                newSpellProjectile.SetProjectileAreaDamage(projectileAreaDamage);
-                newSpellProjectile.SetProjectileAreaRadius(projectileAreaRadius);
+                newSpellProjectile.SetProjectileSpeedy(spellStats[1]);
+                newSpellProjectile.SetProjectileAreaDamage(spellStats[4]);
+                newSpellProjectile.SetProjectileAreaRadius(spellStats[7]);
             }
         }
         else

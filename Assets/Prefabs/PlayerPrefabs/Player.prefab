@@ -102,7 +102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1485918738287782
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1858114238464604
 GameObject:
   m_ObjectHideFlags: 1
@@ -205,7 +205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1939358230086684
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,20 +800,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57cec990729cffe43a5b1ed9c93687e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSpeedz: 5
-  _projectileSpeedy: 2
-  _projectileRotationSpeed: 5
-  _projectileDamage: 50
+  swordStats:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  saveSwordStats:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   _projectileLifeTime: 6
-  _shotInterval: 4
-  _meleeDamage: 10
-  _criticalChance: 0.25
   _shotCounter: 1
   maxRoll: 100
   swordProjectile: {fileID: 114162755879518120, guid: 341fc33654ec31141b1de7e306762e69,
     type: 2}
   firePoint: {fileID: 4817517589181596}
-  sword: {fileID: 0}
+  sword: {fileID: 11400000, guid: 14e8bbbe34aaebf4fad822256c8cfa53, type: 2}
 --- !u!114 &114213797834605406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -825,6 +840,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5098acbfc5dd17b4aa8119bdc7689adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterStatsArr:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   nextAxeShot: 0
   nextSwordShot: 0
   nextSpellShot: 0
@@ -862,19 +884,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575c4c8258d96344dad87b23f0652daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeedz: 2
-  projectileSpeedy: 0
-  projectileRotationSpeed: 0
-  projectileAreaDamage: 25
+  spellStats:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  saveSpellStats:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   projectileLifeTime: 8
-  shotInterval: 8
   shotCounter: 1
-  spellCost: 25
-  projectileAreaRadius: 5
   fireballSpell: {fileID: 114697096427151202, guid: ba8271cd33617394ba728fe667bbc8fe,
     type: 2}
   firePoint: {fileID: 4817517589181596}
-  spell: {fileID: 0}
+  spell: {fileID: 11400000, guid: 58f30c1939a86a14da9ac9f5637e5064, type: 2}
 --- !u!114 &114345405520021118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -897,17 +934,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1e966e1ff28ce48803fbc6c8a7a692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeedz: 1
-  projectileSpeedy: 0.6
-  projectileRotationSpeed: 8
-  projectileDamage: 25
+  axeStats:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  saveAxeStats:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   projectileLifeTime: 4
-  shotInterval: 1
   shotCounter: 1
+  maxRoll: 100
   projectile: {fileID: 114416311407498326, guid: 1d69f3d20cf96d54c87f62a690fa4144,
     type: 2}
   firePoint: {fileID: 4817517589181596}
-  axe: {fileID: 0}
+  axe: {fileID: 11400000, guid: 744d77501b31d3a4da484668d5d3877f, type: 2}
 --- !u!114 &114710668392622670
 MonoBehaviour:
   m_ObjectHideFlags: 1

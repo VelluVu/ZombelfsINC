@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1366944447280928}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 101.68, y: 11.12, z: 85.98}
+  m_LocalPosition: {x: 105.4, y: 10.83, z: 132.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4475430630807888}
@@ -165,7 +165,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637ece5f29eda1945ac716927d9130b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: {fileID: 11400000, guid: b141a1aceacb2824c9be843af9926db7, type: 2}
+  power:
+  - {fileID: 11400000, guid: 7a32ef873e6d04f428a4ea30a481ebc7, type: 2}
+  - {fileID: 11400000, guid: bc347ba10d5b6ca4c82beda0ea984baa, type: 2}
+  - {fileID: 11400000, guid: b141a1aceacb2824c9be843af9926db7, type: 2}
+  characterStatboosts: []
+  axeSkillBoosts: []
+  swordSkillBoosts: []
+  spellSkillBoosts: []
+  statB: 0
+  axeB: 0
+  swordB: 0
+  spellB: 0
 --- !u!135 &135869338258037786
 SphereCollider:
   m_ObjectHideFlags: 1

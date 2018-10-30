@@ -20,9 +20,9 @@ MonoBehaviour:
   projectileRotationSpeed: 5
   projectileDamage: 75
   projectileLifeTime: 5
-  projectileAreaRadius: 0
-  projectileAreaDamage: 0
-  spellCost: 0
+  projectileAreaRadius: 1
+  projectileAreaDamage: 1
+  spellCost: 1
   shotInterval: 2
   meleeDamage: 30
   criticalChance: 0.35

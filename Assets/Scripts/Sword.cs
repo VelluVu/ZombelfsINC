@@ -7,31 +7,50 @@ public class Sword : MonoBehaviour {
     bool isFiring;
     bool changeSword;
 
-    public float _projectileSpeedz;
-    public float _projectileSpeedy;
-    public float _projectileRotationSpeed;
-    public float _projectileDamage;
+    public float[] swordStats = new float[10];
+    public float[] saveSwordStats = new float[10];
+
     public float _projectileLifeTime;
-    public float _shotInterval; 
-    public float _meleeDamage;
-    public float _criticalChance;
     public float _shotCounter = 1;
     public float maxRoll = 100;
+    
 
     public SwordProjectile swordProjectile;
     public Transform firePoint;
     public Equipment sword;
 
+    private void Start()
+    {
+        swordStats = new float[10];
+        saveSwordStats = new float[10];
+        InitializeSword();
+    }
+
     public void InitializeSword()
     {
-        _projectileSpeedz = sword.projectileSpeedz;
-        _projectileSpeedy = sword.projectileSpeedy;
-        _projectileRotationSpeed = sword.projectileRotationSpeed;
-        _projectileDamage = sword.projectileDamage;
-        _projectileLifeTime = sword.projectileLifeTime;
-        _shotInterval = sword.shotInterval;
-        _meleeDamage = sword.meleeDamage;
-        _criticalChance = sword.criticalChance;
+        swordStats[0] = sword.projectileSpeedz;
+        swordStats[1] = sword.projectileSpeedy;
+        swordStats[2] = sword.projectileRotationSpeed;
+        swordStats[3] = sword.projectileDamage;
+        swordStats[4] = sword.projectileAreaDamage;
+        swordStats[5] = sword.shotInterval;
+        swordStats[6] = sword.spellCost;
+        swordStats[7] = sword.projectileAreaRadius;
+        swordStats[8] = sword.meleeDamage;
+        swordStats[9] = sword.criticalChance;
+
+        for (int i = 0; i < swordStats.Length; i++)
+        {
+            saveSwordStats[i] = swordStats[i];
+        }
+    }
+
+    public void LoadSwordStats()
+    {
+        for (int i = 0; i < saveSwordStats.Length; i++)
+        {
+            swordStats[i] = saveSwordStats[i];
+        }
     }
 
     public void SetSwordIsFiring(bool firing)
@@ -48,7 +67,7 @@ public class Sword : MonoBehaviour {
 
     public float GetShotInterval()
     {
-        return _shotInterval;
+        return swordStats[5];
     }
 
     private void Update()
@@ -71,15 +90,15 @@ public class Sword : MonoBehaviour {
             {
 
                 
-                _shotCounter = _shotInterval;
+                _shotCounter = swordStats[5];
                 SwordProjectile newSwordProjectile = Instantiate(swordProjectile, firePoint.position, firePoint.rotation) as SwordProjectile;
                 Debug.Log(swordProjectile + "Thrown");
-                FindObjectOfType<SwordSkillImage>().SetSwordCD(_shotInterval);
-                newSwordProjectile.SetProjectileSpeedz(_projectileSpeedz);
-                newSwordProjectile.SetProjectileRotationSpeed(_projectileRotationSpeed);
-                newSwordProjectile.SetProjectileDamage(_projectileDamage, _criticalChance, maxRoll);
+                FindObjectOfType<SwordSkillImage>().SetSwordCD(swordStats[5]);
+                newSwordProjectile.SetProjectileSpeedz(swordStats[0]);
+                newSwordProjectile.SetProjectileRotationSpeed(swordStats[2]);
+                newSwordProjectile.SetProjectileDamage(swordStats[3], swordStats[9], maxRoll);
                 newSwordProjectile.SetProjectileLifeTime(_projectileLifeTime);
-                newSwordProjectile.SetProjectileSpeedy(_projectileSpeedy);
+                newSwordProjectile.SetProjectileSpeedy(swordStats[1]);
             }
         }
         else
@@ -93,7 +112,7 @@ public class Sword : MonoBehaviour {
         if (other.tag == "Enemy")
         {
             if (other.GetComponent<CapsuleCollider>())
-                other.GetComponent<EnemyBase>().EnemyTakeDamage(_meleeDamage, false);
+                other.GetComponent<EnemyBase>().EnemyTakeDamage(swordStats[8], false);
         }
        
     }  

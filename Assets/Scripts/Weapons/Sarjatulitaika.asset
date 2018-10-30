@@ -16,13 +16,13 @@ MonoBehaviour:
   isDefaultItem: 0
   equipSlot: 2
   projectileSpeedz: 4
-  projectileSpeedy: 0
+  projectileSpeedy: 1
   projectileRotationSpeed: 2
-  projectileDamage: 0
+  projectileDamage: 1
   projectileLifeTime: 5
   projectileAreaRadius: 1
   projectileAreaDamage: 10
   spellCost: 2.5
   shotInterval: 0.2
-  meleeDamage: 0
-  criticalChance: 0
+  meleeDamage: 1
+  criticalChance: 1

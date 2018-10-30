@@ -13,6 +13,8 @@ public class CharacterControl : MonoBehaviour {
     float jumpForce;
     float rotationSpeed;
 
+    public float[] characterStatsArr = new float[6];
+
     float maxHealth;
     float currentHealth;
     public float nextAxeShot;
@@ -22,7 +24,6 @@ public class CharacterControl : MonoBehaviour {
     float currentMana;
     float replenishM;
     float replenishH;
-
     int curSkill;
 
     bool onGround;
@@ -111,6 +112,7 @@ public class CharacterControl : MonoBehaviour {
 
     private void Start()
     {
+        characterStatsArr = new float[6];
         stats = gameObject.GetComponent<CharacterStats>();
         Time.timeScale = 1;
         //weaponSwitch = gameObject.GetComponentInChildren<WeaponSwitch>();
@@ -143,8 +145,29 @@ public class CharacterControl : MonoBehaviour {
         replenishH = stats.replenishH;
         backwardsMoveSpeed = stats.BackwardsMoveSpeed;
         diagonalMovementSpeed = stats.diagonalMovementSpeed;
+
+        InitCharStatArr();
+
     }
 
+    public void InitCharStatArr()
+    {
+        characterStatsArr[0] = maxHealth;
+        characterStatsArr[1] = maxMana;
+        characterStatsArr[2] = moveSpeed;
+        characterStatsArr[3] = replenishM;
+        characterStatsArr[4] = replenishH;
+        characterStatsArr[5] = jumpForce;
+        
+    }
+    /*
+     * characterStatboosts[0] = power[i].healthBoost;
+                    characterStatboosts[1] = power[i].manaBoost;
+                    characterStatboosts[2] = power[i].speedBoost;
+                    characterStatboosts[3] = power[i].manaRegenBoost;
+                    characterStatboosts[4] = power[i].healthRegenBoost;
+                    characterStatboosts[5] = power[i].jumpForceBoost;                 
+     */
     private void Update()
     {
         /*if (EventSystem.current.IsPointerOverGameObject())
