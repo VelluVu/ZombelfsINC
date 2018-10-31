@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterStats : GlobalStats {
    
-    public float maxMana = 100;
+    public float maxMana;
     public float replenishM;
     public float BackwardsMoveSpeed;
     public float diagonalMovementSpeed;
@@ -14,5 +14,6 @@ public class CharacterStats : GlobalStats {
     public float currentCharacterLevel;
     public float maxCharacterLevel;
     public float replenishH;
+
 }
 

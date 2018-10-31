@@ -1,27 +1,45 @@
 ﻿
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PowerPickUp : Interactable
 {
 
-    public float[] characterStatboosts;
-    public float[] weaponBoost;
-    public bool statB;
-    public bool axeB;
-    public bool swordB;
-    public bool spellB;
+    public StatPower charBoost;
+    public AxePower axeBoost;
+    public SwordPower swordBoost;
+    public SpellPower spellBoost;
+    public Canvas canvas;
     float powerUpDuration;
-    CharacterControl characterBoost;
-
-    //sorry about this it was late night and bad sleep...
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && charBoost )
         {
             
-            characterBoost = other.GetComponent<CharacterControl>();
+            StartCoroutine(PickUp(other));
+        }
+
+        if (other.CompareTag("Player") && axeBoost)
+        {
+            WeaponSwitch switchWep = other.GetComponentInChildren<WeaponSwitch>();
+            switchWep.SwitchToThisWep(0);
+            StartCoroutine(PickUp(other));
+        }
+
+        if (other.CompareTag("Player") && swordBoost)
+        {
+            WeaponSwitch switchWep = other.GetComponentInChildren<WeaponSwitch>();
+            switchWep.SwitchToThisWep(1);
+            StartCoroutine(PickUp(other));
+
+        }
+
+        if (other.CompareTag("Player") && spellBoost)
+        {
+            WeaponSwitch switchWep = other.GetComponentInChildren<WeaponSwitch>();
+            switchWep.SwitchToThisWep(2);
             StartCoroutine(PickUp(other));
         }
     }
@@ -30,136 +48,126 @@ public class PowerPickUp : Interactable
     {
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         gameObject.GetComponent<Collider>().enabled = false;
-        gameObject.GetComponent<ParticleSystem>().Stop();
+        gameObject.GetComponent<ParticleSystem>().Stop();       
+        CharacterStats stats = other.GetComponent<CharacterStats>();
+        Axe axe = other.GetComponentInChildren<Axe>();
+        Sword sword = other.GetComponentInChildren<Sword>();
+        Spell spell = other.GetComponentInChildren<Spell>();
 
-
-
-        yield return new WaitForSeconds(powerUpDuration);
-
-        Destroy(gameObject);
-        /*for (int i = 0; i < power.Length; i++)
+        if (charBoost != null)
         {
+            Destroy(Instantiate(charBoost.pickUpEffect, gameObject.transform.position, Quaternion.identity),3f);
+            Destroy(Instantiate(charBoost.pickUpSound, gameObject.transform.position, Quaternion.identity), 3f);
 
+            GameObject aPText = Instantiate(charBoost.pickUpText) as GameObject;
+            aPText.transform.SetParent(canvas.transform, false);
+            aPText.transform.localScale *= 0.1f;
+            aPText.GetComponent<Text>().text = charBoost.name;
+            Destroy(aPText, 2f);
 
-            if (power[i].statBooster)
+            powerUpDuration = charBoost.boostDuration;
+            stats.maxHealth += charBoost.healthBoost;
+            stats.maxMana += charBoost.manaBoost;
+            stats.moveSpeed += charBoost.speedBoost;
+            stats.jumpForce += charBoost.jumpForceBoost;
+            stats.replenishH += charBoost.healthRegenBoost;
+            stats.replenishM += charBoost.manaRegenBoost;
+
+        }
+        else if (axeBoost != null)
+        {
+            Destroy(Instantiate(axeBoost.pickUpEffect, gameObject.transform.position, Quaternion.identity), 3f);
+            Destroy(Instantiate(axeBoost.pickUpSound, gameObject.transform.position, Quaternion.identity), 3f);
+
+            GameObject aPText = Instantiate(axeBoost.pickUpText) as GameObject;
+            aPText.transform.SetParent(canvas.transform, false);
+            aPText.transform.localScale *= 0.1f;
+            aPText.GetComponent<Text>().text = axeBoost.name;          
+            Destroy(aPText,2f);
+
+            powerUpDuration = axeBoost.boostDuration;  
+            
+            for (int i = 0; i < axe.axeStats.Length; i++)
             {
-                characterStatboosts[0] = power[i].healthBoost;
-                characterStatboosts[1] = power[i].manaBoost;
-                characterStatboosts[2] = power[i].speedBoost;
-                characterStatboosts[3] = power[i].manaRegenBoost;
-                characterStatboosts[4] = power[i].healthRegenBoost;
-                characterStatboosts[5] = power[i].jumpForceBoost;
-                powerUpDuration = power[i].boostDuration;
-
-                statB = true;
+                //Debug.Log("BOOSTED BY   " + axeBoost.GetAxeBoostArray()[i]);
                 
-                
-            }
-            else if (power[i].axeBoost)
-            {
-                axeSkillBoosts[0] = power[i].speedzBoost;
-                axeSkillBoosts[1] = power[i].speedyBoost;
-                axeSkillBoosts[2] = power[i].rotationSpeedBoost;
-                axeSkillBoosts[3] = power[i].damageBoost;
-                axeSkillBoosts[4] = power[i].areaDamageBoost;
-                axeSkillBoosts[5] = power[i].shotIntervalBoost;
-                axeSkillBoosts[6] = power[i].spellCostBoost;
-                axeSkillBoosts[7] = power[i].areaRadiusBoost;
-                axeSkillBoosts[8] = power[i].meleeDamageBoost;
-                axeSkillBoosts[9] = power[i].criticalChanceBoost;
-                powerUpDuration = power[i].boostDuration;
+                axe.axeStats[i] *= axeBoost.GetAxeBoostArray()[i];
 
-                axeB = true;
-                
-               
-            }
-            else if (power[i].swordBoost)
-            {
-                swordSkillBoosts[0] = power[i].speedzBoost;
-                swordSkillBoosts[1] = power[i].speedyBoost;
-                swordSkillBoosts[2] = power[i].rotationSpeedBoost;
-                swordSkillBoosts[3] = power[i].damageBoost;
-                swordSkillBoosts[4] = power[i].areaDamageBoost;
-                swordSkillBoosts[5] = power[i].shotIntervalBoost;
-                swordSkillBoosts[6] = power[i].spellCostBoost;
-                swordSkillBoosts[7] = power[i].areaRadiusBoost;
-                swordSkillBoosts[8] = power[i].meleeDamageBoost;
-                swordSkillBoosts[9] = power[i].criticalChanceBoost;
-                powerUpDuration = power[i].boostDuration;
-
-                swordB = true;
-               
-                
-            }
-            else if (power[i].spellBoost)
-            {
-                spellSkillBoosts[0] = power[i].speedzBoost;
-                spellSkillBoosts[1] = power[i].speedyBoost;
-                spellSkillBoosts[2] = power[i].rotationSpeedBoost;
-                spellSkillBoosts[3] = power[i].damageBoost;
-                spellSkillBoosts[4] = power[i].areaDamageBoost;
-                spellSkillBoosts[5] = power[i].shotIntervalBoost;
-                spellSkillBoosts[6] = power[i].spellCostBoost;
-                spellSkillBoosts[7] = power[i].areaRadiusBoost;
-                spellSkillBoosts[8] = power[i].meleeDamageBoost;
-                spellSkillBoosts[9] = power[i].criticalChanceBoost;
-                powerUpDuration = power[i].boostDuration;
-
-                spellB = true;
-               
-                
-            }
-
-            if (statB)
-            {
-                for (int y = 0; y < characterStatboosts.Length; y++)
-                {
-                    characterBoost.characterStatsArr[y] += characterStatboosts[y];
-                }
-            }
-            else if (axeB)
-            {
-                for (int z = 0; z < axeSkillBoosts.Length; z++)
-                {
-                    characterBoost.axe.axeStats[z] *= axeSkillBoosts[z];
-                }
-            }
-            else if (swordB)
-            {
-                for (int r = 0; r < swordSkillBoosts.Length; r++)
-                {
-                    characterBoost.sword.swordStats[r] *= swordSkillBoosts[r];
-                }
-            }
-            else if (spellB)
-            {
-                for (int f = 0; f < spellSkillBoosts.Length; f++)
-                {
-                    characterBoost.spell.spellStats[f] *= spellSkillBoosts[f];
-                }
+                //Debug.Log("AFTER BOOST VALUE  " + axe.axeStats[i]);
             }
             
+
         }
-       
+        else if (swordBoost != null)
+        {
+            Destroy(Instantiate(swordBoost.pickUpEffect, gameObject.transform.position, Quaternion.identity), 3f);
+            Destroy(Instantiate(swordBoost.pickUpSound, gameObject.transform.position, Quaternion.identity), 3f);
+
+            GameObject aPText = Instantiate(swordBoost.pickUpText) as GameObject;
+            aPText.transform.SetParent(canvas.transform, false);
+            aPText.transform.localScale *= 0.1f;
+            aPText.GetComponent<Text>().text = swordBoost.name;
+            Destroy(aPText, 2f);
+
+            powerUpDuration = swordBoost.boostDuration;
+
+                for (int i = 0; i < sword.swordStats.Length; i++)
+                {
+                    //Debug.Log("BOOSTED BY   " + swordBoost.GetSwordBoostArray()[i]);
+
+                    sword.swordStats[i] *= swordBoost.GetSwordBoostArray()[i];
+
+                    //Debug.Log("AFTER BOOST VALUE  " + sword.swordStats[i]);
+
+                }
+            
+        }
+        else if (spellBoost != null)
+        {
+
+            Destroy(Instantiate(spellBoost.pickUpEffect, gameObject.transform.position, Quaternion.identity), 3f);
+            Destroy(Instantiate(spellBoost.pickUpSound, gameObject.transform.position, Quaternion.identity), 3f);
+
+            GameObject aPText = Instantiate(spellBoost.pickUpText) as GameObject;
+            aPText.transform.SetParent(canvas.transform, false);
+            aPText.transform.localScale *= 0.1f;
+            aPText.GetComponent<Text>().text = spellBoost.name;
+            Destroy(aPText, 2f);
+
+            powerUpDuration = spellBoost.boostDuration;
+          
+            for (int i = 0; i < spell.spellStats.Length; i++)
+            {
+                //Debug.Log("BOOSTED BY   " + spellBoost.GetSpellBoostArray()[i]);
+
+                spell.spellStats[i] *= spellBoost.GetSpellBoostArray()[i];
+
+                //Debug.Log("AFTER BOOST VALUE  " + spell.spellStats[i]);
+            }
+        }
+    
 
         yield return new WaitForSeconds(powerUpDuration);
 
-        if (statB)
+        if (axeBoost != null)
+            axe.LoadAxeStats();
+        else if (swordBoost != null)
+            sword.LoadSwordStats();
+        else if (spellBoost != null)
+            spell.LoadSpellStats();
+        else if (charBoost != null)
         {
-            characterBoost.ResetStats();
+            stats.maxHealth -= charBoost.healthBoost;
+            stats.maxMana -= charBoost.manaBoost;
+            stats.moveSpeed -= charBoost.speedBoost;
+            stats.jumpForce -= charBoost.jumpForceBoost;
+            stats.replenishH -= charBoost.healthRegenBoost;
+            stats.replenishM -= charBoost.manaRegenBoost;
         }
-        if (axeB)
-        {
-            characterBoost.axe.LoadAxeStats();
-        }
-        if (swordB)
-        {
-            characterBoost.sword.LoadSwordStats();
-        }
-        if (spellB)
-        {
-            characterBoost.spell.LoadSpellStats();
-        }*/
+            
+
+        Destroy(gameObject);
+        
 
     }
     

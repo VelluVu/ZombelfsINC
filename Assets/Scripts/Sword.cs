@@ -7,8 +7,8 @@ public class Sword : MonoBehaviour {
     bool isFiring;
     bool changeSword;
 
-    public float[] swordStats = new float[10];
-    public float[] saveSwordStats = new float[10];
+    public float[] swordStats;
+    public float[] saveSwordStats;
 
     public float _projectileLifeTime;
     public float _shotCounter = 1;
@@ -47,7 +47,7 @@ public class Sword : MonoBehaviour {
 
     public void LoadSwordStats()
     {
-        for (int i = 0; i < saveSwordStats.Length; i++)
+        for (int i = 0; i < swordStats.Length; i++)
         {
             swordStats[i] = saveSwordStats[i];
         }

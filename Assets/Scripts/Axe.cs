@@ -7,8 +7,8 @@ public class Axe : MonoBehaviour {
     bool isFiring;
     bool axeChanged;
 
-    public float[] axeStats = new float[10];
-    public float[] saveAxeStats = new float[10];
+    public float[] axeStats;
+    public float[] saveAxeStats;
 
     public float projectileLifeTime;
     public float shotCounter = 1;
@@ -46,14 +46,16 @@ public class Axe : MonoBehaviour {
         for (int i = 0; i < axeStats.Length; i++)
         {
             saveAxeStats[i] = axeStats[i];
+            Debug.Log("SAVED AXESTATS: " + saveAxeStats[i]);
         }
     }
 
     public void LoadAxeStats()
     {
-        for (int i = 0; i < saveAxeStats.Length; i++)
+        for (int i = 0; i < axeStats.Length; i++)
         {
             axeStats[i] = saveAxeStats[i];
+            Debug.Log("LOADED AXESTAT :  " + axeStats[i]);
         }
     }
     

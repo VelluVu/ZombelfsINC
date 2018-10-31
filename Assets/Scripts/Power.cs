@@ -8,30 +8,7 @@ public class Power : ScriptableObject {
     public Sprite icon = null;
     public GameObject pickUpEffect;
     public GameObject pickUpSound;
-
-    //boost char stats:
-    
-    /*
-    public float healthBoost;
-    public float manaBoost;
-    public float speedBoost;
-    public float manaRegenBoost;
-    public float healthRegenBoost;
-    public float jumpForceBoost;
+    public GameObject pickUpText;
     public float boostDuration;
 
-    //boost weapon power:
-
-    public float speedzBoost;
-    public float speedyBoost;
-    public float rotationSpeedBoost;
-    public float damageBoost;
-    public float areaDamageBoost;
-    public float shotIntervalBoost;
-    public float spellCostBoost;
-    public float areaRadiusBoost;
-    public float meleeDamageBoost;
-    public float criticalChanceBoost;
-    */
- 
 }

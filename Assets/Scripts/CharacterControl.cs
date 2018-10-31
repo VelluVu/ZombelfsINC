@@ -7,28 +7,17 @@ using UnityEngine.UI;
 
 public class CharacterControl : MonoBehaviour {
 
-    float moveSpeed;
-    float backwardsMoveSpeed;
-    float diagonalMovementSpeed;
-    float jumpForce;
-    float rotationSpeed;
-
-    public float[] characterStatsArr = new float[6];
-
-    float maxHealth;
-    float currentHealth;
-    public float nextAxeShot;
-    public float nextSwordShot;
-    public float nextSpellShot;
-    float maxMana;
-    float currentMana;
-    float replenishM;
-    float replenishH;
     int curSkill;
 
     bool onGround;
     bool recentlyShot;
-    
+
+    public float currentHealth;
+    public float currentMana;
+
+    public float nextSpellShot;
+    public float nextSwordShot;
+    public float nextAxeShot;
     public bool swordCdReady;
     public bool axeCdReady;
     public bool spellCdReady;
@@ -47,59 +36,6 @@ public class CharacterControl : MonoBehaviour {
     public GameObject loseSound;
     CharacterStats stats;
 
-    //WeaponSwitch weaponSwitch;
-    public void SpeedUp(float speedP)
-    {
-        moveSpeed *= speedP;
-        backwardsMoveSpeed *= speedP;
-        diagonalMovementSpeed *= speedP; 
-        rotationSpeed *= speedP;
-    }
-
-    public void IncreaseJump(float jumpP)
-    {
-        jumpForce += jumpP;
-    }
-
-    public void IncrementMaxHealth(float upHp)
-    {
-        maxHealth += upHp;
-    }
-
-    public void HealHealth(float heal)
-    {
-        if (currentHealth <= maxHealth)
-        {
-            currentHealth += heal;
-        }
-    }
-
-    public float GetCurrentMana()
-    {
-        return currentMana;
-    }
-
-    public void IncrementMaxMana(float upMana)
-    {
-        maxMana += upMana;
-    }
-
-    public void ReplenishMana(float replenishMana)
-    {
-        if (currentMana <= maxMana)
-        {
-            currentMana += replenishMana;
-        }
-    }
-
-    public void ReplenishHealth(float replenishHealth)
-    {
-        if (currentHealth <= maxHealth)
-        {
-            currentHealth += replenishHealth;
-        }
-    }
-
     public bool GetSwordCd()
     {
         return swordCdReady;
@@ -112,62 +48,19 @@ public class CharacterControl : MonoBehaviour {
 
     private void Start()
     {
-        characterStatsArr = new float[6];
+        rb = gameObject.GetComponent<Rigidbody>();
+        cam = GameObject.FindGameObjectWithTag("TopDown").GetComponent<Camera>();
         stats = gameObject.GetComponent<CharacterStats>();
-        Time.timeScale = 1;
-        //weaponSwitch = gameObject.GetComponentInChildren<WeaponSwitch>();
-        backwardsMoveSpeed = stats.BackwardsMoveSpeed;
-        diagonalMovementSpeed = stats.diagonalMovementSpeed;
+
+        currentHealth = stats.maxHealth;
+        currentMana = stats.maxMana;
+        Time.timeScale = 1;        
         swordCdReady = true;
         axeCdReady = true;
         spellCdReady = true;
-        maxMana = stats.maxMana;
-        maxHealth = stats.maxHealth;           
-        currentMana = maxMana;
-        currentHealth = maxHealth;
-        jumpForce = stats.jumpForce;
-        moveSpeed = stats.moveSpeed;
-        rotationSpeed = stats.rotationSpeed;
-        replenishM = stats.replenishM;
-        replenishH = stats.replenishH;
-        rb = gameObject.GetComponent<Rigidbody>();
-        cam = GameObject.FindGameObjectWithTag("TopDown").GetComponent<Camera>();      
-    }
-
-    public void ResetStats()
-    {
-        maxMana = stats.maxMana;
-        jumpForce = stats.jumpForce;
-        moveSpeed = stats.moveSpeed;
-        rotationSpeed = stats.rotationSpeed;
-        replenishM = stats.replenishM;
-        maxHealth = stats.maxHealth;
-        replenishH = stats.replenishH;
-        backwardsMoveSpeed = stats.BackwardsMoveSpeed;
-        diagonalMovementSpeed = stats.diagonalMovementSpeed;
-
-        InitCharStatArr();
-
-    }
-
-    public void InitCharStatArr()
-    {
-        characterStatsArr[0] = maxHealth;
-        characterStatsArr[1] = maxMana;
-        characterStatsArr[2] = moveSpeed;
-        characterStatsArr[3] = replenishM;
-        characterStatsArr[4] = replenishH;
-        characterStatsArr[5] = jumpForce;
         
     }
-    /*
-     * characterStatboosts[0] = power[i].healthBoost;
-                    characterStatboosts[1] = power[i].manaBoost;
-                    characterStatboosts[2] = power[i].speedBoost;
-                    characterStatboosts[3] = power[i].manaRegenBoost;
-                    characterStatboosts[4] = power[i].healthRegenBoost;
-                    characterStatboosts[5] = power[i].jumpForceBoost;                 
-     */
+
     private void Update()
     {
         /*if (EventSystem.current.IsPointerOverGameObject())
@@ -175,9 +68,10 @@ public class CharacterControl : MonoBehaviour {
             return;
         }*/
 
-        healthPool.fillAmount = currentHealth / maxHealth;
-        manaPool.fillAmount = currentMana / maxMana;
+        healthPool.fillAmount = currentHealth / stats.maxHealth;
+        manaPool.fillAmount = currentMana / stats.maxMana;
         PassiveManaRegen();
+        PassiveHealthRegen();
         CharacterMovement();
         CharacterDirection();
         BasicAttack();
@@ -186,33 +80,42 @@ public class CharacterControl : MonoBehaviour {
   
     public void PassiveManaRegen()
     {
-        if (currentMana <= maxMana)
+        if (currentMana <= stats.maxMana)
         {
-            currentMana += replenishM * Time.deltaTime;
-            //Debug.Log("regen mana: " + replenishM * Time.deltaTime);
+            currentMana += stats.replenishM * Time.deltaTime;
+            
+        }
+    }
+
+    public void PassiveHealthRegen()
+    {
+        if (currentHealth <= stats.maxHealth)
+        {
+            currentHealth += stats.replenishH * Time.deltaTime;
+
         }
     }
 
     //Make character move with default horizontal and vertical buttons
     private void CharacterMovement()
     {
-        float xMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+        float xMovement = Input.GetAxis("Horizontal") * stats.moveSpeed * Time.deltaTime;
         
-        float zMovement = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        float zMovement = Input.GetAxis("Vertical") * stats.moveSpeed * Time.deltaTime;
 
         if (xMovement > 0 && zMovement > 0 || xMovement < 0 && zMovement > 0)
         {
-            xMovement *= diagonalMovementSpeed;
+            xMovement *= stats.diagonalMovementSpeed;
         }
 
         if (xMovement < 0 && zMovement < 0 || xMovement > 0 && zMovement < 0)
         {
-            xMovement *= backwardsMoveSpeed;
+            xMovement *= stats.diagonalMovementSpeed;
         }
          
         if (zMovement <= 0)
         {
-            zMovement *= backwardsMoveSpeed;
+            zMovement *= stats.diagonalMovementSpeed;
         }
         transform.Translate(xMovement, 0, zMovement);
     }
@@ -233,7 +136,7 @@ public class CharacterControl : MonoBehaviour {
                 Vector3 pointToLook = cameraRay.GetPoint(rayLength);
                 Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
                 Quaternion targetRotation = Quaternion.LookRotation(pointToLook - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * stats.rotationSpeed);
                 //transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
                 
                 
@@ -387,7 +290,7 @@ public class CharacterControl : MonoBehaviour {
     {
         if (Input.GetButtonDown("Jump") && onGround)
         {
-            rb.AddForce(0,jumpForce,0, ForceMode.Impulse);
+            rb.AddForce(0, stats.jumpForce,0, ForceMode.Impulse);
         }
     }
 

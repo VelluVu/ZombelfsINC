@@ -7,8 +7,8 @@ public class Spell : MonoBehaviour {
     bool isFiring;
     bool spellChanged;
 
-    public float[] spellStats = new float[10];
-    public float[] saveSpellStats = new float[10];
+    public float[] spellStats;
+    public float[] saveSpellStats;
 
     public float projectileLifeTime;
     public float shotCounter;
@@ -22,6 +22,11 @@ public class Spell : MonoBehaviour {
         spellStats = new float[10];
         saveSpellStats = new float[10];
         InitializeSpell();
+    }
+
+    public void PowerUp(float[] mods)
+    {
+        
     }
 
     public void InitializeSpell()
@@ -45,7 +50,7 @@ public class Spell : MonoBehaviour {
 
     public void LoadSpellStats()
     {
-        for (int i = 0; i < saveSpellStats.Length; i++)
+        for (int i = 0; i < spellStats.Length; i++)
         {
             spellStats[i] = saveSpellStats[i];
         }
@@ -82,7 +87,7 @@ public class Spell : MonoBehaviour {
         if (isFiring)
         {
             shotCounter -= Time.deltaTime;
-            if (shotCounter <= 0 && FindObjectOfType<CharacterControl>().GetCurrentMana() >= spellStats[6])
+            if (shotCounter <= 0 && FindObjectOfType<CharacterControl>().currentMana >= spellStats[6])
             {
                 shotCounter = spellStats[5];
                 Fireball newSpellProjectile = Instantiate(fireballSpell, firePoint.position, firePoint.rotation) as Fireball;

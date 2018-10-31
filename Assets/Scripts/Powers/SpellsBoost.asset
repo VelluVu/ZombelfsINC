@@ -9,19 +9,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03512439d99c37f48b94700fdf385c7e, type: 3}
-  m_Name: SpellBooster
+  m_Name: SpellsBoost
   m_EditorClassIdentifier: 
-  name: New Power
+  name: HuuugeFireBall
   icon: {fileID: 0}
   pickUpEffect: {fileID: 1318813268618132, guid: 16514479a611efd4fa8cbdda0afda175,
     type: 2}
   pickUpSound: {fileID: 1244564665721242, guid: 8a49da49528c3b54ba464d5dad7c326e,
     type: 2}
+  pickUpText: {fileID: 1701831197598428, guid: 23286dc3037a0e7429dd002465de1e06, type: 2}
+  boostDuration: 5
   speedzBoost: 2
   speedyBoost: 1
   rotationSpeedBoost: 1
   damageBoost: 1
-  areaDamageBoost: 1
+  areaDamageBoost: 5
   shotIntervalBoost: 1
   spellCostBoost: 1
   areaRadiusBoost: 1

@@ -11,5 +11,4 @@ public class StatPower : Power {
     public float manaRegenBoost;
     public float healthRegenBoost;
     public float jumpForceBoost;
-    public float boostDuration;
 }

@@ -15,4 +15,22 @@ public class SpellPower : Power {
     public float areaRadiusBoost;
     public float meleeDamageBoost;
     public float criticalChanceBoost;
+
+    public float[] GetSpellBoostArray()
+    {
+        float[] boostMods = new float[10];
+
+        boostMods[0] = speedzBoost;
+        boostMods[1] = speedyBoost;
+        boostMods[2] = rotationSpeedBoost;
+        boostMods[3] = damageBoost;
+        boostMods[4] = areaDamageBoost;
+        boostMods[5] = shotIntervalBoost;
+        boostMods[6] = spellCostBoost;
+        boostMods[7] = areaRadiusBoost;
+        boostMods[8] = meleeDamageBoost;
+        boostMods[9] = criticalChanceBoost;
+
+        return boostMods;
+    }
 }

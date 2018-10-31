@@ -31,6 +31,16 @@ public class WeaponSwitch : MonoBehaviour {
         WeaponSelection();
     }
 
+    public void SwitchToThisWep(int index)
+    {
+        selectedWeapon = index;
+        characterControl.nextAxeShot = 0;
+        characterControl.nextSwordShot = 0;
+        characterControl.nextSpellShot = 0;
+        SelectWeapon();
+
+    }
+
     private void WeaponSelection()
     {
         int previouslySelectedWeapon = selectedWeapon;
@@ -78,7 +88,7 @@ public class WeaponSwitch : MonoBehaviour {
         }
     }
 
-    void SelectWeapon()
+    public void SelectWeapon()
     {
         int i = 0;
 
