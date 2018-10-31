@@ -5,11 +5,8 @@ using UnityEngine;
 public class PowerPickUp : Interactable
 {
 
-    public Power[] power;
-    public float[] characterStatboosts = new float[6];
-    public float[] axeSkillBoosts = new float[10];
-    public float[] swordSkillBoosts = new float[10];
-    public float[] spellSkillBoosts = new float[10];
+    public float[] characterStatboosts;
+    public float[] weaponBoost;
     public bool statB;
     public bool axeB;
     public bool swordB;
@@ -18,15 +15,7 @@ public class PowerPickUp : Interactable
     CharacterControl characterBoost;
 
     //sorry about this it was late night and bad sleep...
-    private void Start()
-    {
-        power = new Power[3];
-        characterStatboosts = new float[6];
-        axeSkillBoosts = new float[10];
-        swordSkillBoosts = new float[10];
-        spellSkillBoosts = new float[10];
-    }
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -43,7 +32,12 @@ public class PowerPickUp : Interactable
         gameObject.GetComponent<Collider>().enabled = false;
         gameObject.GetComponent<ParticleSystem>().Stop();
 
-        for (int i = 0; i < power.Length; i++)
+
+
+        yield return new WaitForSeconds(powerUpDuration);
+
+        Destroy(gameObject);
+        /*for (int i = 0; i < power.Length; i++)
         {
 
 
@@ -58,7 +52,8 @@ public class PowerPickUp : Interactable
                 powerUpDuration = power[i].boostDuration;
 
                 statB = true;
-                characterBoost.characterStatsArr[i] += characterStatboosts[i];
+                
+                
             }
             else if (power[i].axeBoost)
             {
@@ -75,7 +70,8 @@ public class PowerPickUp : Interactable
                 powerUpDuration = power[i].boostDuration;
 
                 axeB = true;
-                characterBoost.axe.axeStats[i] *= axeSkillBoosts[i];
+                
+               
             }
             else if (power[i].swordBoost)
             {
@@ -92,7 +88,8 @@ public class PowerPickUp : Interactable
                 powerUpDuration = power[i].boostDuration;
 
                 swordB = true;
-                characterBoost.sword.swordStats[i] *= swordSkillBoosts[i];
+               
+                
             }
             else if (power[i].spellBoost)
             {
@@ -109,10 +106,39 @@ public class PowerPickUp : Interactable
                 powerUpDuration = power[i].boostDuration;
 
                 spellB = true;
-                characterBoost.spell.spellStats[i] *= spellSkillBoosts[i];
+               
+                
             }
 
-
+            if (statB)
+            {
+                for (int y = 0; y < characterStatboosts.Length; y++)
+                {
+                    characterBoost.characterStatsArr[y] += characterStatboosts[y];
+                }
+            }
+            else if (axeB)
+            {
+                for (int z = 0; z < axeSkillBoosts.Length; z++)
+                {
+                    characterBoost.axe.axeStats[z] *= axeSkillBoosts[z];
+                }
+            }
+            else if (swordB)
+            {
+                for (int r = 0; r < swordSkillBoosts.Length; r++)
+                {
+                    characterBoost.sword.swordStats[r] *= swordSkillBoosts[r];
+                }
+            }
+            else if (spellB)
+            {
+                for (int f = 0; f < spellSkillBoosts.Length; f++)
+                {
+                    characterBoost.spell.spellStats[f] *= spellSkillBoosts[f];
+                }
+            }
+            
         }
        
 
@@ -133,9 +159,8 @@ public class PowerPickUp : Interactable
         if (spellB)
         {
             characterBoost.spell.LoadSpellStats();
-        }
+        }*/
 
-        Destroy(gameObject);
     }
-
+    
 }

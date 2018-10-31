@@ -8,33 +8,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac4f6257e16b8de4aad05502721eed9d, type: 3}
-  m_Name: SarjaTuli
+  m_Script: {fileID: 11500000, guid: ad568202dd7dc2841a9281f6ee50178f, type: 3}
+  m_Name: New AxePower
   m_EditorClassIdentifier: 
-  name: SarjaTuli
+  name: New Power
   icon: {fileID: 0}
-  statBooster: 0
-  axeBoost: 0
-  swordBoost: 0
-  spellBoost: 0
-  boostAll: 1
   pickUpEffect: {fileID: 1318813268618132, guid: 16514479a611efd4fa8cbdda0afda175,
     type: 2}
   pickUpSound: {fileID: 1244564665721242, guid: 8a49da49528c3b54ba464d5dad7c326e,
     type: 2}
-  healthBoost: 0
-  manaBoost: 300
-  speedBoost: 1
-  manaRegenBoost: 25
-  healthRegenBoost: 1
-  jumpForceBoost: 1
-  boostDuration: 10
   speedzBoost: 1
   speedyBoost: 1
   rotationSpeedBoost: 1
   damageBoost: 1
   areaDamageBoost: 1
-  shotIntervalBoost: 0.2
+  shotIntervalBoost: 1
   spellCostBoost: 1
   areaRadiusBoost: 1
   meleeDamageBoost: 1

@@ -8,34 +8,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac4f6257e16b8de4aad05502721eed9d, type: 3}
-  m_Name: UnlimitedFireBalls
+  m_Script: {fileID: 11500000, guid: ada86772d3ceb8146b9b9529c28d38c3, type: 3}
+  m_Name: New SwordPower
   m_EditorClassIdentifier: 
-  name: Unlimited FireBalls
-  icon: {fileID: 21300004, guid: 0d71dc1615a21124886bdf390f8d7b7f, type: 3}
-  statBooster: 1
-  axeBoost: 0
-  swordBoost: 0
-  spellBoost: 1
-  boostAll: 0
+  name: New Power
+  icon: {fileID: 0}
   pickUpEffect: {fileID: 1318813268618132, guid: 16514479a611efd4fa8cbdda0afda175,
     type: 2}
   pickUpSound: {fileID: 1244564665721242, guid: 8a49da49528c3b54ba464d5dad7c326e,
     type: 2}
-  healthBoost: 2
-  manaBoost: 1000
-  speedBoost: 1
-  manaRegenBoost: 1000
-  healthRegenBoost: 2
-  jumpForceBoost: 5
-  boostDuration: 10
-  speedzBoost: 5
+  speedzBoost: 1
   speedyBoost: 1
   rotationSpeedBoost: 1
   damageBoost: 1
-  areaDamageBoost: 2
-  shotIntervalBoost: 0.1
-  spellCostBoost: 0.2
-  areaRadiusBoost: 2
+  areaDamageBoost: 1
+  shotIntervalBoost: 1
+  spellCostBoost: 1
+  areaRadiusBoost: 1
   meleeDamageBoost: 1
   criticalChanceBoost: 1

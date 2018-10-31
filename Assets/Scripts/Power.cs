@@ -6,15 +6,12 @@ public class Power : ScriptableObject {
 
     new public string name = "New Power";
     public Sprite icon = null;
-    public bool statBooster;
-    public bool axeBoost;
-    public bool swordBoost;
-    public bool spellBoost;
     public GameObject pickUpEffect;
     public GameObject pickUpSound;
 
     //boost char stats:
     
+    /*
     public float healthBoost;
     public float manaBoost;
     public float speedBoost;
@@ -35,5 +32,6 @@ public class Power : ScriptableObject {
     public float areaRadiusBoost;
     public float meleeDamageBoost;
     public float criticalChanceBoost;
+    */
  
 }

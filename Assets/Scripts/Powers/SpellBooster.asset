@@ -8,33 +8,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac4f6257e16b8de4aad05502721eed9d, type: 3}
-  m_Name: JeesusVoimat
+  m_Script: {fileID: 11500000, guid: 03512439d99c37f48b94700fdf385c7e, type: 3}
+  m_Name: SpellBooster
   m_EditorClassIdentifier: 
-  name: JesusForces
-  icon: {fileID: 21300040, guid: 0d71dc1615a21124886bdf390f8d7b7f, type: 3}
-  statBooster: 0
-  axeBoost: 1
-  swordBoost: 0
-  spellBoost: 0
-  boostAll: 0
+  name: New Power
+  icon: {fileID: 0}
   pickUpEffect: {fileID: 1318813268618132, guid: 16514479a611efd4fa8cbdda0afda175,
     type: 2}
   pickUpSound: {fileID: 1244564665721242, guid: 8a49da49528c3b54ba464d5dad7c326e,
     type: 2}
-  healthBoost: 200
-  manaBoost: 200
-  speedBoost: 1
-  manaRegenBoost: 5
-  healthRegenBoost: 5
-  jumpForceBoost: 1
-  boostDuration: 10
   speedzBoost: 2
   speedyBoost: 1
-  rotationSpeedBoost: 2
-  damageBoost: 2
+  rotationSpeedBoost: 1
+  damageBoost: 1
   areaDamageBoost: 1
-  shotIntervalBoost: 0.1
+  shotIntervalBoost: 1
   spellCostBoost: 1
   areaRadiusBoost: 1
   meleeDamageBoost: 1
