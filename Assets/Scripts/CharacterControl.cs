@@ -11,7 +11,9 @@ public class CharacterControl : MonoBehaviour {
 
     bool onGround;
     bool recentlyShot;
-
+    bool isDead;
+    bool isWalking;
+   
     public float currentHealth;
     public float currentMana;
 
@@ -32,6 +34,7 @@ public class CharacterControl : MonoBehaviour {
     public Sword sword;
     public Spell spell;
 
+    public Animator charAnim;
     public GameObject bloodSplit;
     public GameObject loseSound;
     CharacterStats stats;
@@ -58,7 +61,7 @@ public class CharacterControl : MonoBehaviour {
         swordCdReady = true;
         axeCdReady = true;
         spellCdReady = true;
-        
+        isDead = false;
     }
 
     private void Update()
@@ -77,6 +80,8 @@ public class CharacterControl : MonoBehaviour {
         BasicAttack();
         Jump();       
     }
+
+   
   
     public void PassiveManaRegen()
     {
@@ -99,25 +104,40 @@ public class CharacterControl : MonoBehaviour {
     //Make character move with default horizontal and vertical buttons
     private void CharacterMovement()
     {
+
+        if (Input.GetAxis("Horizontal") > 0 && onGround && !isDead || Input.GetAxis("Vertical") > 0 && onGround && !isDead || Input.GetAxis("Horizontal") < 0 && onGround && !isDead || Input.GetAxis("Vertical") < 0 && onGround && !isDead)
+        {
+            charAnim.SetBool("Walk", true);
+            isWalking = true;
+        } else
+        {
+            isWalking = false;
+            charAnim.SetBool("Walk", false);
+        }
+
         float xMovement = Input.GetAxis("Horizontal") * stats.moveSpeed * Time.deltaTime;
         
         float zMovement = Input.GetAxis("Vertical") * stats.moveSpeed * Time.deltaTime;
 
         if (xMovement > 0 && zMovement > 0 || xMovement < 0 && zMovement > 0)
         {
+            
             xMovement *= stats.diagonalMovementSpeed;
         }
-
-        if (xMovement < 0 && zMovement < 0 || xMovement > 0 && zMovement < 0)
+        else if (xMovement < 0 && zMovement < 0 || xMovement > 0 && zMovement < 0)
         {
+            
             xMovement *= stats.diagonalMovementSpeed;
         }
-         
-        if (zMovement <= 0)
+        else if (zMovement <= 0)
         {
+            
             zMovement *= stats.diagonalMovementSpeed;
         }
-        transform.Translate(xMovement, 0, zMovement);
+        if (isWalking && !isDead)
+        {
+            transform.Translate(xMovement, 0, zMovement);
+        }
     }
 
     //Make the Character rotate at the mouse direction or controller
@@ -167,45 +187,53 @@ public class CharacterControl : MonoBehaviour {
         if (!useController)
         {
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextAxeShot)
-            {
-
-                nextAxeShot = Time.time + axe.GetShotInterval();
+            {            
+                nextAxeShot = Time.time + axe.GetShotInterval();               
                 axe.SetAxeIsFiring(true);
                 recentlyShot = true;
+                charAnim.SetTrigger("Attack");
+                charAnim.SetBool("Attacking", true);
 
             }
             else
             {
                 axe.SetAxeIsFiring(false);
                 recentlyShot = false;
+                charAnim.SetBool("Attacking", false);
             }
 
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSwordShot)
             {
-
+                
                 nextSwordShot = Time.time + sword.GetShotInterval();
                 sword.SetSwordIsFiring(true);
                 recentlyShot = true;
+                charAnim.SetTrigger("Attack");
+                charAnim.SetBool("Attacking", true);
 
             }
             else
             {
                 sword.SetSwordIsFiring(false);
                 recentlyShot = false;
+                charAnim.SetBool("Attacking", false);
             }
 
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSpellShot)
             {
-
+                
                 recentlyShot = true;
                 nextSpellShot = Time.time + spell.GetShotInterval();
                 spell.SetSpellIsFiring(true);
+                charAnim.SetTrigger("Attack");
+                charAnim.SetBool("Attacking", true);
 
             }
             else
             {
                 spell.SetSpellIsFiring(false);
                 recentlyShot = false;
+                charAnim.SetBool("Attacking", false);
             }               
 
         }
@@ -214,7 +242,7 @@ public class CharacterControl : MonoBehaviour {
         {
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextAxeShot)
             {
-
+                charAnim.SetTrigger("Attack");
                 nextAxeShot = Time.time + axe.GetShotInterval();
                 axe.SetAxeIsFiring(true);
                 recentlyShot = true;
@@ -228,7 +256,7 @@ public class CharacterControl : MonoBehaviour {
 
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSwordShot)
             {
-
+                charAnim.SetTrigger("Attack");
                 nextSwordShot = Time.time + sword.GetShotInterval();
                 sword.SetSwordIsFiring(true);
                 recentlyShot = true;
@@ -242,7 +270,7 @@ public class CharacterControl : MonoBehaviour {
 
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSpellShot)
             {
-
+                charAnim.SetTrigger("Attack");
                 recentlyShot = true;
                 nextSpellShot = Time.time + spell.GetShotInterval();
                 spell.SetSpellIsFiring(true);
@@ -290,8 +318,9 @@ public class CharacterControl : MonoBehaviour {
     {
         if (Input.GetButtonDown("Jump") && onGround)
         {
+            charAnim.SetTrigger("Jump");
             rb.AddForce(0, stats.jumpForce,0, ForceMode.Impulse);
-        }
+        } 
     }
 
     //Lots of GroundChecking to disallow spamhax jumping
@@ -326,18 +355,30 @@ public class CharacterControl : MonoBehaviour {
 
     public void PlayerTakeDamage(float dmg)
     {
-        currentHealth -= dmg;
-        PlayerDie();
-        Destroy(Instantiate(bloodSplit, transform.position, bloodSplit.transform.rotation),1f);
+        if (!isDead)
+        {
+            currentHealth -= dmg;
+            PlayerDie();
+            Destroy(Instantiate(bloodSplit, transform.position, bloodSplit.transform.rotation), 1f);
+        }
     }
 
     public void PlayerDie()
     {
         if (currentHealth <= 0)
         {
-            Time.timeScale = 0;
+            isDead = true;
+            charAnim.SetBool("Dies", true);          
             FindObjectOfType<CanvasControl>().LoseWindow();
-            Destroy(Instantiate(loseSound), 3f);              
+            Destroy(Instantiate(loseSound), 3f);
+            StartCoroutine(FreezeTime());
         }
+        
+    }
+    
+    IEnumerator FreezeTime()
+    {
+        yield return new WaitForSeconds(4);
+        Time.timeScale = 0;
     }
 }
