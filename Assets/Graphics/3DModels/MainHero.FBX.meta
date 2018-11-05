@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2923dd424967e8a4fa3039b98dde0bc8
+guid: 76c48444bb49d9448bcd851ec2f84a64
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -79,10 +79,10 @@ ModelImporter:
     400070: Bip001 Spine3
     400072: //RootNode
     400074: WizardHero
-    2100000: Cloth
-    2100002: Darkness
-    2100004: Leather
-    2100006: Metal
+    2100000: 'Material #29'
+    2100002: 'Material #30'
+    2100004: 'Material #32'
+    2100006: 'Material #31'
     4300000: WizardHero
     7400000: Idle
     7400002: Walk
@@ -123,14 +123,14 @@ ModelImporter:
       name: Idle
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 33
+      lastFrame: 34
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -150,7 +150,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Walk
       takeName: Take 001
-      firstFrame: 36
+      firstFrame: 35
       lastFrame: 65
       wrapMode: 0
       orientationOffsetY: 0
@@ -158,7 +158,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -207,7 +207,7 @@ ModelImporter:
       name: Die
       takeName: Take 001
       firstFrame: 94
-      lastFrame: 128
+      lastFrame: 126
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -242,7 +242,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

@@ -17,9 +17,11 @@ public class Axe : MonoBehaviour {
     public WhirlingAxe projectile;
     public Transform firePoint;
     public Equipment axe;
+  
 
     private void Start()
     {
+        
         axeStats = new float[10];
         saveAxeStats = new float[10];
         InitializeAxe();
@@ -88,6 +90,7 @@ public class Axe : MonoBehaviour {
             shotCounter -= Time.deltaTime;
             if (shotCounter <= 0)
             {
+                
                 shotCounter = axeStats[5];
                 WhirlingAxe newProjectile = Instantiate(projectile, firePoint.position, firePoint.rotation) as WhirlingAxe;
                 Debug.Log(projectile + "Thrown");
@@ -101,7 +104,8 @@ public class Axe : MonoBehaviour {
         }
         else
         {
-            shotCounter = 0;          
+            shotCounter = 0;
+           
         }
     }
 }

@@ -105,7 +105,7 @@ public class CharacterControl : MonoBehaviour {
     private void CharacterMovement()
     {
 
-        if (Input.GetAxis("Horizontal") > 0 && onGround && !isDead || Input.GetAxis("Vertical") > 0 && onGround && !isDead || Input.GetAxis("Horizontal") < 0 && onGround && !isDead || Input.GetAxis("Vertical") < 0 && onGround && !isDead)
+        if (Input.GetAxis("Horizontal") > 0  && !isDead || Input.GetAxis("Vertical") > 0  && !isDead || Input.GetAxis("Horizontal") < 0  && !isDead || Input.GetAxis("Vertical") < 0  && !isDead)
         {
             charAnim.SetBool("Walk", true);
             isWalking = true;
@@ -191,15 +191,14 @@ public class CharacterControl : MonoBehaviour {
                 nextAxeShot = Time.time + axe.GetShotInterval();               
                 axe.SetAxeIsFiring(true);
                 recentlyShot = true;
-                charAnim.SetTrigger("Attack");
                 charAnim.SetBool("Attacking", true);
-
             }
             else
             {
                 axe.SetAxeIsFiring(false);
                 recentlyShot = false;
                 charAnim.SetBool("Attacking", false);
+
             }
 
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSwordShot)
@@ -208,7 +207,6 @@ public class CharacterControl : MonoBehaviour {
                 nextSwordShot = Time.time + sword.GetShotInterval();
                 sword.SetSwordIsFiring(true);
                 recentlyShot = true;
-                charAnim.SetTrigger("Attack");
                 charAnim.SetBool("Attacking", true);
 
             }
@@ -225,7 +223,6 @@ public class CharacterControl : MonoBehaviour {
                 recentlyShot = true;
                 nextSpellShot = Time.time + spell.GetShotInterval();
                 spell.SetSpellIsFiring(true);
-                charAnim.SetTrigger("Attack");
                 charAnim.SetBool("Attacking", true);
 
             }
@@ -242,44 +239,50 @@ public class CharacterControl : MonoBehaviour {
         {
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextAxeShot)
             {
-                charAnim.SetTrigger("Attack");
+               
                 nextAxeShot = Time.time + axe.GetShotInterval();
                 axe.SetAxeIsFiring(true);
                 recentlyShot = true;
+               
 
             }
             else
             {
                 axe.SetAxeIsFiring(false);
                 recentlyShot = false;
+               
             }
 
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSwordShot)
             {
-                charAnim.SetTrigger("Attack");
+                
                 nextSwordShot = Time.time + sword.GetShotInterval();
                 sword.SetSwordIsFiring(true);
                 recentlyShot = true;
+                
 
             }
             else
             {
                 sword.SetSwordIsFiring(false);
                 recentlyShot = false;
+               
             }
 
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSpellShot)
             {
-                charAnim.SetTrigger("Attack");
+               
                 recentlyShot = true;
                 nextSpellShot = Time.time + spell.GetShotInterval();
                 spell.SetSpellIsFiring(true);
+              
 
             }
             else
             {
                 spell.SetSpellIsFiring(false);
                 recentlyShot = false;
+               
             }
                     
         }
