@@ -190,14 +190,16 @@ public class CharacterControl : MonoBehaviour {
             {            
                 nextAxeShot = Time.time + axe.GetShotInterval();               
                 axe.SetAxeIsFiring(true);
-                recentlyShot = true;
+                recentlyShot = true;              
                 charAnim.SetBool("Attacking", true);
+                charAnim.speed = axe.GetShotInterval();
             }
             else
             {
                 axe.SetAxeIsFiring(false);
                 recentlyShot = false;
                 charAnim.SetBool("Attacking", false);
+                charAnim.speed = 1;
 
             }
 
@@ -206,8 +208,9 @@ public class CharacterControl : MonoBehaviour {
                 
                 nextSwordShot = Time.time + sword.GetShotInterval();
                 sword.SetSwordIsFiring(true);
-                recentlyShot = true;
+                recentlyShot = true;               
                 charAnim.SetBool("Attacking", true);
+                charAnim.speed = sword.GetShotInterval();
 
             }
             else
@@ -215,6 +218,7 @@ public class CharacterControl : MonoBehaviour {
                 sword.SetSwordIsFiring(false);
                 recentlyShot = false;
                 charAnim.SetBool("Attacking", false);
+                charAnim.speed = 1;
             }
 
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSpellShot)
@@ -222,8 +226,9 @@ public class CharacterControl : MonoBehaviour {
                 
                 recentlyShot = true;
                 nextSpellShot = Time.time + spell.GetShotInterval();
-                spell.SetSpellIsFiring(true);
+                spell.SetSpellIsFiring(true);               
                 charAnim.SetBool("Attacking", true);
+                charAnim.speed = spell.GetShotInterval();
 
             }
             else
@@ -231,9 +236,12 @@ public class CharacterControl : MonoBehaviour {
                 spell.SetSpellIsFiring(false);
                 recentlyShot = false;
                 charAnim.SetBool("Attacking", false);
+                charAnim.speed = 1;
+
             }               
 
         }
+        
 
         if (useController)
         {
@@ -243,7 +251,7 @@ public class CharacterControl : MonoBehaviour {
                 nextAxeShot = Time.time + axe.GetShotInterval();
                 axe.SetAxeIsFiring(true);
                 recentlyShot = true;
-               
+                charAnim.SetTrigger("Attack");
 
             }
             else
@@ -255,7 +263,7 @@ public class CharacterControl : MonoBehaviour {
 
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSwordShot)
             {
-                
+                charAnim.SetTrigger("Attack");
                 nextSwordShot = Time.time + sword.GetShotInterval();
                 sword.SetSwordIsFiring(true);
                 recentlyShot = true;
@@ -271,7 +279,7 @@ public class CharacterControl : MonoBehaviour {
 
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSpellShot)
             {
-               
+                charAnim.SetTrigger("Attack");
                 recentlyShot = true;
                 nextSpellShot = Time.time + spell.GetShotInterval();
                 spell.SetSpellIsFiring(true);
