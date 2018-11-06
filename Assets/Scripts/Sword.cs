@@ -116,4 +116,33 @@ public class Sword : MonoBehaviour {
         }
        
     }  
+
+    public void SwordOnLevelUp(float lvlMult)
+    {
+        for (int i = 0; i < swordStats.Length; i++)
+        {
+            saveSwordStats[i] += saveSwordStats[i] * lvlMult;
+            swordStats[i] += swordStats[i] * lvlMult;
+        }
+    }
+
+    public void SwordStoredLevelUp(List<float> storedLvlMods)
+    {
+
+        Debug.Log("ADDED STORED STUFF TO SWORD!");
+
+        for (int i = 0; i < swordStats.Length; i++)
+        {
+
+            foreach (float value in storedLvlMods)
+            {
+                saveSwordStats[i] += saveSwordStats[i] * value;
+            }
+            foreach (float value in storedLvlMods)
+            {
+                swordStats[i] += swordStats[i] * value;
+            }
+
+        }
+    }
 }

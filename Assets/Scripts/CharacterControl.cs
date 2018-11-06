@@ -37,7 +37,7 @@ public class CharacterControl : MonoBehaviour {
     public Animator charAnim;
     public GameObject bloodSplit;
     public GameObject loseSound;
-    CharacterStats stats;
+    CharacterStats stats;    
 
     public bool GetSwordCd()
     {
@@ -66,11 +66,7 @@ public class CharacterControl : MonoBehaviour {
 
     private void Update()
     {
-        /*if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }*/
-
+        
         healthPool.fillAmount = currentHealth / stats.maxHealth;
         manaPool.fillAmount = currentMana / stats.maxMana;
         PassiveManaRegen();

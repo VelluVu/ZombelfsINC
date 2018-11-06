@@ -64,11 +64,6 @@ public class Enemy : EnemyBase
         base.healthUpdate();
     }
 
-    protected override void OnCollisionStay(Collision collision)
-    {
-        base.OnCollisionStay(collision);
-    }
-
     protected override void OnTriggerStay(Collider other)
     {
         base.OnTriggerStay(other);
@@ -79,5 +74,5 @@ public class Enemy : EnemyBase
         base.OverTimeDamage(dmg);
         
     }
-
+  
 }

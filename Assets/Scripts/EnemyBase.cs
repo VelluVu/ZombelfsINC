@@ -11,6 +11,8 @@ public abstract class EnemyBase : MonoBehaviour {
     float maxHealth;
     float damage;
     float instantiateDuration = 3;
+    float laughCd;
+        float range;
     int price;
 
     public DmgText enemyDisplayDmg;
@@ -21,6 +23,8 @@ public abstract class EnemyBase : MonoBehaviour {
     public Image enemyHealthbar;
     public GameObject enemyDmgText;
     public GameObject enemyDeathSound;
+    public GameObject laughPrefab;
+    public GameObject specialTalk;
     EnemyStats enemyStats;
 
     protected virtual void Start()
@@ -45,9 +49,25 @@ public abstract class EnemyBase : MonoBehaviour {
         EnemyMove();
         healthUpdate();
         Death();
+        laughing();
     }
 
-    protected virtual void healthUpdate()
+    protected virtual void laughing()
+    {
+        range = Vector3.Distance(transform.position, enemyChaseTarget.transform.position);
+        laughCd -= Time.deltaTime;
+        if (range < 7f)
+        {
+            if (laughCd <= 0)
+            {             
+                Destroy(Instantiate(laughPrefab), 4);
+                laughCd = 4;
+            }
+            
+        }
+    }
+
+protected virtual void healthUpdate()
     {
         enemyHealthbar.fillAmount = curhealth / maxHealth;
     }
@@ -73,12 +93,20 @@ public abstract class EnemyBase : MonoBehaviour {
 
     protected virtual void OnCollisionStay(Collision collision)
     {
-        if (collision.collider.tag == "Player")
+        if (collision.collider.CompareTag("Player"))
         {
             //DEAL DAMAGE
             collision.collider.GetComponent<CharacterControl>().PlayerTakeDamage(damage);
         }
     }
+
+    
+        private void OnCollisionEnter(Collision collision)
+        {
+        if (collision.collider.CompareTag("Player"))
+            Destroy(Instantiate(specialTalk),11f);
+        }
+    
 
     public virtual void EnemyTakeDamage(float dmg, bool crit)
     {
@@ -110,6 +138,7 @@ public abstract class EnemyBase : MonoBehaviour {
             Destroy(Instantiate(enemyDeathSound, transform.position, transform.rotation), instantiateDuration);
             Destroy(Instantiate(enemyBloodSpill, transform.position, enemyBloodSpill.transform.rotation), instantiateDuration);
             Destroy(gameObject);
+            FindObjectOfType<CharacterStats>().UpdateXp(100);
         }
     }
 

@@ -3416,7 +3416,14 @@ MonoBehaviour:
   maxHealth: 100
   moveSpeed: 0.5
   rotationSpeed: 1
-  maxRoll: 100
+  strength:
+    baseValue: 0
+  intelligence:
+    baseValue: 0
+  dexterity:
+    baseValue: 0
+  endurance:
+    baseValue: 0
   damage: 1
   price: 2
 --- !u!114 &114289893561879802
@@ -3522,6 +3529,10 @@ MonoBehaviour:
   enemyDmgText: {fileID: 1780076880776674, guid: 566d6ffd5f5c68c4ebabcbdeb3ccd731,
     type: 2}
   enemyDeathSound: {fileID: 1296654730156902, guid: 0b22f50da0f33744fb48e2caf4d28259,
+    type: 2}
+  laughPrefab: {fileID: 1382439104632938, guid: 883276f126da2114fb33b8ba46ff2646,
+    type: 2}
+  specialTalk: {fileID: 1959259663455826, guid: 6b857d36b2dd5084fa7b05a784adc96d,
     type: 2}
 --- !u!114 &114818597612934180
 MonoBehaviour:

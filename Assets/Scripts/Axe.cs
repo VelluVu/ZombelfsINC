@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Axe : MonoBehaviour {
+public class Axe : MonoBehaviour
+{
 
     bool isFiring;
     bool axeChanged;
@@ -17,11 +18,11 @@ public class Axe : MonoBehaviour {
     public WhirlingAxe projectile;
     public Transform firePoint;
     public Equipment axe;
-  
+
 
     private void Start()
     {
-        
+
         axeStats = new float[10];
         saveAxeStats = new float[10];
         InitializeAxe();
@@ -60,7 +61,7 @@ public class Axe : MonoBehaviour {
             Debug.Log("LOADED AXESTAT :  " + axeStats[i]);
         }
     }
-    
+
     public void ChangeAxe(Equipment newAxe)
     {
         axe = newAxe;
@@ -68,19 +69,19 @@ public class Axe : MonoBehaviour {
     }
 
     public float GetShotInterval()
-    {       
+    {
         return axeStats[5];
     }
 
     private void Update()
     {
         UseWeapon();
-        
+
         if (axeChanged)
         {
             InitializeAxe();
             axeChanged = false;
-        }    
+        }
     }
 
     void UseWeapon()
@@ -90,7 +91,7 @@ public class Axe : MonoBehaviour {
             shotCounter -= Time.deltaTime;
             if (shotCounter <= 0)
             {
-                
+
                 shotCounter = axeStats[5];
                 WhirlingAxe newProjectile = Instantiate(projectile, firePoint.position, firePoint.rotation) as WhirlingAxe;
                 Debug.Log(projectile + "Thrown");
@@ -105,7 +106,34 @@ public class Axe : MonoBehaviour {
         else
         {
             shotCounter = 0;
-           
+
+        }
+    }
+    public void AxeOnLevelUp(float lvlMult)
+    {
+        for (int i = 0; i < axeStats.Length; i++)
+        {
+            saveAxeStats[i] += saveAxeStats[i] * lvlMult;
+            axeStats[i] += axeStats[i] * lvlMult;
+        }
+    }
+
+    public void AxeStoredLevelUp(List<float> storedLvlMods)
+    {
+
+        Debug.Log("ADDED STORED STUFF TO AXE!");
+
+        for (int i = 0; i < axeStats.Length; i++)
+        {
+            foreach (float value in storedLvlMods)
+            {
+                saveAxeStats[i] += saveAxeStats[i] * value;
+            }
+            foreach (float value in storedLvlMods)
+            {
+                axeStats[i] += axeStats[i] * value;
+            }
+            
         }
     }
 }

@@ -24,11 +24,6 @@ public class Spell : MonoBehaviour {
         InitializeSpell();
     }
 
-    public void PowerUp(float[] mods)
-    {
-        
-    }
-
     public void InitializeSpell()
     {
         spellStats[0] = spell.projectileSpeedz;
@@ -105,6 +100,35 @@ public class Spell : MonoBehaviour {
         else
         {
             shotCounter = 0;          
+        }
+    }
+
+    public void SpellOnLevelUp(float lvlMult)
+    {
+        for (int i = 0; i < spellStats.Length; i++)
+        {
+            saveSpellStats[i] += saveSpellStats[i] * lvlMult;
+            spellStats[i] += spellStats[i] * lvlMult;
+        }      
+    }
+
+    public void SpellStoredLevelUp(List<float> storedLvlMods)
+    {
+
+        Debug.Log("ADDED STORED STUFF TO SPELL!");
+
+        for (int i = 0; i < spellStats.Length; i++)
+        {
+
+            foreach (float value in storedLvlMods)
+            {
+                saveSpellStats[i] += saveSpellStats[i] * value;
+            }
+            foreach (float value in storedLvlMods)
+            {
+                spellStats[i] += spellStats[i] * value;
+            }
+
         }
     }
 }
