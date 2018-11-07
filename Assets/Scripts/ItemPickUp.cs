@@ -10,9 +10,8 @@ public class ItemPickUp : Interactable {
     {
         if (other.CompareTag("Player"))
         {
-
             PickUp();
-        }
+        }  
         
     }
 
