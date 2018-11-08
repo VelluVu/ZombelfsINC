@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114124631573673122}
   m_Layer: 0
   m_Name: InfoCanvas
-  m_TagString: Untagged
+  m_TagString: PowerUpCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   axeBoost: {fileID: 11400000, guid: 877a77005cdc89b44946a0d49a2d60fe, type: 2}
   swordBoost: {fileID: 0}
   spellBoost: {fileID: 0}
-  canvas: {fileID: 223368188106802100}
+  canvas: {fileID: 1423943532120584}
 --- !u!114 &114198870657502336
 MonoBehaviour:
   m_ObjectHideFlags: 1

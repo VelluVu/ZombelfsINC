@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,6 +42,9 @@ public class Spell : MonoBehaviour {
         {
             saveSpellStats[i] = spellStats[i];
         }
+
+        SpellOnPointAdd(CharacterStats.bonusMulti * CharacterStats.energy);
+
     }
 
     public void LoadSpellStats()
@@ -86,7 +90,7 @@ public class Spell : MonoBehaviour {
             {
                 shotCounter = spellStats[5];
                 Fireball newSpellProjectile = Instantiate(fireballSpell, firePoint.position, firePoint.rotation) as Fireball;
-                Debug.Log(fireballSpell + "Thrown");
+                //Debug.Log(fireballSpell + "Thrown");
                 FindObjectOfType<CharacterControl>().PlayerLoseMana(spellStats[6]);
                 FindObjectOfType<SpellSkillImage>().SetSpellCD(spellStats[5]);
                 newSpellProjectile.SetProjectileSpeedz(spellStats[0]);
@@ -103,32 +107,19 @@ public class Spell : MonoBehaviour {
         }
     }
 
-    public void SpellOnLevelUp(float lvlMult)
+    internal void SpellOnPointAdd(float lvlMult)
     {
-        for (int i = 0; i < spellStats.Length; i++)
-        {
-            saveSpellStats[i] += saveSpellStats[i] * lvlMult;
-            spellStats[i] += spellStats[i] * lvlMult;
-        }      
+        
+                saveSpellStats[4] += Mathf.Sqrt(saveSpellStats[4] * lvlMult);
+                spellStats[4] += Mathf.Sqrt(spellStats[4] * lvlMult);
+                
     }
 
-    public void SpellStoredLevelUp(List<float> storedLvlMods)
+    internal void SpellOnPointRemove(float v)
     {
-
-        Debug.Log("ADDED STORED STUFF TO SPELL!");
-
-        for (int i = 0; i < spellStats.Length; i++)
-        {
-
-            foreach (float value in storedLvlMods)
-            {
-                saveSpellStats[i] += saveSpellStats[i] * value;
-            }
-            foreach (float value in storedLvlMods)
-            {
-                spellStats[i] += spellStats[i] * value;
-            }
-
-        }
+       
+                saveSpellStats[4] -= Mathf.Sqrt(saveSpellStats[4] * v);
+                spellStats[4] -= Mathf.Sqrt(spellStats[4] * v);
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,12 +14,11 @@ public class Sword : MonoBehaviour {
     public float _projectileLifeTime;
     public float _shotCounter = 1;
     public float maxRoll = 100;
-    
 
     public SwordProjectile swordProjectile;
     public Transform firePoint;
     public Equipment sword;
-
+    
     private void Start()
     {
         swordStats = new float[10];
@@ -43,6 +43,9 @@ public class Sword : MonoBehaviour {
         {
             saveSwordStats[i] = swordStats[i];
         }
+
+        SwordOnPointAdd(CharacterStats.dexterity * CharacterStats.bonusMulti);
+
     }
 
     public void LoadSwordStats()
@@ -88,11 +91,10 @@ public class Sword : MonoBehaviour {
             _shotCounter -= Time.deltaTime;
             if (_shotCounter <= 0)
             {
-
-                
+              
                 _shotCounter = swordStats[5];
                 SwordProjectile newSwordProjectile = Instantiate(swordProjectile, firePoint.position, firePoint.rotation) as SwordProjectile;
-                Debug.Log(swordProjectile + "Thrown");
+                //Debug.Log(swordProjectile + "Thrown");
                 FindObjectOfType<SwordSkillImage>().SetSwordCD(swordStats[5]);
                 newSwordProjectile.SetProjectileSpeedz(swordStats[0]);
                 newSwordProjectile.SetProjectileRotationSpeed(swordStats[2]);
@@ -117,32 +119,19 @@ public class Sword : MonoBehaviour {
        
     }  
 
-    public void SwordOnLevelUp(float lvlMult)
+    public void SwordOnPointAdd(float lvlMult)
     {
-        for (int i = 0; i < swordStats.Length; i++)
-        {
-            saveSwordStats[i] += saveSwordStats[i] * lvlMult;
-            swordStats[i] += swordStats[i] * lvlMult;
-        }
+        
+                saveSwordStats[3] += saveSwordStats[3] * lvlMult;
+                swordStats[3] += swordStats[3] * lvlMult;
+         
     }
 
-    public void SwordStoredLevelUp(List<float> storedLvlMods)
+    internal void SwordOnPointRemove(float v)
     {
-
-        Debug.Log("ADDED STORED STUFF TO SWORD!");
-
-        for (int i = 0; i < swordStats.Length; i++)
-        {
-
-            foreach (float value in storedLvlMods)
-            {
-                saveSwordStats[i] += saveSwordStats[i] * value;
-            }
-            foreach (float value in storedLvlMods)
-            {
-                swordStats[i] += swordStats[i] * value;
-            }
-
-        }
+        
+                saveSwordStats[3] -= saveSwordStats[3] * v;
+                swordStats[3] -= swordStats[3] * v;
+        
     }
 }

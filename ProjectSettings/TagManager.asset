@@ -25,6 +25,9 @@ TagManager:
   - AxeSlot
   - SwordSlot
   - SpellSlot
+  - MYCanvas
+  - GlobalText
+  - PowerUpCanvas
   layers:
   - Default
   - TransparentFX
@@ -40,7 +43,7 @@ TagManager:
   - StuckProjectile
   - Enemy
   - Curosr
-  - 
+  - Terrain
   - 
   - 
   - 

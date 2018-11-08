@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4088092278284664}
   - component: {fileID: 218327792479009654}
   - component: {fileID: 154753063402514068}
-  m_Layer: 0
+  - component: {fileID: 114258950599243404}
+  m_Layer: 14
   m_Name: FirstArea
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -37,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4919388976443722}
   - component: {fileID: 108426779958758586}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,6 +109,62 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114258950599243404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1278946600773140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e1285118af9db4bbbb093b62ab16fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldTerrain: {fileID: 218327792479009654}
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  objects:
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1015547425705406, guid: 94addcf006e8ec441b2d0409d953ff66, type: 2}
+  - {fileID: 1855184733243138, guid: 624e71a84b9578947ba7978a78e59e87, type: 2}
+  - {fileID: 1008174439180862, guid: 23da41aa0f4e632428b542583f7dea00, type: 2}
+  - {fileID: 1622516239894760, guid: d6bbe906a309b37478e825d2c61a0157, type: 2}
+  - {fileID: 1502939127210424, guid: 7c4c151551dc697428383599e156eb1f, type: 2}
+  - {fileID: 1855184733243138, guid: 624e71a84b9578947ba7978a78e59e87, type: 2}
+  - {fileID: 1008174439180862, guid: 23da41aa0f4e632428b542583f7dea00, type: 2}
+  - {fileID: 1622516239894760, guid: d6bbe906a309b37478e825d2c61a0157, type: 2}
+  - {fileID: 1502939127210424, guid: 7c4c151551dc697428383599e156eb1f, type: 2}
+  - {fileID: 1855184733243138, guid: 624e71a84b9578947ba7978a78e59e87, type: 2}
+  - {fileID: 1008174439180862, guid: 23da41aa0f4e632428b542583f7dea00, type: 2}
+  - {fileID: 1622516239894760, guid: d6bbe906a309b37478e825d2c61a0157, type: 2}
+  - {fileID: 1502939127210424, guid: 7c4c151551dc697428383599e156eb1f, type: 2}
+  - {fileID: 1855184733243138, guid: 624e71a84b9578947ba7978a78e59e87, type: 2}
+  - {fileID: 1008174439180862, guid: 23da41aa0f4e632428b542583f7dea00, type: 2}
+  - {fileID: 1622516239894760, guid: d6bbe906a309b37478e825d2c61a0157, type: 2}
+  - {fileID: 1502939127210424, guid: 7c4c151551dc697428383599e156eb1f, type: 2}
+  - {fileID: 1855184733243138, guid: 624e71a84b9578947ba7978a78e59e87, type: 2}
+  - {fileID: 1008174439180862, guid: 23da41aa0f4e632428b542583f7dea00, type: 2}
+  - {fileID: 1502939127210424, guid: 7c4c151551dc697428383599e156eb1f, type: 2}
+  - {fileID: 1622516239894760, guid: d6bbe906a309b37478e825d2c61a0157, type: 2}
 --- !u!154 &154753063402514068
 TerrainCollider:
   m_ObjectHideFlags: 1

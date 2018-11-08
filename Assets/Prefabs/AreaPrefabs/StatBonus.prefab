@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 114736385624424854}
   m_Layer: 0
   m_Name: InfoCanvas
-  m_TagString: Untagged
+  m_TagString: PowerUpCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   axeBoost: {fileID: 0}
   swordBoost: {fileID: 0}
   spellBoost: {fileID: 0}
-  canvas: {fileID: 223334422004912782}
+  canvas: {fileID: 1762871787834570}
 --- !u!114 &114736385624424854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4867,7 +4867,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1762871787834570}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 6.11}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4329597174272380}
@@ -4876,5 +4876,5 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: -0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 8, y: 6}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -10,7 +10,7 @@ public class PowerPickUp : Interactable
     public AxePower axeBoost;
     public SwordPower swordBoost;
     public SpellPower spellBoost;
-    public Canvas canvas;
+    public GameObject canvas;
     float powerUpDuration;
     
     private void OnTriggerEnter(Collider other)

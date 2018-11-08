@@ -32,13 +32,12 @@ public class CharacterControl : MonoBehaviour {
     Camera cam;
     public Axe axe;
     public Sword sword;
-    public Spell spell;
-
+    public Spell spell;    
     public Animator charAnim;
     public GameObject bloodSplit;
     public GameObject loseSound;
-    CharacterStats stats;    
-
+    CharacterStats stats;
+    
     public bool GetSwordCd()
     {
         return swordCdReady;
@@ -51,12 +50,13 @@ public class CharacterControl : MonoBehaviour {
 
     private void Start()
     {
+        
         rb = gameObject.GetComponent<Rigidbody>();
         cam = GameObject.FindGameObjectWithTag("TopDown").GetComponent<Camera>();
         stats = gameObject.GetComponent<CharacterStats>();
-
+        
         currentHealth = stats.maxHealth;
-        currentMana = stats.maxMana;
+        currentMana = stats.maxMana;  
         Time.timeScale = 1;        
         swordCdReady = true;
         axeCdReady = true;
@@ -66,7 +66,7 @@ public class CharacterControl : MonoBehaviour {
 
     private void Update()
     {
-        
+          
         healthPool.fillAmount = currentHealth / stats.maxHealth;
         manaPool.fillAmount = currentMana / stats.maxMana;
         PassiveManaRegen();
@@ -74,9 +74,9 @@ public class CharacterControl : MonoBehaviour {
         CharacterMovement();
         CharacterDirection();
         BasicAttack();
-        Jump();       
+        Jump();
+     
     }
-
    
   
     public void PassiveManaRegen()
@@ -111,28 +111,13 @@ public class CharacterControl : MonoBehaviour {
             charAnim.SetBool("Walk", false);
         }
 
-        float xMovement = Input.GetAxis("Horizontal") * stats.moveSpeed * Time.deltaTime;
-        
-        float zMovement = Input.GetAxis("Vertical") * stats.moveSpeed * Time.deltaTime;
-
-        if (xMovement > 0 && zMovement > 0 || xMovement < 0 && zMovement > 0)
-        {
-            
-            xMovement *= stats.diagonalMovementSpeed;
-        }
-        else if (xMovement < 0 && zMovement < 0 || xMovement > 0 && zMovement < 0)
-        {
-            
-            xMovement *= stats.diagonalMovementSpeed;
-        }
-        else if (zMovement <= 0)
-        {
-            
-            zMovement *= stats.diagonalMovementSpeed;
-        }
+        Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"),0,Input.GetAxisRaw("Vertical"));
+              
         if (isWalking && !isDead)
         {
-            transform.Translate(xMovement, 0, zMovement);
+
+            transform.Translate(movement.normalized * stats.moveSpeed * Time.deltaTime);
+
         }
     }
 
@@ -174,6 +159,10 @@ public class CharacterControl : MonoBehaviour {
 
     }
 
+    public void AttackAnim()
+    {
+        
+    }
 
     //Left Mouse click Attack
     void BasicAttack()
@@ -186,16 +175,17 @@ public class CharacterControl : MonoBehaviour {
             {            
                 nextAxeShot = Time.time + axe.GetShotInterval();               
                 axe.SetAxeIsFiring(true);
-                recentlyShot = true;              
+                recentlyShot = true;
                 charAnim.SetBool("Attacking", true);
-                charAnim.speed = axe.GetShotInterval();
+                //charAnim.SetTrigger("Attack");
+                
             }
             else
             {
                 axe.SetAxeIsFiring(false);
                 recentlyShot = false;
                 charAnim.SetBool("Attacking", false);
-                charAnim.speed = 1;
+                
 
             }
 
@@ -204,17 +194,18 @@ public class CharacterControl : MonoBehaviour {
                 
                 nextSwordShot = Time.time + sword.GetShotInterval();
                 sword.SetSwordIsFiring(true);
-                recentlyShot = true;               
+                recentlyShot = true;
                 charAnim.SetBool("Attacking", true);
-                charAnim.speed = sword.GetShotInterval();
+                //charAnim.SetTrigger("Attack");
+                
 
             }
             else
             {
                 sword.SetSwordIsFiring(false);
                 recentlyShot = false;
-                charAnim.SetBool("Attacking", false);
-                charAnim.speed = 1;
+                charAnim.SetBool("Attacking", false);             
+                
             }
 
             if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSpellShot)
@@ -222,9 +213,10 @@ public class CharacterControl : MonoBehaviour {
                 
                 recentlyShot = true;
                 nextSpellShot = Time.time + spell.GetShotInterval();
-                spell.SetSpellIsFiring(true);               
+                spell.SetSpellIsFiring(true);
                 charAnim.SetBool("Attacking", true);
-                charAnim.speed = spell.GetShotInterval();
+                //charAnim.SetTrigger("Attack");
+                
 
             }
             else
@@ -232,7 +224,7 @@ public class CharacterControl : MonoBehaviour {
                 spell.SetSpellIsFiring(false);
                 recentlyShot = false;
                 charAnim.SetBool("Attacking", false);
-                charAnim.speed = 1;
+                
 
             }               
 
@@ -349,6 +341,7 @@ public class CharacterControl : MonoBehaviour {
 
     private void OnCollisionStay(Collision collision)
     {
+     
         if (collision.collider.tag == "Ground")
         {
             onGround = true;

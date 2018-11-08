@@ -18,6 +18,7 @@ public class DmgText : MonoBehaviour {
 
     private void Update()
     {
+
         transform.Translate(Vector3.up * speed * Time.deltaTime);
 
         

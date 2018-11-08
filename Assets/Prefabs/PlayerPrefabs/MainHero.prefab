@@ -1683,24 +1683,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   moveSpeed: 4
-  rotationSpeed: 3
-  strength:
-    baseValue: 0
-  intelligence:
-    baseValue: 0
-  dexterity:
-    baseValue: 0
-  endurance:
-    baseValue: 0
+  rotationSpeed: 4
   maxMana: 100
   replenishM: 1
-  BackwardsMoveSpeed: 0.5
-  diagonalMovementSpeed: 0.5
-  jumpForce: 5
-  currentCharacterXP: 0
-  currentCharacterLevel: 0
   replenishH: 1
+  BackwardsMoveSpeed: 0.85
+  jumpForce: 5
+  levelPojo: 0
+  currentCharacterXP: 0
   lvlUpEff: {fileID: 1318813268618132, guid: 16514479a611efd4fa8cbdda0afda175, type: 2}
+  levelUpButton: {fileID: 0}
+  skillPojots: {fileID: 0}
+  buttons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  statTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  focusThisWeapon: {fileID: 114448794864454222}
+  spellStats: {fileID: 114733686255122070}
+  axeStats: {fileID: 114083309340418986}
+  swordStats: {fileID: 114735483452641204}
 --- !u!136 &136023702081075260
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2296,8 +2307,8 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 5
     enabled: 1
-    type: 4
-    angle: 25
+    type: 17
+    angle: 69.9
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1

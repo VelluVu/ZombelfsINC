@@ -84,7 +84,7 @@ TextureImporter:
     21300158: Skill_Icons_79
     21300160: Skill_Icons_80
     21300162: Skill_Icons_81
-    21300164: Skill_Icons_82
+    21300164: cheese
     21300166: Skill_Icons_83
   externalObjects: {}
   serializedVersion: 7
@@ -1819,13 +1819,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skill_Icons_82
+      name: cheese
       rect:
         serializedVersion: 2
-        x: 1600
-        y: 16
-        width: 160
-        height: 152
+        x: 1624
+        y: 31
+        width: 114
+        height: 108
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

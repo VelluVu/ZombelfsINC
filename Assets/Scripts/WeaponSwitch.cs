@@ -18,10 +18,7 @@ public class WeaponSwitch : MonoBehaviour {
     
 
     public int selectedWeapon = 0;
-    CharacterControl characterControl;
-    List<float> axeLvlMods = new List<float>();
-    List<float> swordLvlMods = new List<float>();
-    List<float> spellLvlMods = new List<float>();
+    CharacterControl characterControl;  
 
     private void Start()
     {
@@ -44,39 +41,7 @@ public class WeaponSwitch : MonoBehaviour {
 
     }
 
-    public void StoreAxeLvlUpMultiplier(float lvlMod)
-    {
-        axeLvlMods.Add(lvlMod);
-
-        foreach (float value in axeLvlMods)
-        {
-            Debug.Log("STORED AXE LVL VALUES: " + value);
-        }
-        
-    }
-
-    public void StoreSwordLvlUpMultiplier(float lvlMod)
-    {
-        swordLvlMods.Add(lvlMod);
-
-        foreach (float value in swordLvlMods)
-        {
-            Debug.Log("STORED AXE LVL VALUES: " + value);
-        }
-
-    }
-
-    public void StoreSpellLvlUpMultiplier(float lvlMod)
-    {
-        spellLvlMods.Add(lvlMod);
-
-        foreach (float value in spellLvlMods)
-        {
-            Debug.Log("STORED AXE LVL VALUES: " + value);
-        }
-
-    }
-
+  
     private void WeaponSelection()
     {
         int previouslySelectedWeapon = selectedWeapon;
@@ -133,22 +98,7 @@ public class WeaponSwitch : MonoBehaviour {
             if (i == selectedWeapon)
             {
                 weapon.gameObject.SetActive(true);
-                if(i == 0)
-                {
-                    FindObjectOfType<Axe>().AxeStoredLevelUp(axeLvlMods);
-                    axeLvlMods.Clear();
-                }
-                if(i == 1)
-                {
-                    FindObjectOfType<Sword>().SwordStoredLevelUp(swordLvlMods);
-                    swordLvlMods.Clear();
-                }
-                if(i == 2)
-                {
-                    FindObjectOfType<Spell>().SpellStoredLevelUp(spellLvlMods);
-                    spellLvlMods.Clear();
-                }
-          
+                    
             }
             else
             {

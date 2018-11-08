@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,6 +52,8 @@ public class Axe : MonoBehaviour
             saveAxeStats[i] = axeStats[i];
             Debug.Log("SAVED AXESTATS: " + saveAxeStats[i]);
         }
+
+        AxeOnPointAdd(CharacterStats.strength * CharacterStats.bonusMulti);
     }
 
     public void LoadAxeStats()
@@ -80,6 +83,7 @@ public class Axe : MonoBehaviour
         if (axeChanged)
         {
             InitializeAxe();
+            
             axeChanged = false;
         }
     }
@@ -94,7 +98,7 @@ public class Axe : MonoBehaviour
 
                 shotCounter = axeStats[5];
                 WhirlingAxe newProjectile = Instantiate(projectile, firePoint.position, firePoint.rotation) as WhirlingAxe;
-                Debug.Log(projectile + "Thrown");
+                //Debug.Log(projectile + "Thrown");
                 FindObjectOfType<AxeSkillImage>().SetAxeCD(axeStats[5]);
                 newProjectile.SetProjectileSpeedz(axeStats[0]);
                 newProjectile.SetProjectileRotationSpeed(axeStats[2]);
@@ -109,31 +113,19 @@ public class Axe : MonoBehaviour
 
         }
     }
-    public void AxeOnLevelUp(float lvlMult)
+    public void AxeOnPointAdd(float lvlMult)
     {
-        for (int i = 0; i < axeStats.Length; i++)
-        {
-            saveAxeStats[i] += saveAxeStats[i] * lvlMult;
-            axeStats[i] += axeStats[i] * lvlMult;
-        }
+        
+                saveAxeStats[3] += Mathf.Sqrt(saveAxeStats[3] * lvlMult);
+                axeStats[3] += Mathf.Sqrt(axeStats[3] * lvlMult);
+         
     }
 
-    public void AxeStoredLevelUp(List<float> storedLvlMods)
+    internal void AxeOnPointRemove(float v)
     {
-
-        Debug.Log("ADDED STORED STUFF TO AXE!");
-
-        for (int i = 0; i < axeStats.Length; i++)
-        {
-            foreach (float value in storedLvlMods)
-            {
-                saveAxeStats[i] += saveAxeStats[i] * value;
-            }
-            foreach (float value in storedLvlMods)
-            {
-                axeStats[i] += axeStats[i] * value;
-            }
-            
-        }
+        
+                saveAxeStats[3] -= Mathf.Sqrt(saveAxeStats[3] * v);
+                axeStats[3] -= Mathf.Sqrt(axeStats[3] * v);
+         
     }
 }
