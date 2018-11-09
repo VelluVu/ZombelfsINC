@@ -9,6 +9,7 @@ public class RandomSpawn : MonoBehaviour {
     public static float terrainLeft, terrainRight, terrainTop, terrainBottom, terrainWidth, terrainLength, terrainHeight;
 
     public List<GameObject> objects = new List<GameObject>();
+    public List<GameObject> enemyPatrollers = new List<GameObject>();
 
     private void Awake()
     {
@@ -20,10 +21,10 @@ public class RandomSpawn : MonoBehaviour {
         terrainRight = terrainLeft + terrainWidth;
         terrainTop = terrainBottom + terrainLength;
 
-        InstantiateRandomPosition(objects, 0f);
+        InstantiateRandomPosition(objects, enemyPatrollers, 0f);
     }
 
-    public void InstantiateRandomPosition(List<GameObject> objects, float addedHeight)
+    public void InstantiateRandomPosition(List<GameObject> objects, List<GameObject> enemies, float addedHeight)
     {
 
         int i = 0;
@@ -49,8 +50,9 @@ public class RandomSpawn : MonoBehaviour {
 
             
             Instantiate(objects[Random.Range(0,objects.Count)], randomPosition, Quaternion.identity);
-            
-            
+            Instantiate(enemyPatrollers[Random.Range(0, enemyPatrollers.Count)], randomPosition, Quaternion.identity);
+
+
 
         } while (i < objects.Count);
 

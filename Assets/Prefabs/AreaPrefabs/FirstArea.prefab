@@ -165,6 +165,17 @@ MonoBehaviour:
   - {fileID: 1008174439180862, guid: 23da41aa0f4e632428b542583f7dea00, type: 2}
   - {fileID: 1502939127210424, guid: 7c4c151551dc697428383599e156eb1f, type: 2}
   - {fileID: 1622516239894760, guid: d6bbe906a309b37478e825d2c61a0157, type: 2}
+  enemyPatrollers:
+  - {fileID: 1785868559089918, guid: af5d91a54df025246bb5dd11f16f5f42, type: 2}
+  - {fileID: 1785868559089918, guid: af5d91a54df025246bb5dd11f16f5f42, type: 2}
+  - {fileID: 1785868559089918, guid: af5d91a54df025246bb5dd11f16f5f42, type: 2}
+  - {fileID: 1785868559089918, guid: af5d91a54df025246bb5dd11f16f5f42, type: 2}
+  - {fileID: 1785868559089918, guid: af5d91a54df025246bb5dd11f16f5f42, type: 2}
+  - {fileID: 1785868559089918, guid: af5d91a54df025246bb5dd11f16f5f42, type: 2}
+  - {fileID: 1785868559089918, guid: af5d91a54df025246bb5dd11f16f5f42, type: 2}
+  - {fileID: 1785868559089918, guid: af5d91a54df025246bb5dd11f16f5f42, type: 2}
+  - {fileID: 1785868559089918, guid: af5d91a54df025246bb5dd11f16f5f42, type: 2}
+  - {fileID: 1785868559089918, guid: af5d91a54df025246bb5dd11f16f5f42, type: 2}
 --- !u!154 &154753063402514068
 TerrainCollider:
   m_ObjectHideFlags: 1
