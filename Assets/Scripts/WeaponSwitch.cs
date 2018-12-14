@@ -40,7 +40,6 @@ public class WeaponSwitch : MonoBehaviour {
         SelectWeapon();
 
     }
-
   
     private void WeaponSelection()
     {

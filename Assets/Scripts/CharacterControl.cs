@@ -37,16 +37,6 @@ public class CharacterControl : MonoBehaviour {
     public GameObject bloodSplit;
     public GameObject loseSound;
     CharacterStats stats;
-    
-    public bool GetSwordCd()
-    {
-        return swordCdReady;
-    }
-
-    public bool GetAxeCd()
-    {
-        return axeCdReady;
-    }
 
     private void Start()
     {
@@ -138,10 +128,7 @@ public class CharacterControl : MonoBehaviour {
                 Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
                 Quaternion targetRotation = Quaternion.LookRotation(pointToLook - transform.position);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * stats.rotationSpeed);
-                //transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-                
-                
-
+                //transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z)
 
             }
         }
@@ -159,11 +146,6 @@ public class CharacterControl : MonoBehaviour {
 
     }
 
-    public void AttackAnim()
-    {
-        
-    }
-
     //Left Mouse click Attack
     void BasicAttack()
     {
@@ -171,145 +153,89 @@ public class CharacterControl : MonoBehaviour {
 
         if (!useController)
         {
-            if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextAxeShot)
-            {            
-                nextAxeShot = Time.time + axe.GetShotInterval();               
-                axe.SetAxeIsFiring(true);
-                recentlyShot = true;
-                charAnim.SetBool("Attacking", true);
-                //charAnim.SetTrigger("Attack");
-                
-            }
-            else
+            if (Input.GetButton("Fire1"))
             {
-                axe.SetAxeIsFiring(false);
-                recentlyShot = false;
-                charAnim.SetBool("Attacking", false);
-                
+                if (axe && axeCdReady)
+                {
+                    StartCoroutine(AxeCooldown());
+                }
 
-            }
+                if (sword && swordCdReady)
+                {
+                    StartCoroutine(SwordCooldown());
+                }
 
-            if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSwordShot)
-            {
-                
-                nextSwordShot = Time.time + sword.GetShotInterval();
-                sword.SetSwordIsFiring(true);
-                recentlyShot = true;
-                charAnim.SetBool("Attacking", true);
-                //charAnim.SetTrigger("Attack");
-                
+                if (spell && spellCdReady)
+                {
+                    StartCoroutine(SpellCooldown());
+                }
 
             }
-            else
-            {
-                sword.SetSwordIsFiring(false);
-                recentlyShot = false;
-                charAnim.SetBool("Attacking", false);             
-                
-            }
-
-            if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSpellShot)
-            {
-                
-                recentlyShot = true;
-                nextSpellShot = Time.time + spell.GetShotInterval();
-                spell.SetSpellIsFiring(true);
-                charAnim.SetBool("Attacking", true);
-                //charAnim.SetTrigger("Attack");
-                
-
-            }
-            else
-            {
-                spell.SetSpellIsFiring(false);
-                recentlyShot = false;
-                charAnim.SetBool("Attacking", false);
-                
-
-            }               
 
         }
-        
+
 
         if (useController)
         {
-            if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextAxeShot)
+            if (Input.GetButton("Fire1"))
             {
-               
-                nextAxeShot = Time.time + axe.GetShotInterval();
-                axe.SetAxeIsFiring(true);
-                recentlyShot = true;
-                charAnim.SetTrigger("Attack");
 
-            }
-            else
-            {
-                axe.SetAxeIsFiring(false);
-                recentlyShot = false;
-               
-            }
+                if (axe && axeCdReady)
+                {
+                    StartCoroutine(AxeCooldown());
+                }
 
-            if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSwordShot)
-            {
-                charAnim.SetTrigger("Attack");
-                nextSwordShot = Time.time + sword.GetShotInterval();
-                sword.SetSwordIsFiring(true);
-                recentlyShot = true;
-                
+                if (sword && swordCdReady)
+                {
+                    StartCoroutine(SwordCooldown());
+                }
 
+                if (spell && spellCdReady)
+                {
+                    StartCoroutine(SpellCooldown());
+                }
             }
-            else
-            {
-                sword.SetSwordIsFiring(false);
-                recentlyShot = false;
-               
-            }
-
-            if (Input.GetButton("Fire1") && !recentlyShot && Time.time > nextSpellShot)
-            {
-                charAnim.SetTrigger("Attack");
-                recentlyShot = true;
-                nextSpellShot = Time.time + spell.GetShotInterval();
-                spell.SetSpellIsFiring(true);
-              
-
-            }
-            else
-            {
-                spell.SetSpellIsFiring(false);
-                recentlyShot = false;
-               
-            }
-                    
         }
     }
 
     // CD will disallow the spamhax
     IEnumerator AxeCooldown()
     {
-        recentlyShot = true;
-        yield return new WaitForSeconds(axe.GetShotInterval());
-        axe.SetAxeIsFiring(true);
+
         axeCdReady = false;
-        
+        axe.SetAxeIsFiring(true);
+        charAnim.SetBool("Attacking", true);
+        yield return new WaitForSeconds(axe.GetShotInterval());
+        axeCdReady = true;
+        charAnim.SetBool("Attacking", false);
+        axe.SetAxeIsFiring(false);
+
     }
 
     IEnumerator SwordCooldown()
     {
-        recentlyShot = true;
-        yield return new WaitForSeconds(sword.GetShotInterval());
-        sword.SetSwordIsFiring(true);
+
         swordCdReady = false;
-        
+        sword.SetSwordIsFiring(true);
+        charAnim.SetBool("Attacking", true);
+        yield return new WaitForSeconds(sword.GetShotInterval());
+        swordCdReady = true;
+        charAnim.SetBool("Attacking", false);
+        sword.SetSwordIsFiring(false);
+
     }
 
     IEnumerator SpellCooldown()
     {
-        recentlyShot = true;
-        yield return new WaitForSeconds(spell.GetShotInterval());
-        spell.SetSpellIsFiring(true);
+
         spellCdReady = false;
-        
+        spell.SetSpellIsFiring(true);
+        charAnim.SetBool("Attacking", true);
+        yield return new WaitForSeconds(spell.GetShotInterval());
+        spellCdReady = true;
+        charAnim.SetBool("Attacking", false);
+        spell.SetSpellIsFiring(false);
+
     }
 
     //Makes Character jump with jump button "space"

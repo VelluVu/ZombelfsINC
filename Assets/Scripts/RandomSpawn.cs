@@ -36,8 +36,8 @@ public class RandomSpawn : MonoBehaviour {
         do
         {
             i++;
-            randomPositionX = Random.Range(terrainLeft, terrainRight);
-            randomPositionZ = Random.Range(terrainBottom, terrainTop);
+            randomPositionX = Random.Range(terrainLeft+20, terrainRight-20);
+            randomPositionZ = Random.Range(terrainBottom+20, terrainTop-20);
 
             if (Physics.Raycast(new Vector3(randomPositionX, 500f, randomPositionZ), Vector3.down,out hit, Mathf.Infinity, terrainLayer))
             {
