@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class CursorPos : MonoBehaviour {
 	
-	void Update () {
+	void Update ()
+    {
+
         gameObject.transform.position = Input.mousePosition;
+
 	}
 }

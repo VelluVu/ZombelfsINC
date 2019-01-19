@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4402939246535618}
   - component: {fileID: 198631581512350974}
+  - component: {fileID: 114316276191731928}
   - component: {fileID: 199828961534683718}
   m_Layer: 0
   m_Name: BloodSpill
@@ -41,6 +42,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &114316276191731928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1070260328063388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c2c9d188041bf45b5691ae3ae03a7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodSplatters:
+  - {fileID: 100000, guid: 358b75ea5451cf143ab19029a189097d, type: 2}
+  - {fileID: 100000, guid: cfc7596704bbd7f489156fcd4c05c7e9, type: 2}
+  - {fileID: 100000, guid: 18a11fd6df8ceb449b8785301026d639, type: 2}
+  - {fileID: 100000, guid: 6fe4d785744af2c40a2157f5b209d97f, type: 2}
+  - {fileID: 100000, guid: aec54d7a991d7b644b145d550a4b7831, type: 2}
+  - {fileID: 100000, guid: 14987c031123b98408a165a8bf1288d4, type: 2}
+  - {fileID: 100000, guid: 43dd1ba2a5dde844eb01240da13ab96b, type: 2}
 --- !u!198 &198631581512350974
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -924,7 +944,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 15
+        scalar: 10
         minScalar: 0
         maxCurve:
           serializedVersion: 2
@@ -3498,9 +3518,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 3
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -3676,11 +3696,11 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 16384
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -3890,7 +3910,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.6037736, g: 0, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4006,7 +4026,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.4575472, b: 0.4575472, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

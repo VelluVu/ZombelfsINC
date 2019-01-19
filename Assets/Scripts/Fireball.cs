@@ -22,17 +22,23 @@ public class Fireball : MonoBehaviour {
 
     public void SetProjectileAreaDamage(float pArea)
     {
+
         projectileAreaDamage = pArea;
+
     }
 
     public void SetProjectileSpeedz(float pSpeedz)
     {
+
         projectileSpeedz = pSpeedz;
+
     }
 
     public void SetProjectileSpeedy(float pSpeedy)
     {
+
         projectileSpeedy = pSpeedy;
+
     }
 
     public void SetProjectileRotationSpeed(float pRSpeed)
@@ -70,12 +76,13 @@ public class Fireball : MonoBehaviour {
             if (!hasCollided)
             {
                 hasCollided = true;
+                gameObject.GetComponent<MeshRenderer>().enabled = false;
+                gameObject.GetComponentInChildren<ParticleSystem>().Stop();
                 StartCoroutine(FireBallHit(collision));
                 
             }
             StartCoroutine(ResetCollision());
         }
-        
     }
 
     IEnumerator ResetCollision()
@@ -95,7 +102,7 @@ public class Fireball : MonoBehaviour {
         Destroy(Instantiate(explosion, transform.position, transform.rotation), prefabLifeTime);
         if (collision.collider.gameObject.GetComponent<EnemyBase>() != null)
         {
-            StartCoroutine(collision.collider.gameObject.GetComponent<EnemyBase>().EnemyStatusStart(statusDuration, projectileAreaDamage * statusDmgMultiplier, statusTickRate));
+            StartCoroutine(collision.collider.gameObject.GetComponent<EnemyBase>().EnemyStatusStart(statusDuration, Mathf.RoundToInt(projectileAreaDamage * statusDmgMultiplier), statusTickRate));
         }
        
         ExplosionDamage(transform.position, projectileAreaRadius);

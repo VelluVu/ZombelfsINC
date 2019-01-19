@@ -10,5 +10,4 @@ public class PowerUpText : MonoBehaviour {
         transform.Translate(Vector3.up * Time.deltaTime);       
     }
 
-
 }

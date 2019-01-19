@@ -39,7 +39,5 @@ public class SwordSkillImage : MonoBehaviour {
     {
         skillImg.fillAmount = 0;
         coolDownCount = cd;
-    }
-
-   
+    }  
 }

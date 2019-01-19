@@ -30,6 +30,7 @@ public class CharacterControl : MonoBehaviour {
 
     Rigidbody rb;
     Camera cam;
+    public WeaponSwitch wep;
     public Axe axe;
     public Sword sword;
     public Spell spell;    
@@ -40,11 +41,12 @@ public class CharacterControl : MonoBehaviour {
 
     private void Start()
     {
-        
+        ScoreTable.LoadScores();
+        GameStatus.Load(ScoreTable.currentPlayer);
         rb = gameObject.GetComponent<Rigidbody>();
         cam = GameObject.FindGameObjectWithTag("TopDown").GetComponent<Camera>();
         stats = gameObject.GetComponent<CharacterStats>();
-        
+        GameStatus.theGameIsOn = true;
         currentHealth = stats.maxHealth;
         currentMana = stats.maxMana;  
         Time.timeScale = 1;        
@@ -52,6 +54,7 @@ public class CharacterControl : MonoBehaviour {
         axeCdReady = true;
         spellCdReady = true;
         isDead = false;
+        GameStatus.inLevel = true;
     }
 
     private void Update()
@@ -91,14 +94,14 @@ public class CharacterControl : MonoBehaviour {
     private void CharacterMovement()
     {
 
-        if (Input.GetAxis("Horizontal") > 0  && !isDead || Input.GetAxis("Vertical") > 0  && !isDead || Input.GetAxis("Horizontal") < 0  && !isDead || Input.GetAxis("Vertical") < 0  && !isDead)
+        if (Input.GetAxisRaw("Horizontal") > 0  && !isDead || Input.GetAxisRaw("Vertical") > 0  && !isDead || Input.GetAxisRaw("Horizontal") < 0  && !isDead || Input.GetAxisRaw("Vertical") < 0  && !isDead)
         {
             charAnim.SetBool("Walk", true);
             isWalking = true;
         } else
         {
-            isWalking = false;
             charAnim.SetBool("Walk", false);
+            isWalking = false;
         }
 
         Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"),0,Input.GetAxisRaw("Vertical"));
@@ -150,22 +153,23 @@ public class CharacterControl : MonoBehaviour {
     void BasicAttack()
     {
 
-
         if (!useController)
         {
             if (Input.GetButton("Fire1"))
             {
-                if (axe && axeCdReady)
+                int index = wep.GetWeapon();
+
+                if (index == 0 && axeCdReady)
                 {
                     StartCoroutine(AxeCooldown());
                 }
 
-                if (sword && swordCdReady)
-                {
+                if (index == 1 && swordCdReady)
+                {       
                     StartCoroutine(SwordCooldown());
                 }
 
-                if (spell && spellCdReady)
+                if (index == 2 && spellCdReady && currentMana > spell.spellStats[6])
                 {
                     StartCoroutine(SpellCooldown());
                 }
@@ -179,18 +183,19 @@ public class CharacterControl : MonoBehaviour {
         {
             if (Input.GetButton("Fire1"))
             {
+                int index = wep.GetWeapon();
 
-                if (axe && axeCdReady)
+                if (index == 0 && axeCdReady)
                 {
                     StartCoroutine(AxeCooldown());
                 }
 
-                if (sword && swordCdReady)
+                if (index == 1 && swordCdReady)
                 {
                     StartCoroutine(SwordCooldown());
                 }
 
-                if (spell && spellCdReady)
+                if (index == 2 && spellCdReady)
                 {
                     StartCoroutine(SpellCooldown());
                 }
@@ -202,13 +207,11 @@ public class CharacterControl : MonoBehaviour {
     IEnumerator AxeCooldown()
     {
 
-        axeCdReady = false;
-        axe.SetAxeIsFiring(true);
-        charAnim.SetBool("Attacking", true);
+        axeCdReady = false;      
+        axe.UseAxeWeapon();
+        charAnim.SetTrigger("Attack");
         yield return new WaitForSeconds(axe.GetShotInterval());
         axeCdReady = true;
-        charAnim.SetBool("Attacking", false);
-        axe.SetAxeIsFiring(false);
 
     }
 
@@ -216,12 +219,10 @@ public class CharacterControl : MonoBehaviour {
     {
 
         swordCdReady = false;
-        sword.SetSwordIsFiring(true);
-        charAnim.SetBool("Attacking", true);
+        sword.UseSwordWeapon();
+        charAnim.SetTrigger("Attack");
         yield return new WaitForSeconds(sword.GetShotInterval());
         swordCdReady = true;
-        charAnim.SetBool("Attacking", false);
-        sword.SetSwordIsFiring(false);
 
     }
 
@@ -229,12 +230,10 @@ public class CharacterControl : MonoBehaviour {
     {
 
         spellCdReady = false;
-        spell.SetSpellIsFiring(true);
-        charAnim.SetBool("Attacking", true);
+        spell.UseSpellWeapon();
+        charAnim.SetTrigger("Attack");
         yield return new WaitForSeconds(spell.GetShotInterval());
         spellCdReady = true;
-        charAnim.SetBool("Attacking", false);
-        spell.SetSpellIsFiring(false);
 
     }
 
@@ -294,17 +293,13 @@ public class CharacterControl : MonoBehaviour {
         if (currentHealth <= 0)
         {
             isDead = true;
-            charAnim.SetBool("Dies", true);          
+            GameStatus.theGameIsOn = false;
+            charAnim.SetBool("Dies", true);    
             FindObjectOfType<CanvasControl>().LoseWindow();
             Destroy(Instantiate(loseSound), 3f);
-            StartCoroutine(FreezeTime());
+           
         }
         
-    }
-    
-    IEnumerator FreezeTime()
-    {
-        yield return new WaitForSeconds(4);
-        Time.timeScale = 0;
-    }
+    }  
+
 }

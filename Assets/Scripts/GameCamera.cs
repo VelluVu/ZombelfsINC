@@ -14,6 +14,7 @@ public class GameCamera : MonoBehaviour {
     private void Update()
     {
         transform.LookAt(player.position);
-        transform.position = new Vector3(player.position.x,player.position.y + 20 ,player.position.z -10);
+        
+        transform.position = new Vector3(player.position.x,player.position.y + 30 ,player.position.z -15);
     }
 }

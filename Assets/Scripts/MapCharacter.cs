@@ -1,32 +1,73 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapCharacter : MonoBehaviour {
 
-    float speed;
     public Text battleText;
+    public NavMeshAgent navMesh;
+    public Camera cam;
+    public Animator anim;
+    public GameObject gameComplete;
+    public GameObject introduction;
     
     private void Start()
     {
-        Time.timeScale = 1;
+        GameStatus.theGameIsOn = true;
+        GameStatus.inLevel = false;
+        if(GameStatus.gameBegin == true)
+        {
+            introduction.SetActive(true);
+        }
+
+        GameStatus.gameBegin = false;
+
         if (GameStatus.currentLevel != null)
-        {          
+        {
+            if (GameStatus.winStatus == true)
+            {
+                GameObject.Find(GameStatus.currentLevel).GetComponent<LoadLevel>().Cleared(true);
+
+                if(GameStatus.gameCompleted == true)
+                {
+                    gameComplete.SetActive(true);
+                }
+            }
             transform.position = GameObject.Find(GameStatus.currentLevel).transform.position;
         }
-        speed = 1f;
-
+       
     }
 
     private void Update()
     {
-        transform.Translate(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 
-            Input.GetAxis("Vertical") * speed * Time.deltaTime, 0);
+        MoveToTarget();
+        if(navMesh.hasPath)
+        {
+            anim.SetBool("Walk", true);
+        } else
+        {
+            anim.SetBool("Walk", false);
+        }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void MoveToTarget()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit, 100))
+            {
+                navMesh.destination = hit.point;
+                
+            }
+        } 
+    }
+
+    private void OnTriggerStay(Collider collision)
     {
         if (collision.tag == "LevelTrigger")
         {
@@ -34,16 +75,16 @@ public class MapCharacter : MonoBehaviour {
             
             if (Input.GetAxis("Submit") > 0)
             {
-                if (collision.gameObject.name != GameStatus.currentLevel)
-                {
+                /*if (collision.gameObject.name != GameStatus.currentLevel)
+                {*/
                     GameStatus.currentLevel = collision.gameObject.name;
                     SceneManager.LoadScene(collision.gameObject.GetComponent<LoadLevel>().levelToLoad);
-                }
+               // }
             }
         }
-        
     }
-    private void OnTriggerExit2D(Collider2D collision)
+
+    private void OnTriggerExit(Collider collision)
     {
         battleText.enabled = false;
     }

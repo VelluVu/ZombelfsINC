@@ -5,8 +5,15 @@ using UnityEngine.UI;
 
 public class ScoreMeter : MonoBehaviour {
 
-	
-	void Update () {
-        gameObject.GetComponent<Text>().text = ScoreTable.Points.ToString();
+    Text scoreText;
+
+    private void Start()
+    {
+        scoreText = gameObject.GetComponent<Text>();
+        scoreText.text = ScoreTable.GetScore(ScoreTable.currentPlayer, "score").ToString();
+    }
+
+    void Update () {
+        scoreText.text = ScoreTable.GetScore(ScoreTable.currentPlayer,"score").ToString();
 	}
 }

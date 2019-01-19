@@ -4,21 +4,15 @@ using UnityEngine;
 
 public class SpawnPack : MonoBehaviour {
 
-    public GameObject enemySpawn;
-    int packSize;
-
-    private void Start()
-    {
-        packSize = 10;
-    }
+    public List<GameObject> enemySpawns = new List<GameObject>();
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            for (int i = 0; i < packSize; i++)
+            for (int i = 0; i < enemySpawns.Count; i++)
             {
-                Instantiate(enemySpawn, transform.position, Quaternion.identity);
+                Instantiate(enemySpawns[i], transform.position, Quaternion.identity);
             }           
         }
     }

@@ -267,9 +267,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0f481880a8b67f141bf34f79d2c602fc, type: 2}
   - {fileID: 11400000, guid: c55cc7f48c06fbc4b9f8216280faf9fe, type: 2}
   - {fileID: 11400000, guid: fbe8bf7ff2b4ee840bc23ec6f64028e8, type: 2}
-  _pickUpText: {fileID: 1504576226076882, guid: ceb43579cd49133478a517b29ba7e4a7,
-    type: 2}
-  canvas: {fileID: 223930740276569940, guid: f6e0bdfdcdd174149a7fb10351500f93, type: 2}
+  - {fileID: 11400000, guid: 916477640382d1c45978c5f09b9b5105, type: 2}
+  - {fileID: 11400000, guid: ca48c23e24810e544b22fe8f2e030caf, type: 2}
+  - {fileID: 11400000, guid: c53d4fccf5419ab41b317f5a3b130cbe, type: 2}
+  pickUpText: {fileID: 0}
 --- !u!114 &114074249665101170
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -63,4 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e219bd7cc566a0b4d991f8a2f5d80610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawn: {fileID: 1652701399704842, guid: 1c22d23112b12a649944457947807ce1, type: 2}
+  enemySpawns:
+  - {fileID: 1652701399704842, guid: 1c22d23112b12a649944457947807ce1, type: 2}
+  - {fileID: 1652701399704842, guid: 1c22d23112b12a649944457947807ce1, type: 2}
+  - {fileID: 1652701399704842, guid: 1c22d23112b12a649944457947807ce1, type: 2}

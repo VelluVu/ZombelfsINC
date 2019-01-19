@@ -21,11 +21,9 @@ public class DmgText : MonoBehaviour {
 
         transform.Translate(Vector3.up * speed * Time.deltaTime);
 
-        
-
     }
 
-    public void SetDmgText(float amount, EnemyBase curEnemy, bool crit)
+    public void SetDmgText(int amount, EnemyBase curEnemy, bool crit)
     {
         if (curEnemy != null)
         {
@@ -47,6 +45,4 @@ public class DmgText : MonoBehaviour {
     {
         return duration; 
     }
-
-
 }

@@ -2,19 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Spell : MonoBehaviour {
 
-    bool isFiring;
     bool spellChanged;
 
+    public bool spellMultiShot;
+    public int spellShotgunAmount;
+    public float spellConeSize;
+
     public float[] spellStats;
-    public float[] saveSpellStats;
+    public static float[] saveSpellStats;
 
     public float projectileLifeTime;
     public float shotCounter;
 
     public Fireball fireballSpell;
+    //List of spells...
     public Transform firePoint;
     public Equipment spell;
 
@@ -51,7 +56,10 @@ public class Spell : MonoBehaviour {
     {
         for (int i = 0; i < spellStats.Length; i++)
         {
-            spellStats[i] = saveSpellStats[i];
+            if (spellStats[i] != saveSpellStats[i])
+            {
+                spellStats[i] = saveSpellStats[i];
+            }
         }
     }
 
@@ -61,11 +69,6 @@ public class Spell : MonoBehaviour {
         spellChanged = true;
     }
 
-    public void SetSpellIsFiring(bool firing)
-    {
-        isFiring = firing;
-    }
-
     public float GetShotInterval()
     {
         return spellStats[5];
@@ -73,7 +76,7 @@ public class Spell : MonoBehaviour {
 
     private void Update()
     {
-        UseWeapon();
+       
         if (spellChanged)
         {
             InitializeSpell();
@@ -81,29 +84,37 @@ public class Spell : MonoBehaviour {
         }    
     }
 
-    void UseWeapon()
+    public void UseSpellWeapon()
     {
-        if (isFiring)
-        {
-            shotCounter -= Time.deltaTime;
-            if (shotCounter <= 0 && FindObjectOfType<CharacterControl>().currentMana >= spellStats[6])
+
+        Fireball newSpellProjectile = Instantiate(fireballSpell, firePoint.position, firePoint.rotation) as Fireball;
+        FindObjectOfType<CharacterControl>().PlayerLoseMana(spellStats[6]);
+        FindObjectOfType<SpellSkillImage>().SetSpellCD(spellStats[5]);
+
+        newSpellProjectile.SetProjectileSpeedz(spellStats[0]);
+        newSpellProjectile.SetProjectileSpeedy(spellStats[1]);
+        newSpellProjectile.SetProjectileRotationSpeed(spellStats[2]);
+        newSpellProjectile.SetProjectileAreaDamage(spellStats[4]);
+        newSpellProjectile.SetProjectileAreaRadius(spellStats[7]);
+        newSpellProjectile.SetProjectileLifeTime(projectileLifeTime);
+    
+        if (spellMultiShot) {
+
+            for (int i = 0; i < spellShotgunAmount; i++)
             {
-                shotCounter = spellStats[5];
-                Fireball newSpellProjectile = Instantiate(fireballSpell, firePoint.position, firePoint.rotation) as Fireball;
-                //Debug.Log(fireballSpell + "Thrown");
-                FindObjectOfType<CharacterControl>().PlayerLoseMana(spellStats[6]);
-                FindObjectOfType<SpellSkillImage>().SetSpellCD(spellStats[5]);
-                newSpellProjectile.SetProjectileSpeedz(spellStats[0]);
-                newSpellProjectile.SetProjectileRotationSpeed(spellStats[2]);             
-                newSpellProjectile.SetProjectileLifeTime(projectileLifeTime);
-                newSpellProjectile.SetProjectileSpeedy(spellStats[1]);
-                newSpellProjectile.SetProjectileAreaDamage(spellStats[4]);
-                newSpellProjectile.SetProjectileAreaRadius(spellStats[7]);
+                float random = Random.Range(-spellShotgunAmount, spellShotgunAmount);
+                Vector3 spread = new Vector3(0, random, 0).normalized * spellConeSize;
+                Quaternion projectileDirection = Quaternion.Euler(spread) * firePoint.rotation;
+                Fireball spellShotGunProjectile = Instantiate(fireballSpell, firePoint.position, projectileDirection) as Fireball;
+     
+                spellShotGunProjectile.SetProjectileSpeedz(spellStats[0]);
+                spellShotGunProjectile.SetProjectileSpeedy(spellStats[1]);
+                spellShotGunProjectile.SetProjectileRotationSpeed(spellStats[2]);                 
+                spellShotGunProjectile.SetProjectileAreaDamage(spellStats[4]);
+                spellShotGunProjectile.SetProjectileAreaRadius(spellStats[7]);
+                spellShotGunProjectile.SetProjectileLifeTime(projectileLifeTime);
+
             }
-        }
-        else
-        {
-            shotCounter = 0;          
         }
     }
 

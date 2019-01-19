@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class EnemySpawnPoint : MonoBehaviour {
 
+    public bool isSpawningEnemies;
     float spawnWait;
     float spawnInterval;
     float spawnCD;
     float spawnCount;
-    public GameObject enemySpawn;
+    public List<GameObject> enemySpawns = new List<GameObject>();
 
     private void Start()
     {
+        isSpawningEnemies = true;
         spawnInterval = 5f;
         spawnWait = 3f;
         spawnCD = 15f;
@@ -22,24 +24,22 @@ public class EnemySpawnPoint : MonoBehaviour {
     IEnumerator SpawnEnemy()
     {
 
-        yield return new WaitForSeconds(spawnWait);
-
-        while (true)
-
-        {
-            for (int i = 0; i < spawnCount; i++)
-            {
-                Instantiate(enemySpawn, transform.position, Quaternion.identity);
-                yield return new WaitForSeconds(spawnInterval);
-            }
-
-            yield return new WaitForSeconds(spawnCD);
-
-        }
         
 
+        for (int j = 0; j < spawnCount; j++)
+        {
+            yield return new WaitForSeconds(spawnWait);
+            {
+                for (int i = 0; i < enemySpawns.Count; i++)
+                {
+                    Instantiate(enemySpawns[i], transform.position, Quaternion.identity);
+                    yield return new WaitForSeconds(spawnInterval);
+                }
 
-    }
-    
+                yield return new WaitForSeconds(spawnCD);
+
+            }
+            
+        }      
+    }   
 }
-

@@ -5,15 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class LoadMap : MonoBehaviour {
 
-    
-
-	void Start () {
+	void Start ()
+    {
         
-        SceneManager.LoadScene("Map");
+        SceneManager.LoadScene("MainMenu");
 
-	}
-	
-	void Update () {
-		
 	}
 }

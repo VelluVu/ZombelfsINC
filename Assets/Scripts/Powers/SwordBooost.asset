@@ -20,7 +20,7 @@ MonoBehaviour:
   pickUpText: {fileID: 1701831197598428, guid: 23286dc3037a0e7429dd002465de1e06, type: 2}
   boostDuration: 20
   speedzBoost: 0.5
-  speedyBoost: 1
+  speedyBoost: 0
   rotationSpeedBoost: 5
   damageBoost: 0.2
   areaDamageBoost: 1

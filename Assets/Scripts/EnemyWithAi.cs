@@ -9,7 +9,7 @@ public class EnemyWithAi : EnemyBase
         base.EnemySpeedIncrease(multiplier);
     }
 
-    public override IEnumerator EnemyStatusStart(int duration, float overTimeDamage, float tickRate)
+    public override IEnumerator EnemyStatusStart(int duration, int overTimeDamage, float tickRate)
     {
         return base.EnemyStatusStart(duration, overTimeDamage, tickRate);
     }
@@ -61,7 +61,7 @@ public class EnemyWithAi : EnemyBase
 
     protected override void OnTriggerStay(Collider other)
     {
-       
+        base.OnTriggerStay(other);
     }
 
     protected override void Start()
@@ -74,4 +74,5 @@ public class EnemyWithAi : EnemyBase
         healthUpdate();
         Death();
     }
+
 }

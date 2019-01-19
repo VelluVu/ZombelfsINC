@@ -2,15 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Axe : MonoBehaviour
 {
 
-    bool isFiring;
     bool axeChanged;
+    public bool axeMultiShot;
+    public int axeShotgunAmount;
+    public float axeConeSize;
 
     public float[] axeStats;
-    public float[] saveAxeStats;
+    public static float[] saveAxeStats;
 
     public float projectileLifeTime;
     public float shotCounter = 1;
@@ -23,15 +26,11 @@ public class Axe : MonoBehaviour
 
     private void Start()
     {
-
+        
         axeStats = new float[10];
         saveAxeStats = new float[10];
         InitializeAxe();
-    }
 
-    public void SetAxeIsFiring(bool firing)
-    {
-        isFiring = firing;
     }
 
     public void InitializeAxe()
@@ -50,7 +49,7 @@ public class Axe : MonoBehaviour
         for (int i = 0; i < axeStats.Length; i++)
         {
             saveAxeStats[i] = axeStats[i];
-            Debug.Log("SAVED AXESTATS: " + saveAxeStats[i]);
+            //Debug.Log("SAVED AXESTATS: " + saveAxeStats[i]);
         }
 
         AxeOnPointAdd(CharacterStats.strength * CharacterStats.bonusMulti);
@@ -60,9 +59,12 @@ public class Axe : MonoBehaviour
     {
         for (int i = 0; i < axeStats.Length; i++)
         {
-            axeStats[i] = saveAxeStats[i];
-            Debug.Log("LOADED AXESTAT :  " + axeStats[i]);
+            if (axeStats[i] != saveAxeStats[i])
+            {
+                axeStats[i] = saveAxeStats[i];
+            }
         }
+      
     }
 
     public void ChangeAxe(Equipment newAxe)
@@ -78,7 +80,6 @@ public class Axe : MonoBehaviour
 
     private void Update()
     {
-        UseWeapon();
 
         if (axeChanged)
         {
@@ -88,44 +89,50 @@ public class Axe : MonoBehaviour
         }
     }
 
-    void UseWeapon()
+    public void UseAxeWeapon()
     {
-        if (isFiring)
-        {
-            shotCounter -= Time.deltaTime;
-            if (shotCounter <= 0)
-            {
+        WhirlingAxe newProjectile = Instantiate(projectile, firePoint.position, firePoint.rotation) as WhirlingAxe;
+        FindObjectOfType<AxeSkillImage>().SetAxeCD(axeStats[5]);
+        newProjectile.SetProjectileSpeedz(axeStats[0]);
+        newProjectile.SetProjectileSpeedy(axeStats[1]);
+        newProjectile.SetProjectileRotationSpeed(axeStats[2]);
+        newProjectile.SetProjectileDamage(axeStats[3]);
+        newProjectile.SetProjectileLifeTime(projectileLifeTime);
+        
 
-                shotCounter = axeStats[5];
-                WhirlingAxe newProjectile = Instantiate(projectile, firePoint.position, firePoint.rotation) as WhirlingAxe;
-                //Debug.Log(projectile + "Thrown");
-                FindObjectOfType<AxeSkillImage>().SetAxeCD(axeStats[5]);
-                newProjectile.SetProjectileSpeedz(axeStats[0]);
-                newProjectile.SetProjectileRotationSpeed(axeStats[2]);
-                newProjectile.SetProjectileDamage(axeStats[3]);
-                newProjectile.SetProjectileLifeTime(projectileLifeTime);
-                newProjectile.SetProjectileSpeedy(axeStats[1]);
+        if (axeMultiShot)
+        {
+
+            for (int i = 0; i < axeShotgunAmount; i++)
+            {
+                float random = Random.Range(-axeShotgunAmount, axeShotgunAmount);
+                Vector3 spread = new Vector3(0, random, 0).normalized * axeConeSize;
+                Quaternion projectileDirection = Quaternion.Euler(spread) * firePoint.rotation;
+                WhirlingAxe axeShotGunProjectile = Instantiate(projectile, firePoint.position, projectileDirection) as WhirlingAxe;
+
+                axeShotGunProjectile.SetProjectileSpeedz(axeStats[0]);
+                axeShotGunProjectile.SetProjectileSpeedy(axeStats[1]);
+                axeShotGunProjectile.SetProjectileRotationSpeed(axeStats[2]);
+                axeShotGunProjectile.SetProjectileDamage(axeStats[3]);
+                axeShotGunProjectile.SetProjectileLifeTime(projectileLifeTime);
+                
             }
         }
-        else
-        {
-            shotCounter = 0;
-
-        }
     }
+
     public void AxeOnPointAdd(float lvlMult)
     {
         
-                saveAxeStats[3] += Mathf.Sqrt(saveAxeStats[3] * lvlMult);
-                axeStats[3] += Mathf.Sqrt(axeStats[3] * lvlMult);
+                saveAxeStats[3] += saveAxeStats[3] * lvlMult;
+                axeStats[3] += axeStats[3] * lvlMult;
          
     }
 
     internal void AxeOnPointRemove(float v)
     {
         
-                saveAxeStats[3] -= Mathf.Sqrt(saveAxeStats[3] * v);
-                axeStats[3] -= Mathf.Sqrt(axeStats[3] * v);
+                saveAxeStats[3] -= saveAxeStats[3] * v;
+                axeStats[3] -= axeStats[3] * v;
          
     }
 }

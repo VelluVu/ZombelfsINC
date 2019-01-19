@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03512439d99c37f48b94700fdf385c7e, type: 3}
+  m_Name: SpellPoweri
+  m_EditorClassIdentifier: 
+  name: SpellPoweri
+  icon: {fileID: 0}
+  pickUpEffect: {fileID: 1318813268618132, guid: 16514479a611efd4fa8cbdda0afda175,
+    type: 2}
+  pickUpSound: {fileID: 1244564665721242, guid: 8a49da49528c3b54ba464d5dad7c326e,
+    type: 2}
+  pickUpText: {fileID: 1701831197598428, guid: 23286dc3037a0e7429dd002465de1e06, type: 2}
+  boostDuration: 20
+  multiShooter: 0
+  shotMultiply: 0
+  shotSpread: 0
+  speedzBoost: 0
+  speedyBoost: 0
+  rotationSpeedBoost: 0
+  damageBoost: 0
+  areaDamageBoost: 5
+  shotIntervalBoost: 0
+  spellCostBoost: 0
+  areaRadiusBoost: 0
+  meleeDamageBoost: 0
+  criticalChanceBoost: 0

@@ -188,7 +188,14 @@ MonoBehaviour:
   charBoost: {fileID: 0}
   axeBoost: {fileID: 0}
   swordBoost: {fileID: 0}
-  spellBoost: {fileID: 11400000, guid: f1488d286f18c0748a39ae5319b17d82, type: 2}
+  spellBoost: {fileID: 0}
+  charBoosts: []
+  axeBoosts: []
+  swordBoosts: []
+  spellBoosts:
+  - {fileID: 11400000, guid: f1488d286f18c0748a39ae5319b17d82, type: 2}
+  - {fileID: 11400000, guid: 557a400d8cb13aa4d869b2264428cdee, type: 2}
+  - {fileID: 11400000, guid: bb58c18922fcaf4449e11f3642f02cd4, type: 2}
   canvas: {fileID: 1633255873883780}
 --- !u!114 &114145934211937786
 MonoBehaviour:

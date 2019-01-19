@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Name: Sarjatulitaika
   m_EditorClassIdentifier: 
   name: SarjatuliTaika
-  icon: {fileID: 0}
+  icon: {fileID: 21300094, guid: 0d71dc1615a21124886bdf390f8d7b7f, type: 3}
   isDefaultItem: 0
   equipSlot: 2
   projectileSpeedz: 4
-  projectileSpeedy: 1
+  projectileSpeedy: 0
   projectileRotationSpeed: 2
   projectileDamage: 1
   projectileLifeTime: 5
@@ -24,5 +24,5 @@ MonoBehaviour:
   projectileAreaDamage: 10
   spellCost: 2.5
   shotInterval: 0.2
-  meleeDamage: 1
-  criticalChance: 1
+  meleeDamage: 0
+  criticalChance: 0

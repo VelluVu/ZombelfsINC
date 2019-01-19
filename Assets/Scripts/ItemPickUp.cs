@@ -14,6 +14,7 @@ public class ItemPickUp : Interactable {
         
         rng = Random.Range(0, items.Count);
         pickUpText = GameObject.FindGameObjectWithTag("GlobalText").GetComponent<Text>();
+
     }
 
     private void OnTriggerStay(Collider other)
@@ -36,20 +37,19 @@ public class ItemPickUp : Interactable {
                 PickUp();
 
             }
-
-        }  
-            
-        
-        
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
+
         pickUpText.enabled = false;
+
     }
 
     void PickUp()
     {
+
         pickUpText.enabled = false;
         Debug.Log("Picked Up : " + items[rng].name);
 
@@ -60,5 +60,4 @@ public class ItemPickUp : Interactable {
             Destroy(gameObject);
         }
     }
-
 }

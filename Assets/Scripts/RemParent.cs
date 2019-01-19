@@ -11,5 +11,4 @@ public class RemParent : MonoBehaviour {
         transform.parent= null;
 		
 	}
-
 }

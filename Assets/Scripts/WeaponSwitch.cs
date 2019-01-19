@@ -40,6 +40,10 @@ public class WeaponSwitch : MonoBehaviour {
         SelectWeapon();
 
     }
+
+    public int GetWeapon() {
+        return selectedWeapon;
+    }
   
     private void WeaponSelection()
     {
@@ -53,7 +57,7 @@ public class WeaponSwitch : MonoBehaviour {
             if (characterControl.axeCdReady)
             characterControl.nextAxeShot = 0;
 
-            Debug.Log("Selected Wep: " + selectedWeapon);
+            //Debug.Log("Selected Wep: " + selectedWeapon);
             
 
         }
@@ -65,7 +69,7 @@ public class WeaponSwitch : MonoBehaviour {
             if (characterControl.swordCdReady)
             characterControl.nextSwordShot = 0;
 
-            Debug.Log("Selected Wep: " + selectedWeapon);
+            //Debug.Log("Selected Wep: " + selectedWeapon);
             
 
         }
@@ -77,7 +81,7 @@ public class WeaponSwitch : MonoBehaviour {
             if (characterControl.spellCdReady)
             characterControl.nextSpellShot = 0;
 
-            Debug.Log("Selected Wep: " + selectedWeapon);
+            //Debug.Log("Selected Wep: " + selectedWeapon);
             
 
         }
@@ -96,8 +100,7 @@ public class WeaponSwitch : MonoBehaviour {
         {
             if (i == selectedWeapon)
             {
-                weapon.gameObject.SetActive(true);
-                    
+                weapon.gameObject.SetActive(true);        
             }
             else
             {

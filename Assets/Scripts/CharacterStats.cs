@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CharacterStats : GlobalStats {
 
+    bool isOpen;
     public float maxMana;
     public float replenishM;
     public float replenishH;
@@ -17,7 +18,7 @@ public class CharacterStats : GlobalStats {
     public static int vitality = 1;
     public static int energy = 1;
    
-    public int levelPojo;
+    public static int levelPojo;
 
     public int currentCharacterXP;
     public static int currentCharacterLevel;
@@ -42,7 +43,7 @@ public class CharacterStats : GlobalStats {
         {
 
             currentCharacterLevel = lvl;
-
+            ScoreTable.SetScore(ScoreTable.currentPlayer, "level", currentCharacterLevel);
             Destroy(Instantiate(lvlUpEff, transform.position, Quaternion.identity),3f);
             LevelUpBonus();
         }
@@ -56,16 +57,21 @@ public class CharacterStats : GlobalStats {
 
     public void LevelUpBonus()
     {
+
         levelPojo += 2;
         levelUpButton.SetActive(true);
-        levelUpButton.GetComponent<Button>().onClick.AddListener(OpenSkillWindow);
+
+        if (!isOpen)
+        {
+            levelUpButton.GetComponent<Button>().onClick.AddListener(OpenSkillWindow);
+            isOpen = true;
+        }
 
         maxHealth += maxHealth * (bonusMulti * vitality * currentCharacterLevel);
         maxMana += maxMana * (bonusMulti * energy * currentCharacterLevel);
         replenishM += replenishM * (bonusMulti * energy * currentCharacterLevel);
         replenishH += replenishH * (bonusMulti * vitality * currentCharacterLevel);
-
-                                           
+                                   
     }
 
     public void OpenSkillWindow()
@@ -76,8 +82,6 @@ public class CharacterStats : GlobalStats {
         statTexts[1].text = dexterity.ToString();
         statTexts[2].text = vitality.ToString();
         statTexts[3].text = energy.ToString();
-        levelUpButton.GetComponent<Button>().onClick.RemoveListener(OpenSkillWindow);
-        levelUpButton.GetComponent<Button>().onClick.AddListener(CloseSkillWindow);
         
         buttons[0].onClick.AddListener(RemoveStrength);
         buttons[1].onClick.AddListener(AddStrength);
@@ -87,12 +91,15 @@ public class CharacterStats : GlobalStats {
         buttons[5].onClick.AddListener(AddVitality);
         buttons[6].onClick.AddListener(RemoveEnergy);
         buttons[7].onClick.AddListener(AddEnergy);
-        
-
+            
+        levelUpButton.GetComponent<Button>().onClick.RemoveListener(OpenSkillWindow);
+        levelUpButton.GetComponent<Button>().onClick.AddListener(CloseSkillWindow);
+      
     }
 
     public void CloseSkillWindow()
     {
+        isOpen = false;
         Debug.Log("Clicked close!!");
         buttons[0].onClick.RemoveListener(RemoveStrength);
         buttons[1].onClick.RemoveListener(AddStrength);

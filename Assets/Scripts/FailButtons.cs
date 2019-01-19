@@ -8,12 +8,10 @@ public class FailButtons : MonoBehaviour {
 
     Button button;
   
-
     private void Start()
     {
-        button = gameObject.GetComponent<Button>();
-       
 
+        button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(OnPress);
         
     }
@@ -26,6 +24,7 @@ public class FailButtons : MonoBehaviour {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);              
                 break;
             case "Leave":
+                GameStatus.winStatus = false;
                 SceneManager.LoadScene("Map");
                 break;
 

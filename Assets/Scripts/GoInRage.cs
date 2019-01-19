@@ -11,7 +11,7 @@ public class GoInRage : MonoBehaviour {
 
        
         timeToEnrage = 10f;
-        speedIncrease = 2f;
+        speedIncrease = 0.2f;
 
         StartCoroutine(Enrage());
 
@@ -19,9 +19,15 @@ public class GoInRage : MonoBehaviour {
 
     IEnumerator Enrage()
     {
-        yield return new WaitForSeconds(timeToEnrage);
-        Debug.Log("I enraged " + gameObject.name);
-        gameObject.GetComponentInChildren<Enemy>().EnemySpeedIncrease(speedIncrease);
-    }
+        for (int i = 0; i < 5; i++)
+        {
 
+            if (gameObject != null) {
+                yield return new WaitForSeconds(timeToEnrage);
+                //Debug.Log("I enraged " + gameObject.name);
+                gameObject.GetComponentInChildren<EnemyBase>().EnemySpeedIncrease(speedIncrease);
+            }
+        }
+
+    }
 }

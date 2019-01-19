@@ -16,7 +16,7 @@ MonoBehaviour:
   isDefaultItem: 1
   equipSlot: 0
   projectileSpeedz: 2
-  projectileSpeedy: 1
+  projectileSpeedy: 0.5
   projectileRotationSpeed: 5
   projectileDamage: 25
   projectileLifeTime: 4

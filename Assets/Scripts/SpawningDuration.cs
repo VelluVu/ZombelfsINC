@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class SpawningDuration : MonoBehaviour {
 
-    
-        float lifetime;
+    float lifetime;
 
-        void Start()
-        {
-            lifetime = 65f;
-            Destroy(gameObject, lifetime);
+    void Start()
+    {
+
+        lifetime = 65f;
+        gameObject.GetComponent<EnemySpawnPoint>().isSpawningEnemies = false;
+        Destroy(gameObject, lifetime);
         
-        }
+    }
 }

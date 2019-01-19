@@ -12,6 +12,7 @@ public class SpawnPointActivation : MonoBehaviour {
 
     private void Start()
     {
+
         spawnInterval = 3f;
         spawnWait = 3f;
         spawnCD = 15f;
@@ -48,8 +49,5 @@ public class SpawnPointActivation : MonoBehaviour {
             yield return new WaitForSeconds(spawnCD);
 
         }
-
-
-
     }
 }

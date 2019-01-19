@@ -3305,6 +3305,7 @@ MonoBehaviour:
     type: 2}
   specialTalk: {fileID: 1959259663455826, guid: 6b857d36b2dd5084fa7b05a784adc96d,
     type: 2}
+  ragDoll: {fileID: 1652701399704842, guid: 2c2738a070dc41b44a6508f05b832e94, type: 2}
 --- !u!114 &114634099966508860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3346,8 +3347,9 @@ MonoBehaviour:
   maxHealth: 100
   moveSpeed: 1
   rotationSpeed: 2
-  damage: 1
+  damage: 5
   price: 2
+  xpReward: 100
 --- !u!136 &136876521181040770
 CapsuleCollider:
   m_ObjectHideFlags: 1

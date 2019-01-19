@@ -206,10 +206,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637ece5f29eda1945ac716927d9130b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charBoost: {fileID: 11400000, guid: 6fcd4f4a44c1520429eaf1884f4e2da8, type: 2}
+  charBoost: {fileID: 0}
   axeBoost: {fileID: 0}
   swordBoost: {fileID: 0}
   spellBoost: {fileID: 0}
+  charBoosts:
+  - {fileID: 11400000, guid: 6fcd4f4a44c1520429eaf1884f4e2da8, type: 2}
+  - {fileID: 11400000, guid: 221b4bedd1d08354d80995746decae07, type: 2}
+  - {fileID: 11400000, guid: 39ccec126df0769409f08a77b3452e51, type: 2}
+  axeBoosts: []
+  swordBoosts: []
+  spellBoosts: []
   canvas: {fileID: 1762871787834570}
 --- !u!114 &114736385624424854
 MonoBehaviour:

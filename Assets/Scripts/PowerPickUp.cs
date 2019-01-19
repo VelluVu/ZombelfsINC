@@ -1,5 +1,6 @@
 ﻿
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,9 +11,46 @@ public class PowerPickUp : Interactable
     public AxePower axeBoost;
     public SwordPower swordBoost;
     public SpellPower spellBoost;
+    public List<StatPower> charBoosts = new List<StatPower>();
+    public List<AxePower> axeBoosts = new List<AxePower>();
+    public List<SwordPower> swordBoosts = new List<SwordPower>();
+    public List<SpellPower> spellBoosts = new List<SpellPower>();
     public GameObject canvas;
     float powerUpDuration;
-    
+
+    private void Awake()
+    {
+        foreach (var item in charBoosts)
+        {
+            if (item != null)
+            {
+                charBoost = charBoosts[Random.Range(0,charBoosts.Count)];
+            }
+        }
+        foreach (var item in axeBoosts)
+        {
+            if (item != null)
+            {
+                axeBoost = axeBoosts[Random.Range(0, axeBoosts.Count)];
+            }
+        }
+        foreach (var item in swordBoosts)
+        {
+            if (item != null)
+            {
+                swordBoost = swordBoosts[Random.Range(0, swordBoosts.Count)];
+            }
+        }
+        foreach (var item in spellBoosts)
+        {
+            if (item != null)
+            {
+                spellBoost = spellBoosts[Random.Range(0, spellBoosts.Count)];
+            }
+        }
+
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && charBoost )
@@ -56,16 +94,16 @@ public class PowerPickUp : Interactable
 
         if (charBoost != null)
         {
-            Destroy(Instantiate(charBoost.pickUpEffect, gameObject.transform.position, Quaternion.identity),3f);
+            Destroy(Instantiate(charBoost.pickUpEffect, gameObject.transform.position, Quaternion.identity), 3f);
             Destroy(Instantiate(charBoost.pickUpSound, gameObject.transform.position, Quaternion.identity), 3f);
 
-            GameObject aPText = Instantiate(charBoost.pickUpText) as GameObject;
-            aPText.transform.SetParent(canvas.transform, false);
-            aPText.transform.localScale *= 0.1f;
-            aPText.GetComponent<Text>().text = charBoost.name;
-            Destroy(aPText, 2f);
+            Destroy(Instantiate(charBoost.pickUpText, gameObject.transform.position, Quaternion.identity),5f);
 
             powerUpDuration = charBoost.boostDuration;
+            if(powerUpDuration > 20f)
+            {
+                powerUpDuration = 20f;
+            }
             stats.maxHealth += charBoost.healthBoost;
             stats.maxMana += charBoost.manaBoost;
             stats.moveSpeed += charBoost.speedBoost;
@@ -79,48 +117,51 @@ public class PowerPickUp : Interactable
             Destroy(Instantiate(axeBoost.pickUpEffect, gameObject.transform.position, Quaternion.identity), 3f);
             Destroy(Instantiate(axeBoost.pickUpSound, gameObject.transform.position, Quaternion.identity), 3f);
 
-            GameObject aPText = Instantiate(axeBoost.pickUpText) as GameObject;
-            aPText.transform.SetParent(canvas.transform, false);
-            aPText.transform.localScale *= 0.1f;
-            aPText.GetComponent<Text>().text = axeBoost.name;          
-            Destroy(aPText,2f);
+            Destroy(Instantiate(axeBoost.pickUpText, gameObject.transform.position, Quaternion.identity),3f);
 
-            powerUpDuration = axeBoost.boostDuration;  
-            
+            powerUpDuration = axeBoost.boostDuration;
+            if (powerUpDuration > 20f)
+            {
+                powerUpDuration = 20f;
+            }
+            axe.axeMultiShot = axeBoost.multiShooter;
+            axe.axeConeSize = axeBoost.shotSpread;
+            axe.axeShotgunAmount = axeBoost.shotMultiply;
+
             for (int i = 0; i < axe.axeStats.Length; i++)
             {
                 //Debug.Log("BOOSTED BY   " + axeBoost.GetAxeBoostArray()[i]);
-                
-                axe.axeStats[i] *= axeBoost.GetAxeBoostArray()[i];
+                if (axeBoost.GetAxeBoostArray()[i] > 0)
+                    axe.axeStats[i] *= axeBoost.GetAxeBoostArray()[i];
 
                 //Debug.Log("AFTER BOOST VALUE  " + axe.axeStats[i]);
-            }
-            
-
+            }   
         }
         else if (swordBoost != null)
         {
             Destroy(Instantiate(swordBoost.pickUpEffect, gameObject.transform.position, Quaternion.identity), 3f);
             Destroy(Instantiate(swordBoost.pickUpSound, gameObject.transform.position, Quaternion.identity), 3f);
 
-            GameObject aPText = Instantiate(swordBoost.pickUpText) as GameObject;
-            aPText.transform.SetParent(canvas.transform, false);
-            aPText.transform.localScale *= 0.1f;
-            aPText.GetComponent<Text>().text = swordBoost.name;
-            Destroy(aPText, 2f);
+            Destroy(Instantiate(swordBoost.pickUpText, gameObject.transform.position, Quaternion.identity), 3f);
 
             powerUpDuration = swordBoost.boostDuration;
+            if (powerUpDuration > 20f)
+            {
+                powerUpDuration = 20f;
+            }
+            sword.swordMultiShot = swordBoost.multiShooter;
+            sword.swordConeSize = swordBoost.shotSpread;
+            sword.swordShotgunAmount = swordBoost.shotMultiply;
 
-                for (int i = 0; i < sword.swordStats.Length; i++)
+            for (int i = 0; i < sword.swordStats.Length; i++)
                 {
                     //Debug.Log("BOOSTED BY   " + swordBoost.GetSwordBoostArray()[i]);
-
-                    sword.swordStats[i] *= swordBoost.GetSwordBoostArray()[i];
+                    if(swordBoost.GetSwordBoostArray()[i] > 0)
+                        sword.swordStats[i] *= swordBoost.GetSwordBoostArray()[i];
 
                     //Debug.Log("AFTER BOOST VALUE  " + sword.swordStats[i]);
 
                 }
-            
         }
         else if (spellBoost != null)
         {
@@ -128,33 +169,44 @@ public class PowerPickUp : Interactable
             Destroy(Instantiate(spellBoost.pickUpEffect, gameObject.transform.position, Quaternion.identity), 3f);
             Destroy(Instantiate(spellBoost.pickUpSound, gameObject.transform.position, Quaternion.identity), 3f);
 
-            GameObject aPText = Instantiate(spellBoost.pickUpText) as GameObject;
-            aPText.transform.SetParent(canvas.transform, false);
-            aPText.transform.localScale *= 0.1f;
-            aPText.GetComponent<Text>().text = spellBoost.name;
-            Destroy(aPText, 2f);
+            Destroy(Instantiate(spellBoost.pickUpText, gameObject.transform.position, Quaternion.identity), 3f);
 
             powerUpDuration = spellBoost.boostDuration;
-          
+            if (powerUpDuration > 20f)
+            {
+                powerUpDuration = 20f;
+            }
+            spell.spellMultiShot = spellBoost.multiShooter;
+            spell.spellConeSize = spellBoost.shotSpread;
+            spell.spellShotgunAmount = spellBoost.shotMultiply;
+
             for (int i = 0; i < spell.spellStats.Length; i++)
             {
                 //Debug.Log("BOOSTED BY   " + spellBoost.GetSpellBoostArray()[i]);
-
-                spell.spellStats[i] *= spellBoost.GetSpellBoostArray()[i];
+                if (spellBoost.GetSpellBoostArray()[i] > 0)
+                    spell.spellStats[i] *= spellBoost.GetSpellBoostArray()[i];
 
                 //Debug.Log("AFTER BOOST VALUE  " + spell.spellStats[i]);
             }
         }
     
-
         yield return new WaitForSeconds(powerUpDuration);
 
         if (axeBoost != null)
+        {
             axe.LoadAxeStats();
+            axe.axeMultiShot = false;         
+        }
         else if (swordBoost != null)
+        {
             sword.LoadSwordStats();
+            sword.swordMultiShot = false;
+        }
         else if (spellBoost != null)
+        {
             spell.LoadSpellStats();
+            spell.spellMultiShot = false;         
+        }
         else if (charBoost != null)
         {
             stats.maxHealth -= charBoost.healthBoost;
@@ -165,10 +217,7 @@ public class PowerPickUp : Interactable
             stats.replenishM -= charBoost.manaRegenBoost;
         }
             
-
         Destroy(gameObject);
-        
-
-    }
-    
+       
+    }   
 }

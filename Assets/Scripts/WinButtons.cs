@@ -10,12 +10,19 @@ public class WinButtons : MonoBehaviour {
 
     private void Start()
     {
+        
         button = gameObject.GetComponent<Button>();
+
         button.onClick.AddListener(Press);
+
+        GameStatus.Save();
+        ScoreTable.SaveScores();
+
     }
 
     void Press()
     {
+        GameStatus.winStatus = true;
         SceneManager.LoadScene("Map");
     }
 }

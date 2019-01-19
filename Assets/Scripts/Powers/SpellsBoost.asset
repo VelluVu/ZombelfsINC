@@ -18,14 +18,17 @@ MonoBehaviour:
   pickUpSound: {fileID: 1244564665721242, guid: 8a49da49528c3b54ba464d5dad7c326e,
     type: 2}
   pickUpText: {fileID: 1701831197598428, guid: 23286dc3037a0e7429dd002465de1e06, type: 2}
-  boostDuration: 5
+  boostDuration: 20
+  multiShooter: 0
+  shotMultiply: 0
+  shotSpread: 0
   speedzBoost: 2
-  speedyBoost: 1
+  speedyBoost: 0
   rotationSpeedBoost: 1
   damageBoost: 1
   areaDamageBoost: 5
   shotIntervalBoost: 1
   spellCostBoost: 1
   areaRadiusBoost: 1
-  meleeDamageBoost: 1
-  criticalChanceBoost: 1
+  meleeDamageBoost: 0
+  criticalChanceBoost: 0

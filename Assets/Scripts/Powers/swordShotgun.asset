@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ada86772d3ceb8146b9b9529c28d38c3, type: 3}
+  m_Name: swordShotgun
+  m_EditorClassIdentifier: 
+  name: swordShotgun
+  icon: {fileID: 0}
+  pickUpEffect: {fileID: 1318813268618132, guid: 16514479a611efd4fa8cbdda0afda175,
+    type: 2}
+  pickUpSound: {fileID: 1244564665721242, guid: 8a49da49528c3b54ba464d5dad7c326e,
+    type: 2}
+  pickUpText: {fileID: 1701831197598428, guid: 23286dc3037a0e7429dd002465de1e06, type: 2}
+  boostDuration: 20
+  multiShooter: 1
+  shotMultiply: 2
+  shotSpread: 30
+  speedzBoost: 3
+  speedyBoost: 0
+  rotationSpeedBoost: 2
+  damageBoost: 0.5
+  areaDamageBoost: 0
+  shotIntervalBoost: 0.1
+  spellCostBoost: 0
+  areaRadiusBoost: 0
+  meleeDamageBoost: 1
+  criticalChanceBoost: 2

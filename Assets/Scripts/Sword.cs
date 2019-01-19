@@ -2,14 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Sword : MonoBehaviour {
 
-    bool isFiring;
     bool changeSword;
+    public bool swordMultiShot;
+    public int swordShotgunAmount;
+    public float swordConeSize;
 
     public float[] swordStats;
-    public float[] saveSwordStats;
+    public static float[] saveSwordStats;
 
     public float _projectileLifeTime;
     public float _shotCounter = 1;
@@ -52,14 +55,11 @@ public class Sword : MonoBehaviour {
     {
         for (int i = 0; i < swordStats.Length; i++)
         {
-            swordStats[i] = saveSwordStats[i];
+            if (swordStats[i] != saveSwordStats[i])
+            {
+                swordStats[i] = saveSwordStats[i];
+            }
         }
-    }
-
-    public void SetSwordIsFiring(bool firing)
-    {
-        isFiring = firing;
-        
     }
 
     public void SwordChange(Equipment newWeapon)
@@ -75,7 +75,7 @@ public class Sword : MonoBehaviour {
 
     private void Update()
     {
-        UseWeapon();
+      
         if (changeSword)
         {
             InitializeSword();
@@ -84,28 +84,36 @@ public class Sword : MonoBehaviour {
         
     }
 
-    void UseWeapon()
+    public void UseSwordWeapon()
     {
-        if (isFiring)
+    
+        SwordProjectile newSwordProjectile = Instantiate(swordProjectile, firePoint.position, firePoint.rotation) as SwordProjectile;
+        FindObjectOfType<SwordSkillImage>().SetSwordCD(swordStats[5]);
+        newSwordProjectile.SetProjectileSpeedz(swordStats[0]);
+        newSwordProjectile.SetProjectileSpeedy(swordStats[1]);
+        newSwordProjectile.SetProjectileRotationSpeed(swordStats[2]);
+        newSwordProjectile.SetProjectileDamage(swordStats[3], swordStats[9], maxRoll);
+        newSwordProjectile.SetProjectileLifeTime(_projectileLifeTime);
+        
+
+        if (swordMultiShot)
         {
-            _shotCounter -= Time.deltaTime;
-            if (_shotCounter <= 0)
+
+            for (int i = 0; i < swordShotgunAmount; i++)
             {
-              
-                _shotCounter = swordStats[5];
-                SwordProjectile newSwordProjectile = Instantiate(swordProjectile, firePoint.position, firePoint.rotation) as SwordProjectile;
-                //Debug.Log(swordProjectile + "Thrown");
-                FindObjectOfType<SwordSkillImage>().SetSwordCD(swordStats[5]);
-                newSwordProjectile.SetProjectileSpeedz(swordStats[0]);
-                newSwordProjectile.SetProjectileRotationSpeed(swordStats[2]);
-                newSwordProjectile.SetProjectileDamage(swordStats[3], swordStats[9], maxRoll);
-                newSwordProjectile.SetProjectileLifeTime(_projectileLifeTime);
-                newSwordProjectile.SetProjectileSpeedy(swordStats[1]);
+                float random = Random.Range(-swordShotgunAmount, swordShotgunAmount);
+                Vector3 spread = new Vector3(0, random, 0).normalized * swordConeSize;
+                Quaternion projectileDirection = Quaternion.Euler(spread) * firePoint.rotation;
+                SwordProjectile swordShotGunProjectile = Instantiate(swordProjectile, firePoint.position, projectileDirection) as SwordProjectile;
+
+                swordShotGunProjectile.SetProjectileSpeedz(swordStats[0]);
+                swordShotGunProjectile.SetProjectileSpeedy(swordStats[1]);
+                swordShotGunProjectile.SetProjectileRotationSpeed(swordStats[2]);
+                swordShotGunProjectile.SetProjectileDamage(swordStats[3], swordStats[9], maxRoll);
+                swordShotGunProjectile.SetProjectileLifeTime(_projectileLifeTime);
+                
+
             }
-        }
-        else
-        {
-            _shotCounter = 0;       
         }
     }
 

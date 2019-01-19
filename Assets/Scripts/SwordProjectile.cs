@@ -113,8 +113,6 @@ public class SwordProjectile : MonoBehaviour {
 
         }
 
-
         return projectileDamage;
     }
-
 }

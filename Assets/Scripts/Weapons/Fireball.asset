@@ -15,12 +15,12 @@ MonoBehaviour:
   icon: {fileID: 21300004, guid: 0d71dc1615a21124886bdf390f8d7b7f, type: 3}
   isDefaultItem: 1
   equipSlot: 2
-  projectileSpeedz: 4
-  projectileSpeedy: 1
+  projectileSpeedz: 5
+  projectileSpeedy: 0
   projectileRotationSpeed: 1
   projectileDamage: 1
   projectileLifeTime: 8
-  projectileAreaRadius: 25
+  projectileAreaRadius: 5
   projectileAreaDamage: 25
   spellCost: 25
   shotInterval: 8

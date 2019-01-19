@@ -5,10 +5,10 @@ using UnityEngine;
 public class ChaseState : IEnemyState
 {
     private StatePatternEnemy enemy;
-    
-
+   
     public ChaseState(StatePatternEnemy statePatternEnemy)
     {
+
         this.enemy = statePatternEnemy;
         
     }
@@ -36,7 +36,7 @@ public class ChaseState : IEnemyState
 
     public void UpdateState()
     {
-        Look();
+        //Look();
         Chase();
     }
 
@@ -59,7 +59,7 @@ public class ChaseState : IEnemyState
 
     private void Chase()
     {
-
+        enemy.chaseTarget = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         enemy.indicator.material.color = Color.red;
         enemy.navMeshAgent.destination = enemy.chaseTarget.position;
         enemy.navMeshAgent.isStopped = false;
@@ -68,7 +68,9 @@ public class ChaseState : IEnemyState
 
     public void ToTrackingState()
     {
+
         enemy.currentState = enemy.trackingState;
+
     }
 
     public void OnTriggerStay(Collider other)

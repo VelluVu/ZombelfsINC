@@ -219,8 +219,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charBoost: {fileID: 0}
   axeBoost: {fileID: 0}
-  swordBoost: {fileID: 11400000, guid: 773399fe1e670f140b3b38f5c70ef95c, type: 2}
+  swordBoost: {fileID: 0}
   spellBoost: {fileID: 0}
+  charBoosts: []
+  axeBoosts: []
+  swordBoosts:
+  - {fileID: 11400000, guid: 773399fe1e670f140b3b38f5c70ef95c, type: 2}
+  - {fileID: 11400000, guid: 58b690e96dc8e944a9aae0943be79e7d, type: 2}
+  - {fileID: 11400000, guid: f3b0df72f74a9a7479e55bbbfda301c3, type: 2}
+  spellBoosts: []
   canvas: {fileID: 1843557396951680}
 --- !u!114 &114850209674880666
 MonoBehaviour:

@@ -11,7 +11,8 @@ public class EnemyCanvas : MonoBehaviour {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
-    void FixedUpdate () {
+    void FixedUpdate ()
+    {
         gameObject.transform.LookAt(mainCam.transform.position);
 	}
 }

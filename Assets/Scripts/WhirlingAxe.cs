@@ -87,7 +87,4 @@ public class WhirlingAxe : MonoBehaviour {
         yield return new WaitForSeconds(1f);
         hasCollided = false;
     }
-
-
 }
-

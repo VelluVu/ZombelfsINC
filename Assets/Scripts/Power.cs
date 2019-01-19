@@ -11,4 +11,8 @@ public class Power : ScriptableObject {
     public GameObject pickUpText;
     public float boostDuration;
 
+    public bool multiShooter;
+    public int shotMultiply;
+    public float shotSpread;
+
 }

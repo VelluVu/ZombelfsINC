@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class Enemy : EnemyBase
 {
     
-
     protected override void Start()
     {
         base.Start();
@@ -49,7 +48,7 @@ public class Enemy : EnemyBase
         base.EnemySpeedIncrease(multiplier);
     }
 
-    public override IEnumerator EnemyStatusStart(int duration, float overTimeDamage, float tickRate)
+    public override IEnumerator EnemyStatusStart(int duration, int overTimeDamage, float tickRate)
     {
         return base.EnemyStatusStart(duration, overTimeDamage, tickRate);
     }

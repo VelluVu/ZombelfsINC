@@ -87,7 +87,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855184733243138}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 101.68, y: 11.12, z: 85.98}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4262294740723280}
@@ -197,9 +197,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charBoost: {fileID: 0}
-  axeBoost: {fileID: 11400000, guid: 877a77005cdc89b44946a0d49a2d60fe, type: 2}
+  axeBoost: {fileID: 0}
   swordBoost: {fileID: 0}
   spellBoost: {fileID: 0}
+  charBoosts: []
+  axeBoosts:
+  - {fileID: 11400000, guid: 877a77005cdc89b44946a0d49a2d60fe, type: 2}
+  - {fileID: 11400000, guid: c00e767444c45454e9911e4a3ff10d21, type: 2}
+  - {fileID: 11400000, guid: 37805c3abf2c55e45860086a3bdf9f6c, type: 2}
+  swordBoosts: []
+  spellBoosts: []
   canvas: {fileID: 1423943532120584}
 --- !u!114 &114198870657502336
 MonoBehaviour:

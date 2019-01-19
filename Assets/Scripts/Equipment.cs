@@ -22,13 +22,12 @@ public class Equipment : Item {
 
     public override void Use()
     {
+
         base.Use();
         EquipmentManager.instance.Equip(this);
         RemoveFromInventory();
-       
-       
-    }
 
+    }
 }
 
 public enum EquipmentSlot { Weapon1, Weapon2, Weapon3 }

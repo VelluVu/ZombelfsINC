@@ -28,6 +28,8 @@ TagManager:
   - MYCanvas
   - GlobalText
   - PowerUpCanvas
+  - Ragdoll
+  - Scoreprefab
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ public class StatePatternEnemy : MonoBehaviour {
     public Transform eyes;
     public MeshRenderer indicator;
 
+    public Transform player;
     [HideInInspector]
     public Transform chaseTarget;
     [HideInInspector]
@@ -41,9 +42,9 @@ public class StatePatternEnemy : MonoBehaviour {
     private void Start()
     {
         currentState = patrolState;
-        searchingTurnSpeed = 150f;
+        searchingTurnSpeed = 300f;
         searchingDuration = 6f;
-        sightRange = 20f;
+        sightRange = 40f;
 
     }
 
@@ -77,6 +78,4 @@ public class StatePatternEnemy : MonoBehaviour {
     {
         currentState.OnTriggerStay(other);
     }
-
-
 }

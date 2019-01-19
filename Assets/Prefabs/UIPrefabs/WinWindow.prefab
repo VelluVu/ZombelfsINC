@@ -170,7 +170,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Escaped the ambush
+  m_Text: Level Finished!
 --- !u!114 &114723617929241764
 MonoBehaviour:
   m_ObjectHideFlags: 1

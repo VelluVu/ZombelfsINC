@@ -60,5 +60,4 @@ public class Inventory : MonoBehaviour {
             onItemChangedCallback.Invoke();
         }
     }
-
 }

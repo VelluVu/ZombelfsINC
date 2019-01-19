@@ -9,6 +9,7 @@ public class FinishPoint : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
+            GameStatus.theGameIsOn = false;
             FindObjectOfType<CanvasControl>().WinWindow();
         }
     }

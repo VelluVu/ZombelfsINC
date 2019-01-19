@@ -41,7 +41,5 @@ public class SpellSkillImage : MonoBehaviour {
     {
         skillImg.fillAmount = 0;
         coolDownCount = cd;
-    }
-
-   
+    }  
 }

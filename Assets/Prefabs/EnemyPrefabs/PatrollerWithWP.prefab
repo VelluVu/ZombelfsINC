@@ -3477,7 +3477,8 @@ AudioSource:
   m_GameObject: {fileID: 1013760038805266}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 4dcbceffef97a7049b140c15d05899bd,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 67c05f2e3229a5043aee42fec9c82c73, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.398
@@ -3700,6 +3701,7 @@ MonoBehaviour:
   rotationSpeed: 1
   damage: 1
   price: 2
+  xpReward: 0
 --- !u!114 &114763210834453088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3747,6 +3749,7 @@ MonoBehaviour:
   - {fileID: 4142311605930292}
   eyes: {fileID: 4587131505598630}
   indicator: {fileID: 23432834250137082}
+  player: {fileID: 4450711645178836, guid: d6e6a354701b7034ea5625855ca1cf32, type: 2}
   chaseTarget: {fileID: 0}
   navMeshAgent: {fileID: 0}
 --- !u!114 &114844080631124464

@@ -5,12 +5,19 @@ using UnityEngine;
 public class MiniMapCam : MonoBehaviour {
 
     Transform pPos;
-	void Start () {
+
+	void Start ()
+    {
+
         pPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
 	}
 	
 	// Update is called once per frame
-	void LateUpdate () {
+	void LateUpdate ()
+    {
+
         gameObject.transform.position = pPos.position + new Vector3(0,50,0);
+
 	}
 }
